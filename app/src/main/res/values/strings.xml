@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">U Learn It</string>
     <string name="action_settings">Settings</string>
+    <string name="title_categories">Choose Your Category</string>
+    <string name="greetings_category_image">Greetings Image - Penguin Waving</string>
+    <string name="greetings_category_text">Greetings</string>
+    <string name="numbers_category">Numbers Category - Snake in shape of Number 1</string>
+    <string name="numbers_category_text">Numbers</string>
 </resources>
