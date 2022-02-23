@@ -4,6 +4,12 @@
     <string name="title_categories">Choose Your Category</string>
     <string name="greetings_category_image">Greetings Image - Penguin Waving</string>
     <string name="greetings_category_text">Greetings</string>
-    <string name="numbers_category">Numbers Category - Snake in shape of Number 1</string>
+    <string name="numbers_category_image">Numbers Category - Snake in shape of Number 1</string>
     <string name="numbers_category_text">Numbers</string>
+
+    <!-- Menu Options -->
+    <string name="action_contact">Contact</string>
+    <string name="action_favorites">Favorites</string>
+    <string name="action_contact_message">You selected Contact.</string>
+    <string name="action_favorites_message">You selected Favorites.</string>
 </resources>

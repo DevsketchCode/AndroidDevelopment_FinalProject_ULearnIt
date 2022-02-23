@@ -10,6 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
         <activity
+            android:name=".CategoryActivity"
+            android:exported="true"
+            android:label="Category"
+            android:parentActivityName=".MainActivity">
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
