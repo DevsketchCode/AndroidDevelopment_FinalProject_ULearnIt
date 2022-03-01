@@ -1,6 +1,8 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +10,15 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class CategoryActivity extends AppCompatActivity {
+
+    // Create list used to store the list of data
+    //private final LinkedList<TranslationModel> mTranslationList = new LinkedList<>();
+    private RecyclerView mRecyclerView;
+    private TranslationAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,5 +55,21 @@ public class CategoryActivity extends AppCompatActivity {
 
         // Set the Activity Title with the Category that was selected
         setTitle("Category: " + category);
+
+        // Get the translation List
+        TranslationList translationListObject = new TranslationList();
+        LinkedList<TranslationModel> translations = translationListObject.GetGreetings();
+
+        // Create the RecyclerView and Connect the Adapter and Data
+        mRecyclerView = findViewById(R.id.categoryRecyclerView);
+
+        // Create the adapter and attach the data
+        mAdapter = new TranslationAdapter(this,translations);
+
+        // Connect the adapter to the RecyclerView
+        mRecyclerView.setAdapter(mAdapter);
+
+        // Give the RecyclerView a default Layout Manager
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

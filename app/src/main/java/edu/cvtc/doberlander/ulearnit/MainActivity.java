@@ -3,19 +3,11 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 
+import android.util.Log;
+import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,16 +15,13 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
-    private String category;
-
-
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ActivityMainBinding binding;
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -61,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_favorites:
                 Intent intent = new Intent(this, CategoryActivity.class);
-                category = getString(R.string.action_favorites);
+                String category = getString(R.string.action_favorites);
                 intent.putExtra(EXTRA_MESSAGE, category);
                 startActivity(intent);
                 return true;
@@ -78,23 +67,34 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Launch the Category Activity along with the Greetings text
      */
-    public void launchGreetingsCategoryActivity(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putString("category", getString(R.string.greetings_category_text));
-        bundle.putString("category_message", getString(R.string.greetings_category_image));
+    public void launchCategoryActivity(View view) {
 
-        Intent intent = new Intent(this, CategoryActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+        // Declare Category Variables
+        String categoryName;
+        String categoryMessage;
 
-    /**
-     * Launch the Category Activity along with the Numbers text
-     */
-    public void launchNumbersCategoryActivity(View view) {
+        // Determine which Category button was clicked
+        switch (view.getId()) {
+            case R.id.greetings_ImageBtn:
+                // Set Greetings Category
+                categoryName = getString(R.string.greetings_category_text);
+                categoryMessage = getString(R.string.greetings_category_image);
+                break;
+            case R.id.numbers_ImageBtn:
+                // Set Numbers Category
+                categoryName = getString(R.string.numbers_category_text);
+                categoryMessage = getString(R.string.numbers_category_image);
+                break;
+            default:
+                // Set Default Value
+                categoryName = "Greetings";
+                categoryMessage = "Default Greetings";
+        }
+
+        // Bundle the information depending what button was clicked.
         Bundle bundle = new Bundle();
-        bundle.putString("category", getString(R.string.numbers_category_text));
-        bundle.putString("category_message", getString(R.string.numbers_category_image));
+        bundle.putString("category", categoryName);
+        bundle.putString("category_message", categoryMessage);
 
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtras(bundle);

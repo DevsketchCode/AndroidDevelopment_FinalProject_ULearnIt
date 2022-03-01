@@ -35,64 +35,42 @@
     <!-- https://publicdomainvectors.org/en/free-clipart/Waving-penguin/75280.html -->
     <ImageButton
         android:id="@+id/greetings_ImageBtn"
-        android:layout_width="@dimen/category_button_width"
-        android:layout_height="@dimen/category_button_height"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
         android:backgroundTint="#3F51B5"
         android:contentDescription="@string/greetings_category_image"
-        android:scaleType="fitCenter"
-        android:onClick="launchGreetingsCategoryActivity"
+        android:onClick="launchCategoryActivity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading_LinearLayout"
-        app:srcCompat="@drawable/ic_penguin_wave" />
+        app:srcCompat="@drawable/ic_penguin_wave"
+        style="@style/category_button_image" />
 
     <TextView
         android:id="@+id/greeting_TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="6dp"
-        android:background="#61000000"
         android:text="@string/greetings_category_text"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/greetings_ImageBtn"
         app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
+        app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn"
+        style="@style/category_button_text" />
 
     <!-- Snake Number One image resource link -->
     <!-- https://publicdomainvectors.org/en/free-clipart/Snake-number-one-vector-clip-art/30666.html -->
     <ImageButton
         android:id="@+id/numbers_ImageBtn"
-        android:layout_width="@dimen/category_button_width"
-        android:layout_height="@dimen/category_button_height"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="#673AB7"
         android:contentDescription="@string/numbers_category_image"
-        android:onClick="launchNumbersCategoryActivity"
-        android:scaleType="fitCenter"
+        android:onClick="launchCategoryActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading_LinearLayout"
-        app:srcCompat="@drawable/ic_numbers_foreground" />
+        app:srcCompat="@drawable/ic_numbers_foreground"
+        style="@style/category_button_image" />
 
     <TextView
         android:id="@+id/numbers_TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="6dp"
-        android:background="#61000000"
         android:text="@string/numbers_category_text"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
         app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
+        app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn"
+        style="@style/category_button_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
