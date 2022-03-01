@@ -24,16 +24,19 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public TranslationAdapter(Context context, LinkedList<TranslationModel> translationList) {
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
+        Log.d(TAG, "Test-TranslationAdapter: " + translationList.get(2).getFirstLanguageWord());
     }
 
     // Create the View Holder
     public class TranslationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView translationItemView;
+        public final TextView firstLangTranslationItemView;
+        public final TextView secondLangTranslationItemView;
         final TranslationAdapter mAdapter;
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
             super(itemView);
-            translationItemView = itemView.findViewById(R.id.translation);
+            firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
+            secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
@@ -49,6 +52,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             TranslationModel element = mTranslationList.get(mPosition);
 
             // Add translation as Favorite
+            // TODO: Add this favorite functionality
             mTranslationList.set(mPosition, element);
 
             // Notify the adapter that data has changed and update the RecyclerView
@@ -68,12 +72,11 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     @Override
     public void onBindViewHolder(@NonNull TranslationAdapter.TranslationViewHolder holder, int position) {
         // Get the list position
-        TranslationModel mCurrentEntry = (TranslationModel) mTranslationList.get(position);
-        Log.d(TAG, "tester: " + mTranslationList.get(position).toString());
-        // Set the display text
-        String translationText = mCurrentEntry.getFirstLanguageWord() + " : " + mCurrentEntry.getSecondLanguageWord();
+        TranslationModel mCurrentEntry = mTranslationList.get(position);
+
         // Display the translation information
-        holder.translationItemView.setText(translationText);
+        holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
+        holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
     }
 
     // Return the size of the translation list

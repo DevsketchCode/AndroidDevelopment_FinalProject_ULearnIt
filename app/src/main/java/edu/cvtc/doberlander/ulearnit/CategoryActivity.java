@@ -58,7 +58,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         // Get the translation List
         TranslationList translationListObject = new TranslationList();
-        LinkedList<TranslationModel> translations = translationListObject.GetGreetings();
+        LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
 
         // Create the RecyclerView and Connect the Adapter and Data
         mRecyclerView = findViewById(R.id.categoryRecyclerView);

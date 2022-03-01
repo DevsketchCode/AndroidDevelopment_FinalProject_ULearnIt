@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="6dp">
 
-    <TextView
-        android:id="@+id/translation"
-        style="@style/translation_entry" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/translationEntryCardLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
+
+            <TextView
+                android:id="@+id/firstLangTranslation"
+                style="@style/translation_entry" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/translationEntryCardRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
+
+            <TextView
+                android:id="@+id/secondLangTranslation"
+                style="@style/translation_entry" />
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
 </LinearLayout>
