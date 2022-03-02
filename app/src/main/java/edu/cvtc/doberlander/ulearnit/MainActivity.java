@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_favorites:
                 // Set the Favorites Category
-                categoryName = "Favorites";
+                categoryName = getString(R.string.favorites_category_text);
                 categoryMessage = "";
                 break;
             default:
                 // Set Default Value
-                categoryName = "No Category Selected";
-                categoryMessage = "Please Go Back and Select a Category";
+                categoryName = getString(R.string.default_category_name);
+                categoryMessage = getString(R.string.default_category_text);
         }
 
         // Bundle the information depending what button was clicked.

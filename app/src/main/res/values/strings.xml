@@ -14,4 +14,7 @@
     <string name="action_favorites_message">You selected Favorites.</string>
     <string name="category_message_learn">Learn the\ </string>
     <string name="floating_button_content_desc">Floating Button for Taking The Test</string>
+    <string name="favorites_category_text">Favorites</string>
+    <string name="default_category_name">No Category Selected</string>
+    <string name="default_category_text">Please Go Back and Select a Category</string>
 </resources>

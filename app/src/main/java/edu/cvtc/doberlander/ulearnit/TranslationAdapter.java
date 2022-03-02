@@ -1,6 +1,9 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +58,21 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Add the translation to the Favorites List
                 TranslationList.Favorites_List.remove(element);
             }
+            Log.d(TAG, "Pretest: " + ((ColorDrawable)view.getBackground()).getColor());
+
+            // Check to see if the element was highlighted or not
+            //if ( == Color.parseColor("#00FFFFFF")) {
+            //view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+            Log.d(TAG, "Posttest: " + ((ColorDrawable)view.getBackground()).getColor());
+            int color = ((ColorDrawable)view.getBackground()).getColor();
+            // If Color is the default color, highlight it, else reset
+            if (color == 16777215) {
+                view.setBackgroundColor(Color.parseColor("#00FF00"));
+            } else {
+                view.setBackgroundColor(16777215);
+            }
+
+            //}
 
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
