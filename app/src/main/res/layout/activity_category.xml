@@ -41,7 +41,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/category_Heading_LinearLayout"></androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@id/category_Heading_LinearLayout">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
     <!-- Container for the list of translation items -->
 

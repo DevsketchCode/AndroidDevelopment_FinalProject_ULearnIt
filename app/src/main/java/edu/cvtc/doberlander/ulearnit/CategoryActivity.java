@@ -1,24 +1,18 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.LinkedList;
-import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
-
-    // Create list used to store the list of data
-    //private final LinkedList<TranslationModel> mTranslationList = new LinkedList<>();
-    private RecyclerView mRecyclerView;
-    private TranslationAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +20,14 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         String category = "";
-        String categoryMessage = "";
+        String categoryMessage;
 
         // Retrieve information from the intent passed from the previous activity
         Intent intent = getIntent();
 
         // Retrieve information from the bundle passed from the previous activity
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
+        if (bundle != null) {
             // Retrieve each piece of information
             category = bundle.getString("category");
             categoryMessage = bundle.getString("category_message");
@@ -44,7 +38,7 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
         // Check to see if the bundle was not used to populate the category
-        if(category == null) {
+        if (category == null) {
             // Display the category
             category = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
@@ -60,16 +54,22 @@ public class CategoryActivity extends AppCompatActivity {
         TranslationList translationListObject = new TranslationList();
         LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
 
-        // Create the RecyclerView and Connect the Adapter and Data
-        mRecyclerView = findViewById(R.id.categoryRecyclerView);
+        // Only attach data if there is data
+        if (translations.size() > 0) {
+            // Create the RecyclerView and Connect the Adapter and Data
+            // Create list used to store the list of data
+            //private final LinkedList<TranslationModel> mTranslationList = new LinkedList<>();
+            RecyclerView mRecyclerView = findViewById(R.id.categoryRecyclerView);
 
-        // Create the adapter and attach the data
-        mAdapter = new TranslationAdapter(this,translations);
+            // Create the adapter and attach the data
+            TranslationAdapter mAdapter = new TranslationAdapter(this, translations);
 
-        // Connect the adapter to the RecyclerView
-        mRecyclerView.setAdapter(mAdapter);
+            // Connect the adapter to the RecyclerView
+            mRecyclerView.setAdapter(mAdapter);
 
-        // Give the RecyclerView a default Layout Manager
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            // Give the RecyclerView a default Layout Manager
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        }
     }
 }

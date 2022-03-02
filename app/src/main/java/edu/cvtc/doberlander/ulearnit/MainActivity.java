@@ -2,15 +2,14 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
-
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,26 +68,31 @@ public class MainActivity extends AppCompatActivity {
      */
     public void launchCategoryActivity(View view) {
 
-        // Declare Category Variables
+        // Initialize Category Variables
         String categoryName;
-        String categoryMessage;
+        String categoryMessage = getString(R.string.category_message_learn);
 
         // Determine which Category button was clicked
         switch (view.getId()) {
             case R.id.greetings_ImageBtn:
                 // Set Greetings Category
                 categoryName = getString(R.string.greetings_category_text);
-                categoryMessage = getString(R.string.greetings_category_image);
+                categoryMessage = categoryMessage + categoryName;
                 break;
             case R.id.numbers_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.numbers_category_text);
-                categoryMessage = getString(R.string.numbers_category_image);
+                categoryMessage = categoryMessage + categoryName;
+                break;
+            case R.id.action_favorites:
+                // Set the Favorites Category
+                categoryName = "Favorites";
+                categoryMessage = "";
                 break;
             default:
                 // Set Default Value
-                categoryName = "Greetings";
-                categoryMessage = "Default Greetings";
+                categoryName = "No Category Selected";
+                categoryMessage = "Please Go Back and Select a Category";
         }
 
         // Bundle the information depending what button was clicked.

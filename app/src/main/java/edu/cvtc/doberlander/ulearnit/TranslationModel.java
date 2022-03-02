@@ -1,5 +1,7 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import androidx.annotation.NonNull;
+
 public class TranslationModel {
     // Declare Variables
     private String firstLanguage;
@@ -61,5 +63,15 @@ public class TranslationModel {
 
     public void setFavorite(Boolean favorite) {
         this.favorite = favorite;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return ("\nFirst Language: " + this.getFirstLanguage() +
+                "\nFirst Language Word: " + this.getFirstLanguageWord() +
+                "\nSecond Language: " + this.getSecondLanguage() +
+                "\nSecond Language Word: " + this.getSecondLanguageWord() +
+                "\nFavorite: " + this.getFavorite()) + "\n";
     }
 }

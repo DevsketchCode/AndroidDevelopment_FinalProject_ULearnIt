@@ -16,6 +16,12 @@ public class TranslationList {
     private static final String[] English_Numbers = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"};
     private static final String[] Tagalog_Numbers = {"Isa", "Dalawa", "Tatlo", "Apat", "Lima", "Anim", "Pito", "Walo", "Siyam", "Sampu"};
 
+    // Create public variable that is used to add translation objects as favorites - MUST BE STATIC
+    public static final LinkedList<TranslationModel> Favorites_List = new LinkedList<>();
+
+    // Create the Translation list of translation objects
+    private LinkedList<TranslationModel> translationList = new LinkedList<>();
+
     // Greetings List
     public LinkedList<TranslationModel> GetTranslations(String category) {
         // Set translation languages
@@ -25,11 +31,9 @@ public class TranslationList {
         String[] firstLangWords = new String[0];
         String[] secondLangWords = new String[0];
 
-        // Create the Translation list of translation objects
-        LinkedList<TranslationModel> translationList = new LinkedList<>();
 
         // Fill the translation list with the appropriate category
-        switch(category) {
+        switch (category) {
             case "Greetings":
                 // Create the Greetings list of translation objects
                 firstLangWords = English_Greetings;
@@ -39,8 +43,13 @@ public class TranslationList {
                 firstLangWords = English_Numbers;
                 secondLangWords = Tagalog_Numbers;
                 break;
+            case "Favorites":
+                // Populate the list with the selected favorites
+                translationList.addAll(Favorites_List);
+
+                // Return the favorites list
+                return translationList;
             default:
-                break;
         }
 
         // Create List
@@ -60,9 +69,5 @@ public class TranslationList {
 
         // Return the list of translations from the submitted category.
         return translationList;
-
-
     }
-
-
 }

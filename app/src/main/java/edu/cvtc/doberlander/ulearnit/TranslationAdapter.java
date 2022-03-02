@@ -1,7 +1,6 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
 
     private static final String TAG = "CategoryActivity";
 
     private final LinkedList<TranslationModel> mTranslationList;
-    private LayoutInflater mInflater;
+    private final LayoutInflater mInflater;
 
     // Constructor initializes the translation list from the data
     public TranslationAdapter(Context context, LinkedList<TranslationModel> translationList) {
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
-        Log.d(TAG, "Test-TranslationAdapter: " + translationList.get(2).getFirstLanguageWord());
     }
 
     // Create the View Holder
@@ -47,16 +44,21 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public void onClick(View view) {
             // Get the position of the item that was clicked
             int mPosition = getLayoutPosition();
-
             // Access the affected item in the list
             TranslationModel element = mTranslationList.get(mPosition);
 
-            // Add translation as Favorite
-            // TODO: Add this favorite functionality
-            mTranslationList.set(mPosition, element);
+            // Check to see if the clicked element is a favorite or not
+            if (!TranslationList.Favorites_List.contains(element)) {
+                // Remove the translation from the Favorites List
+                TranslationList.Favorites_List.add(element);
+            } else {
+                // Add the translation to the Favorites List
+                TranslationList.Favorites_List.remove(element);
+            }
 
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -81,6 +83,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     // Return the size of the translation list
     @Override
-    public int getItemCount() { return mTranslationList.size(); }
+    public int getItemCount() {
+        return mTranslationList.size();
+    }
 
 }

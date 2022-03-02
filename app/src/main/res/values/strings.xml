@@ -12,4 +12,6 @@
     <string name="action_favorites">Favorites</string>
     <string name="action_contact_message">You selected Contact.</string>
     <string name="action_favorites_message">You selected Favorites.</string>
+    <string name="category_message_learn">Learn the\ </string>
+    <string name="floating_button_content_desc">Floating Button for Taking The Test</string>
 </resources>
