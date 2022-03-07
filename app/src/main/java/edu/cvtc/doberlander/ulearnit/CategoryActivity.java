@@ -10,9 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.LinkedList;
 
 public class CategoryActivity extends AppCompatActivity {
+    
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,6 @@ public class CategoryActivity extends AppCompatActivity {
         if (translations.size() > 0) {
             // Create the RecyclerView and Connect the Adapter and Data
             // Create list used to store the list of data
-            //private final LinkedList<TranslationModel> mTranslationList = new LinkedList<>();
             RecyclerView mRecyclerView = findViewById(R.id.categoryRecyclerView);
 
             // Create the adapter and attach the data

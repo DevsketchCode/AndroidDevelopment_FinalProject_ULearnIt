@@ -8,9 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.LinkedList;
 
@@ -20,6 +24,10 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     private final LinkedList<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
+
+    private int mPosition;
+    private boolean mItemClicked = false;
+    private boolean mAddToFavorites = false;
 
     // Constructor initializes the translation list from the data
     public TranslationAdapter(Context context, LinkedList<TranslationModel> translationList) {
@@ -46,33 +54,30 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         @Override
         public void onClick(View view) {
             // Get the position of the item that was clicked
-            int mPosition = getLayoutPosition();
+            mPosition = getLayoutPosition();
             // Access the affected item in the list
             TranslationModel element = mTranslationList.get(mPosition);
+
+            // Set itemClicked Global variable to true
+            mItemClicked = true;
 
             // Check to see if the clicked element is a favorite or not
             if (!TranslationList.Favorites_List.contains(element)) {
                 // Remove the translation from the Favorites List
                 TranslationList.Favorites_List.add(element);
+
+                // Set the mAddedToFavorites global variable to true
+                mAddToFavorites = true;
+
             } else {
+
                 // Add the translation to the Favorites List
                 TranslationList.Favorites_List.remove(element);
-            }
-            Log.d(TAG, "Pretest: " + ((ColorDrawable)view.getBackground()).getColor());
 
-            // Check to see if the element was highlighted or not
-            //if ( == Color.parseColor("#00FFFFFF")) {
-            //view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-            Log.d(TAG, "Posttest: " + ((ColorDrawable)view.getBackground()).getColor());
-            int color = ((ColorDrawable)view.getBackground()).getColor();
-            // If Color is the default color, highlight it, else reset
-            if (color == 16777215) {
-                view.setBackgroundColor(Color.parseColor("#00FF00"));
-            } else {
-                view.setBackgroundColor(16777215);
+                // Set the mAddedToFavorites global variable to false (removing from favorites)
+                mAddToFavorites = false;
+                //notifyItemRemoved(this.getLayoutPosition());
             }
-
-            //}
 
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
@@ -97,6 +102,29 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
+
+
+        // Highlight the entry if clicked
+        if(mPosition == position && mItemClicked) {
+
+            if (mAddToFavorites) {
+                // Add items to favorites and highlight
+                holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
+                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Added to Favorites", Toast.LENGTH_SHORT).show();
+            } else {
+                // Item removed from favorites, and have red highlight
+                holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
+                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Removed from Favorites", Toast.LENGTH_SHORT).show();
+            }
+
+            // Reset Item Clicked variable
+            mItemClicked = false;
+
+        } else {
+            // Set all the entries to a default background color
+            holder.itemView.setBackgroundColor(16777215);
+        }
+
     }
 
     // Return the size of the translation list
@@ -104,5 +132,4 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public int getItemCount() {
         return mTranslationList.size();
     }
-
 }

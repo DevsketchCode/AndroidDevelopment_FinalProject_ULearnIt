@@ -57,11 +57,12 @@ public class TranslationList {
             // Create translation entry object
             TranslationModel translation = new TranslationModel();
             // Populate the translation object
+            translation.setCategory(category);
             translation.setFirstLanguage(firstLang);
             translation.setFirstLanguageWord(firstLangWords[i]);
             translation.setSecondLanguage(secondLang);
             translation.setSecondLanguageWord(secondLangWords[i]);
-            translation.setFavorite(false);
+            translation.setFavorite(0);
 
             // add the translation to the greetings list
             translationList.add(translation);
