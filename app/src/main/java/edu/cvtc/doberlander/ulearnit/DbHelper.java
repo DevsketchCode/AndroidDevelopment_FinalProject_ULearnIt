@@ -20,6 +20,7 @@ public class DbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TranslationEntry.SQL_CREATE_TABLE);
+        db.execSQL(TranslationEntry.SQL_CREATE_INDEX1);
 
         DbWorker worker = new DbWorker(db);
         worker.insertEntries();

@@ -14,6 +14,7 @@ import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+    private DbHelper mDbHelper;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -26,12 +27,22 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+        // Establish the database
+        mDbHelper = new DbHelper(this);
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 displayToast("Take Test");
             }
         });
+
+        initializeDisplayContent();
+    }
+
+    private void initializeDisplayContent() {
+        // Retrieve information from the database
+        DataManager.loadFromDatabase(mDbHelper);
     }
 
     @Override

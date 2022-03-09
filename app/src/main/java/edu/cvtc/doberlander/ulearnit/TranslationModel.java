@@ -1,84 +1,142 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import androidx.annotation.NonNull;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class TranslationModel {
+public class TranslationModel implements Parcelable {
     // Declare Variables
-    private String category;
-    private String firstLanguage;
-    private String firstLanguageWord;
-    private String secondLanguage;
-    private String secondLanguageWord;
-    private int favorite;
+    private int mId;
+    private String mCategory;
+    private String mFirstLanguage;
+    private String mFirstLanguageWord;
+    private String mSecondLanguage;
+    private String mSecondLanguageWord;
+    private int mFavorite;
 
     // Default constructor
     public TranslationModel() {
     }
 
-    // Overloaded Constructor
+    // Overloaded Constructors
     public TranslationModel(String category, String firstLanguage, String firstLanguageWord, String secondLanguage, String secondLanguageWord, int favorite) {
-        this.category = category;
-        this.firstLanguage = firstLanguage;
-        this.firstLanguageWord = firstLanguageWord;
-        this.secondLanguage = secondLanguage;
-        this.secondLanguageWord = secondLanguageWord;
-        this.favorite = favorite;
+        this.mCategory = category;
+        this.mFirstLanguage = firstLanguage;
+        this.mFirstLanguageWord = firstLanguageWord;
+        this.mSecondLanguage = secondLanguage;
+        this.mSecondLanguageWord = secondLanguageWord;
+        this.mFavorite = favorite;
+    }
+
+    public TranslationModel(int id, String category, String firstLanguage, String firstLanguageWord, String secondLanguage, String secondLanguageWord, int favorite) {
+        this.mId = id;
+        this.mCategory = category;
+        this.mFirstLanguage = firstLanguage;
+        this.mFirstLanguageWord = firstLanguageWord;
+        this.mSecondLanguage = secondLanguage;
+        this.mSecondLanguageWord = secondLanguageWord;
+        this.mFavorite = favorite;
     }
 
 
     // Getters and Setters;
-    public String getCategory() { return category; }
+    public int getId() { return mId; }
 
-    public void setCategory(String category) { this.category = category; }
+    public void setId(int id) { this.mId = id; }
+
+    public String getCategory() { return mCategory; }
+
+    public void setCategory(String category) { this.mCategory = category; }
 
     public String getFirstLanguage() {
-        return firstLanguage;
+        return mFirstLanguage;
     }
 
     public void setFirstLanguage(String firstLanguage) {
-        this.firstLanguage = firstLanguage;
+        this.mFirstLanguage = firstLanguage;
     }
 
     public String getFirstLanguageWord() {
-        return firstLanguageWord;
+        return mFirstLanguageWord;
     }
 
     public void setFirstLanguageWord(String firstLanguageWord) {
-        this.firstLanguageWord = firstLanguageWord;
+        this.mFirstLanguageWord = firstLanguageWord;
     }
 
     public String getSecondLanguage() {
-        return secondLanguage;
+        return mSecondLanguage;
     }
 
     public void setSecondLanguage(String secondLanguage) {
-        this.secondLanguage = secondLanguage;
+        this.mSecondLanguage = secondLanguage;
     }
 
     public String getSecondLanguageWord() {
-        return secondLanguageWord;
+        return mSecondLanguageWord;
     }
 
     public void setSecondLanguageWord(String secondLanguageWord) {
-        this.secondLanguageWord = secondLanguageWord;
+        this.mSecondLanguageWord = secondLanguageWord;
     }
 
     public int getFavorite() {
-        return favorite;
+        return mFavorite;
     }
 
     public void setFavorite(int favorite) {
-        this.favorite = favorite;
+        this.mFavorite = favorite;
     }
 
-    @NonNull
+    // Compare key that concatenates the firstLangWord and secondLangWord
+    private String getCompareKey() { return mFirstLanguageWord + "|" + mSecondLanguageWord; }
+
+    // Override the equals method so it will not add duplicate entries to the database
     @Override
-    public String toString() {
-        return ("\nCategory: " + this.getCategory() +
-                "\nFirst Language: " + this.getFirstLanguage() +
-                "\nFirst Language Word: " + this.getFirstLanguageWord() +
-                "\nSecond Language: " + this.getSecondLanguage() +
-                "\nSecond Language Word: " + this.getSecondLanguageWord() +
-                "\nFavorite: " + this.getFavorite()) + "\n";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TranslationModel that = (TranslationModel) o;
+        return getCompareKey().equals((that.getCompareKey()));
     }
+
+    @Override
+    public String toString() { return getCompareKey(); }
+
+    protected TranslationModel(Parcel parcel) {
+        setFirstLanguage(parcel.readString());
+        setFirstLanguageWord(parcel.readString());
+        setSecondLanguage(parcel.readString());
+        setSecondLanguageWord(parcel.readString());
+        setFavorite(parcel.readInt());
+    }
+
+    // Override the hashCode and toString to pull out rows for comparison.
+    @Override
+    public int hashCode() { return getCompareKey().hashCode(); }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(mFirstLanguage);
+        parcel.writeString(mFirstLanguageWord);
+        parcel.writeString(mSecondLanguage);
+        parcel.writeString(mSecondLanguageWord);
+        parcel.writeInt(mFavorite);
+    }
+
+    @Override
+    public int describeContents() { return 0; }
+
+    // Required creator field for implementing Parcelable
+    public static final Creator<TranslationModel> CREATOR = new Creator<TranslationModel>() {
+        @Override
+        public TranslationModel createFromParcel(Parcel parcel) {
+            return new TranslationModel(parcel);
+        }
+
+        @Override
+        public TranslationModel[] newArray(int size) {
+            return new TranslationModel[size];
+        }
+    };
+
 }

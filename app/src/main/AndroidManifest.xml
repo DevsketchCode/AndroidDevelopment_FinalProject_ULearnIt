@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.cvtc.doberlander.ulearnit">
+    package="edu.cvtc.doberlander.ulearnit" >
 
     <application
         android:allowBackup="true"
@@ -8,23 +8,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ULearnIt">
+        android:theme="@style/Theme.ULearnIt" >
+        <activity
+            android:name=".ResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuizActivity"
+            android:exported="false" />
         <activity
             android:name=".CategoryActivity"
             android:exported="true"
             android:label="Category"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
+
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.ULearnIt.NoActionBar">
+            android:theme="@style/Theme.ULearnIt.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
