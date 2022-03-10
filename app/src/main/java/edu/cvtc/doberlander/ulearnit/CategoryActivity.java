@@ -81,12 +81,8 @@ public class CategoryActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayToast("Take Quiz");
+                startActivity(new Intent(CategoryActivity.this, QuizActivity.class));
             }
         });
-    }
-
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
