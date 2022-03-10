@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -161,7 +163,15 @@ public class QuizActivity extends AppCompatActivity {
         if(buttonText.equals(correctAnswer)) {
             displayToast("Great Job");
         } else {
-            displayToast("NOPE!");
+            displayToast("Sorry, Wrong Answer!");
+
+            // Make the button shake if the answer was wrong
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
+
+            // Reset the animation to prepare to run again if needed
+            animation.reset();
+            b.clearAnimation();
+            b.startAnimation(animation);
         }
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Achieved with the help from https://www.reddit.com/r/androiddev/comments/2e2g3z/button_shake_how/ -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate
+        android:duration="70"
+        android:fromXDelta="-10"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:repeatCount="3"
+        android:repeatMode="reverse"
+        android:toXDelta="10" />
+</set>
