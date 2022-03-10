@@ -17,12 +17,13 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
 
     private static final String TAG = "CategoryActivity";
 
-    private final LinkedList<TranslationModel> mTranslationList;
+    private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
 
     private int mPosition;
@@ -30,7 +31,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private boolean mAddToFavorites = false;
 
     // Constructor initializes the translation list from the data
-    public TranslationAdapter(Context context, LinkedList<TranslationModel> translationList) {
+    public TranslationAdapter(Context context, List<TranslationModel> translationList) {
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
     }

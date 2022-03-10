@@ -14,18 +14,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
-    
-    
+
+    // Variable to access translations from the database
+    private DbHelper mDbHelper;
+    private RecyclerView mRecyclerItems;
+    private LinearLayoutManager mTranslationsLayoutManager;
+    private TranslationAdapter mTranslationsAdapter;
+    public static final int ITEM_COURSES = 0;
+    private String mCategory;
+
+    // Member variable for translations
+    public List<TranslationModel> mTranslations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        String category = "";
+        mCategory = "";
         String categoryMessage;
+
+        // Create DbHelper to get access to the database
+        mDbHelper = new DbHelper(this);
 
         // Retrieve information from the intent passed from the previous activity
         Intent intent = getIntent();
@@ -34,7 +47,7 @@ public class CategoryActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             // Retrieve each piece of information
-            category = bundle.getString("category");
+            mCategory = bundle.getString("category");
             categoryMessage = bundle.getString("category_message");
 
             // Set category header TextView
@@ -43,9 +56,9 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
         // Check to see if the bundle was not used to populate the category
-        if (category == null) {
+        if (mCategory == null) {
             // Display the category
-            category = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+            mCategory = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
             // Hide the Category Message Layout
             LinearLayout headerLayout = findViewById(R.id.category_Heading_LinearLayout);
@@ -53,12 +66,17 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
         // Set the Activity Title with the Category that was selected
-        setTitle("Category: " + category);
+        setTitle("Category: " + mCategory);
 
         // Get the translation List
-        TranslationList translationListObject = new TranslationList();
-        LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
+        //TranslationList translationListObject = new TranslationList();
+        //LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
 
+        // Get the list from the database
+        DataManager dm = new DataManager();
+        List<TranslationModel> translations = dm.getTranslations();
+        initializeDisplayContent();
+        displayToast(String.valueOf(mTranslations.size()));
         // Only attach data if there is data
         if (translations.size() > 0) {
             // Create the RecyclerView and Connect the Adapter and Data
@@ -86,5 +104,34 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(quizIntent);
             }
         });
+    }
+
+    private void initializeDisplayContent() {
+        // Retrieve the information from the database
+        DataManager.loadFromDatabase(mDbHelper, mCategory);
+
+        // Set a reference to the translations of the items layout
+        mRecyclerItems = (RecyclerView) findViewById(R.id.categoryRecyclerView);
+        mTranslationsLayoutManager = new LinearLayoutManager(this);
+
+        // Get the translations and save it to the global variable
+        mTranslations = DataManager.getInstance().getTranslations();
+
+        // Fill the RecyclerAdapter with the translations
+        mTranslationsAdapter = new TranslationAdapter(this, mTranslations);
+
+        // Display the translations
+        displayTranslations();
+    }
+
+    private void displayTranslations() {
+        // Set the LayoutManager and Adapter for the RecyclerView
+        mRecyclerItems.setLayoutManager((mTranslationsLayoutManager));
+        mRecyclerItems.setAdapter(mTranslationsAdapter);
+    }
+
+
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

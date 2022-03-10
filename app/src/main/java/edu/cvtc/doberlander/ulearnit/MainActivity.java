@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
     private DbHelper mDbHelper;
+    // Initialize default category
+    private static String mCategory = "";
     private static final String TAG = "MainActivity";
 
     @Override
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeDisplayContent() {
         // Retrieve information from the database
-        DataManager.loadFromDatabase(mDbHelper);
+        DataManager.loadFromDatabase(mDbHelper,mCategory);
     }
 
     @Override
@@ -105,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
                 categoryName = getString(R.string.default_category_name);
                 categoryMessage = getString(R.string.default_category_text);
         }
+
+        mCategory = categoryName;
 
         // Bundle the information depending what button was clicked.
         Bundle bundle = new Bundle();

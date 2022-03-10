@@ -2,6 +2,8 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ public class DataManager {
 
     private static DataManager ourInstance = null;
     private List<TranslationModel> mTranslations = new ArrayList<>();
+    private static final String TAG = "CategoryActivity";
 
     public static DataManager getInstance() {
         if (ourInstance == null) {
@@ -59,7 +62,11 @@ public class DataManager {
         cursor.close();
     }
 
-    public static void loadFromDatabase(DbHelper dbHelper) {
+    public static void loadFromDatabase(DbHelper dbHelper, String category) {
+        // Declare SQL Statement variables
+        String entryWhere;
+        String[] entryWhereArgs;
+
         // Open your database in read mode.
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
@@ -76,14 +83,22 @@ public class DataManager {
 
         // Create an order by field for sorting
         String entryOrderBy = TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD;
+        Log.d(TAG, "Category test: " + category);
+        // Where statement
+        if(category.equals("Favorites")) {
+            entryWhere = "favorite = ?";
+            entryWhereArgs = new String[]{String.valueOf(1)};
+        } else {
+            entryWhere = "category = ?";
+            entryWhereArgs = new String[]{category};
+        }
 
         // Populate the cursor with results from the query
         final Cursor entryCursor = db.query(TranslationEntry.TABLE_NAME, translationEntryColumns,
-                null, null, null, null, entryOrderBy);
+                entryWhere, entryWhereArgs, null, null, entryOrderBy);
 
         // Call the method to load the array list
         loadTranslationsFromDatabase(entryCursor);
     }
-
 
 }
