@@ -81,7 +81,9 @@ public class CategoryActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CategoryActivity.this, QuizActivity.class));
+                Intent quizIntent = new Intent(CategoryActivity.this, QuizActivity.class);
+                quizIntent.putExtras(bundle);
+                startActivity(quizIntent);
             }
         });
     }
