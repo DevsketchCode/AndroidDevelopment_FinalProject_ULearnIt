@@ -3,10 +3,12 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +42,14 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public class TranslationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView firstLangTranslationItemView;
         public final TextView secondLangTranslationItemView;
+        public final ImageView favoriteImageView;
         final TranslationAdapter mAdapter;
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
             super(itemView);
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
+            favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
@@ -63,22 +67,22 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             mItemClicked = true;
 
             // Check to see if the clicked element is a favorite or not
-            if (!TranslationList.Favorites_List.contains(element)) {
+            //if (!TranslationList.Favorites_List.contains(element)) {
                 // Remove the translation from the Favorites List
-                TranslationList.Favorites_List.add(element);
+            //    TranslationList.Favorites_List.add(element);
 
                 // Set the mAddedToFavorites global variable to true
-                mAddToFavorites = true;
+            //    mAddToFavorites = true;
 
-            } else {
+            //} else {
 
                 // Add the translation to the Favorites List
-                TranslationList.Favorites_List.remove(element);
+            //    TranslationList.Favorites_List.remove(element);
 
                 // Set the mAddedToFavorites global variable to false (removing from favorites)
-                mAddToFavorites = false;
+            //    mAddToFavorites = false;
                 //notifyItemRemoved(this.getLayoutPosition());
-            }
+            //}
 
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
@@ -103,6 +107,12 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
+        if(mCurrentEntry.getFavorite() == 1) {
+            Log.d(TAG, "Favorite Is Here");
+            holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
+        } else {
+            holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
+        }
 
 
         // Highlight the entry if clicked

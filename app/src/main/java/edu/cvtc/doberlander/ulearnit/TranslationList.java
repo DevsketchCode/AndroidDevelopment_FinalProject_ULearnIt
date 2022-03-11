@@ -10,6 +10,7 @@ public class TranslationList {
     private static final String TAG = "CategoryActivity";
 
     // PreDefined Translation Lists
+    // The lists are used when filling a new database with the preset translations
     private static final String[] English_Greetings = {"Good Morning", "Good Afternoon", "Good Night", "How are you?"};
     private static final String[] Tagalog_Greetings = {"Magandang Umaga", "Magandang Hapon", "Magandang Gabi", "Kumusta po kayo?"};
 
