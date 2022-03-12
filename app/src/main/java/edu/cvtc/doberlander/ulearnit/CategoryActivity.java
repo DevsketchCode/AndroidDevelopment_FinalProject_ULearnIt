@@ -1,13 +1,17 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -128,6 +132,32 @@ public class CategoryActivity extends AppCompatActivity {
         // Set the LayoutManager and Adapter for the RecyclerView
         mRecyclerItems.setLayoutManager((mTranslationsLayoutManager));
         mRecyclerItems.setAdapter(mTranslationsAdapter);
+    }
+
+    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
+        // Create selection criteria as constants
+        final String selection = DbContract.TranslationEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(entryId)};
+
+        // Use a ContentValues object to put our information into.
+        final ContentValues values = new ContentValues();
+        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
+
+        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(this) {
+            @Nullable
+            @Override
+            public String loadInBackground() {
+                // Get connection to the database. Use the writable method since we are changing the data.
+                DbHelper dbHelper = new DbHelper(getContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                // Call the update method
+                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
+                return null;
+            }
+        };
+
+        task.loadInBackground();
     }
 
 
