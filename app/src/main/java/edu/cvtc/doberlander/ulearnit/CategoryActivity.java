@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,13 +24,18 @@ import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
 
+    public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+
     // Variable to access translations from the database
     private DbHelper mDbHelper;
     private RecyclerView mRecyclerItems;
     private LinearLayoutManager mTranslationsLayoutManager;
     private TranslationAdapter mTranslationsAdapter;
-    public static final int ITEM_COURSES = 0;
     private String mCategory;
+
+    // Public variables
+    public static final int ITEM_COURSES = 0;
+    public static Menu mModifyMenu;
 
     // Member variable for translations
     public List<TranslationModel> mTranslations;
@@ -108,6 +115,60 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(quizIntent);
             }
         });
+    }
+
+    // Prepare the options menu to be accessed from the Adapter
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mModifyMenu = menu;
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    // Allow the menu to be accessed from the adapter
+    public Menu getMenu() {
+        return mModifyMenu;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_modify, menu);
+        // Set the edit item so that it can be visible when an item is highlighted.
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Initialize Intent
+        Intent categoryIntent = new Intent(this, CategoryActivity.class);
+        Intent modifierIntent = new Intent(this, EntryModifierActivity.class);
+        String category = "";
+
+        switch (item.getItemId()) {
+            case R.id.action_newEntry:
+                category = getString(R.string.action_new);
+                modifierIntent.putExtra(EXTRA_MESSAGE, category);
+                startActivity(modifierIntent);
+                return true;
+            case R.id.action_editEntry:
+                category = getString(R.string.action_edit);
+                modifierIntent.putExtra(EXTRA_MESSAGE, category);
+                startActivity(modifierIntent);
+                return true;
+            case R.id.action_favorites:
+                category = getString(R.string.action_favorites);
+                categoryIntent.putExtra(EXTRA_MESSAGE, category);
+                startActivity(categoryIntent);
+                return true;
+            default:
+                // Do Nothing
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeDisplayContent() {

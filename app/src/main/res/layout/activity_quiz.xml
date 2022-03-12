@@ -11,15 +11,10 @@
 
     <LinearLayout
         android:id="@+id/quiz_Heading_LinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:alpha="0.8"
-        android:background="#323E43"
-        android:elevation="3dp"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/style_Heading_LinearLayout">
 
         <TextView
             android:id="@+id/quizHeaderText"

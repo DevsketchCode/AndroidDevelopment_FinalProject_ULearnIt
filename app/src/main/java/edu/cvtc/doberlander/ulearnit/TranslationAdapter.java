@@ -6,6 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,6 +34,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private int mPosition;
     private boolean mItemClicked = false;
     private boolean mAddToFavorites = false;
+
 
     // Constructor initializes the translation list from the data
     public TranslationAdapter(Context context, List<TranslationModel> translationList) {
@@ -66,24 +70,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Set itemClicked Global variable to true
             mItemClicked = true;
 
-            // Check to see if the clicked element is a favorite or not
-            //if (!TranslationList.Favorites_List.contains(element)) {
-                // Remove the translation from the Favorites List
-            //    TranslationList.Favorites_List.add(element);
-
-                // Set the mAddedToFavorites global variable to true
-            //    mAddToFavorites = true;
-
-            //} else {
-
-                // Add the translation to the Favorites List
-            //    TranslationList.Favorites_List.remove(element);
-
-                // Set the mAddedToFavorites global variable to false (removing from favorites)
-            //    mAddToFavorites = false;
-                //notifyItemRemoved(this.getLayoutPosition());
-            //}
-
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
 
@@ -118,15 +104,27 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
 
-            if (mAddToFavorites) {
-                // Add items to favorites and highlight
-                holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
-                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Added to Favorites", Toast.LENGTH_SHORT).show();
-            } else {
-                // Item removed from favorites, and have red highlight
-                holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
-                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Removed from Favorites", Toast.LENGTH_SHORT).show();
-            }
+            // Highlight the entry
+            holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
+
+            // Get the CategoryActivity Menu
+            Menu modifyMenu = CategoryActivity.mModifyMenu;
+            modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
+
+
+
+
+            //TODO: Get Entry and save, so can be edited if Edit is clicked next
+
+//            if (mAddToFavorites) {
+//                // Add items to favorites and highlight
+//                holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
+//                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Added to Favorites", Toast.LENGTH_SHORT).show();
+//            } else {
+//                // Item removed from favorites, and have red highlight
+//                holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
+//                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Removed from Favorites", Toast.LENGTH_SHORT).show();
+//            }
 
             // Reset Item Clicked variable
             mItemClicked = false;
