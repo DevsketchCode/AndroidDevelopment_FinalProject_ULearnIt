@@ -87,8 +87,7 @@ public class CategoryActivity extends AppCompatActivity {
         // Get the list from the database
         DataManager dm = new DataManager();
         List<TranslationModel> translations = dm.getTranslations();
-        initializeDisplayContent();
-        displayToast(String.valueOf(mTranslations.size()));
+
         // Only attach data if there is data
         if (translations.size() > 0) {
             // Create the RecyclerView and Connect the Adapter and Data
@@ -116,6 +115,8 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(quizIntent);
             }
         });
+
+        initializeDisplayContent();
     }
 
     // Prepare the options menu to be accessed from the Adapter
