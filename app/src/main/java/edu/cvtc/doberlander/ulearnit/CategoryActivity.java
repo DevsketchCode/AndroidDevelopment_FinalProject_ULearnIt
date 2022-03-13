@@ -36,6 +36,7 @@ public class CategoryActivity extends AppCompatActivity {
     // Public variables
     public static final int ITEM_COURSES = 0;
     public static Menu mModifyMenu;
+    public static TranslationModel mSelectedItem = null;
 
     // Member variable for translations
     public List<TranslationModel> mTranslations;
@@ -146,17 +147,21 @@ public class CategoryActivity extends AppCompatActivity {
         // Initialize Intent
         Intent categoryIntent = new Intent(this, CategoryActivity.class);
         Intent modifierIntent = new Intent(this, EntryModifierActivity.class);
+        Bundle modifierBundle = new Bundle();
+        String modifyType = "";
         String category = "";
 
         switch (item.getItemId()) {
             case R.id.action_newEntry:
-                category = getString(R.string.action_new);
-                modifierIntent.putExtra(EXTRA_MESSAGE, category);
+                modifyType = getString(R.string.action_new);
+                modifierIntent.putExtra("modifyType", modifyType);
                 startActivity(modifierIntent);
                 return true;
             case R.id.action_editEntry:
-                category = getString(R.string.action_edit);
-                modifierIntent.putExtra(EXTRA_MESSAGE, category);
+                modifyType = getString(R.string.action_edit);
+                modifierBundle.putString("modifyType", modifyType);
+                modifierBundle.putParcelable("SelectedItem", mSelectedItem);
+                modifierIntent.putExtras(modifierBundle);
                 startActivity(modifierIntent);
                 return true;
             case R.id.action_favorites:
@@ -195,31 +200,31 @@ public class CategoryActivity extends AppCompatActivity {
         mRecyclerItems.setAdapter(mTranslationsAdapter);
     }
 
-    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
-        // Create selection criteria as constants
-        final String selection = DbContract.TranslationEntry._ID + " = ?";
-        final String[] selectionArgs = {Integer.toString(entryId)};
-
-        // Use a ContentValues object to put our information into.
-        final ContentValues values = new ContentValues();
-        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
-
-        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(this) {
-            @Nullable
-            @Override
-            public String loadInBackground() {
-                // Get connection to the database. Use the writable method since we are changing the data.
-                DbHelper dbHelper = new DbHelper(getContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-                // Call the update method
-                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
-                return null;
-            }
-        };
-
-        task.loadInBackground();
-    }
+//    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
+//        // Create selection criteria as constants
+//        final String selection = DbContract.TranslationEntry._ID + " = ?";
+//        final String[] selectionArgs = {Integer.toString(entryId)};
+//
+//        // Use a ContentValues object to put our information into.
+//        final ContentValues values = new ContentValues();
+//        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
+//
+//        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(this) {
+//            @Nullable
+//            @Override
+//            public String loadInBackground() {
+//                // Get connection to the database. Use the writable method since we are changing the data.
+//                DbHelper dbHelper = new DbHelper(getContext());
+//                SQLiteDatabase db = dbHelper.getWritableDatabase();
+//
+//                // Call the update method
+//                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
+//                return null;
+//            }
+//        };
+//
+//        task.loadInBackground();
+//    }
 
 
     public void displayToast(String message) {

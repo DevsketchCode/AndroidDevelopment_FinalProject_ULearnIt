@@ -1,6 +1,8 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,12 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
@@ -57,6 +57,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
+            itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
@@ -70,9 +71,25 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Set itemClicked Global variable to true
             mItemClicked = true;
 
+            // Check to see if the heart favorite imageView is what was clicked
+            if(view.getId() == R.id.favorite_imageView) {
+                // Get the current favorites value of that selected item
+                // Formatting of this setting can be found in the onBindViewHolder
+                if (element.getFavorite() == 1) {
+                    // The previous value was 1, so unfavorite it by setting to 0
+                    element.setFavorite(0);
+                } else {
+                    // The previous value was 0, so favorite the item by setting it to one
+                    element.setFavorite(1);
+                }
+            }
+
+            // Pass the selected item to the CategoryActivity, so it can be used to pass to the
+            // Modifier Activity
+            CategoryActivity.mSelectedItem = element;
+
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
-
         }
     }
 
@@ -93,13 +110,18 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
-        if(mCurrentEntry.getFavorite() == 1) {
-            Log.d(TAG, "Favorite Is Here");
-            holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
-        } else {
-            holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
-        }
 
+        // Check to see if the item clicked is the Favorite Heart imageView
+        if(holder.favoriteImageView.getId() == R.id.favorite_imageView) {
+            // If the favorite heart is clicked, check the value of it
+            if (mCurrentEntry.getFavorite() == 1) {
+                // Display the filled in heart
+                holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
+            } else {
+                // Display the outlined heart
+                holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
+            }
+        }
 
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
@@ -107,33 +129,46 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
 
+
             // Get the CategoryActivity Menu
             Menu modifyMenu = CategoryActivity.mModifyMenu;
             modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
 
-
-
-
-            //TODO: Get Entry and save, so can be edited if Edit is clicked next
-
-//            if (mAddToFavorites) {
-//                // Add items to favorites and highlight
-//                holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
-//                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Added to Favorites", Toast.LENGTH_SHORT).show();
-//            } else {
-//                // Item removed from favorites, and have red highlight
-//                holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
-//                Toast.makeText(holder.itemView.getContext(), mCurrentEntry.getFirstLanguageWord() + " - Removed from Favorites", Toast.LENGTH_SHORT).show();
-//            }
+            // Save the updated favorite item to the database
+            saveFavoritesToDatabase(mCurrentEntry.getId(), mCurrentEntry);
 
             // Reset Item Clicked variable
             mItemClicked = false;
-
         } else {
             // Set all the entries to a default background color
             holder.itemView.setBackgroundColor(16777215);
         }
+    }
 
+    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
+        // Create selection criteria as constants
+        final String selection = DbContract.TranslationEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(entryId)};
+
+        // Use a ContentValues object to put our information into.
+        final ContentValues values = new ContentValues();
+        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
+
+        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(mInflater.getContext()) {
+            @Nullable
+            @Override
+            public String loadInBackground() {
+                // Get connection to the database. Use the writable method since we are changing the data.
+                DbHelper dbHelper = new DbHelper(getContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                // Call the update method
+                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
+                return null;
+            }
+        };
+
+        task.loadInBackground();
     }
 
     // Return the size of the translation list

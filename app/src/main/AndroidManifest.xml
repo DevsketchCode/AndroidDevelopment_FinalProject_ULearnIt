@@ -11,13 +11,34 @@
         android:theme="@style/Theme.ULearnIt">
         <activity
             android:name=".EntryModifierActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CategoryActivity">
+
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoryActivity" />
+        </activity>
         <activity
             android:name=".ResultsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CategoryActivity">
+
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoryActivity" />
+        </activity>
         <activity
             android:name=".QuizActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".CategoryActivity">
+
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoryActivity" />
+        </activity>
         <activity
             android:name=".CategoryActivity"
             android:exported="true"
