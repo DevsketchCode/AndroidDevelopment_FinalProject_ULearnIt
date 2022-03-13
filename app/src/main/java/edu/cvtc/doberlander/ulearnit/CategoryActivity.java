@@ -2,6 +2,7 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,20 +12,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    // Constants
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+    public static final int LOADER_COURSES = 0;
 
     // Variable to access translations from the database
     private DbHelper mDbHelper;
@@ -39,6 +48,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     // Member variable for translations
     public List<TranslationModel> mTranslations;
+
+    // Boolean to check if the 'onCreateLoader' method has run
+    private boolean mIsCreated = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +96,25 @@ public class CategoryActivity extends AppCompatActivity {
         //LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
 
         // Get the list from the database
-        DataManager dm = new DataManager();
-        List<TranslationModel> translations = dm.getTranslations();
-        initializeDisplayContent();
-        displayToast(String.valueOf(mTranslations.size()));
+        //DataManager dm = new DataManager();
+        //List<TranslationModel> translations = dm.getTranslations();
+
         // Only attach data if there is data
-        if (translations.size() > 0) {
-            // Create the RecyclerView and Connect the Adapter and Data
-            // Create list used to store the list of data
-            RecyclerView mRecyclerView = findViewById(R.id.categoryRecyclerView);
-
-            // Create the adapter and attach the data
-            TranslationAdapter mAdapter = new TranslationAdapter(this, translations);
-
-            // Connect the adapter to the RecyclerView
-            mRecyclerView.setAdapter(mAdapter);
-
-            // Give the RecyclerView a default Layout Manager
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        }
+//        if (translations.size() > 0) {
+//            // Create the RecyclerView and Connect the Adapter and Data
+//            // Create list used to store the list of data
+//            RecyclerView mRecyclerView = findViewById(R.id.categoryRecyclerView);
+//
+//            // Create the adapter and attach the data, no cursor yet, so pass null
+//            TranslationAdapter mAdapter = new TranslationAdapter(this, null);
+//
+//            // Connect the adapter to the RecyclerView
+//            mRecyclerView.setAdapter(mAdapter);
+//
+//            // Give the RecyclerView a default Layout Manager
+//            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        }
 
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -115,6 +126,8 @@ public class CategoryActivity extends AppCompatActivity {
                 startActivity(quizIntent);
             }
         });
+
+        initializeDisplayContent();
     }
 
     // Prepare the options menu to be accessed from the Adapter
@@ -183,7 +196,7 @@ public class CategoryActivity extends AppCompatActivity {
         mTranslations = DataManager.getInstance().getTranslations();
 
         // Fill the RecyclerAdapter with the translations
-        mTranslationsAdapter = new TranslationAdapter(this, mTranslations);
+        mTranslationsAdapter = new TranslationAdapter(this, null);
 
         // Display the translations
         displayTranslations();
@@ -221,6 +234,76 @@ public class CategoryActivity extends AppCompatActivity {
         task.loadInBackground();
     }
 
+    @Override
+    protected void onDestroy() {
+        mDbHelper.close();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Get the latest set of date from the database.
+        // Use the restartLoader instead of initLoader to make sure it re-queries the database each time
+        // the activity is loaded in the app. initLoader only runs the first time.
+        LoaderManager.getInstance(this).restartLoader(LOADER_COURSES, null, null);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
+        // Create new cursor loader
+        CursorLoader loader = null;
+
+        if(id == LOADER_COURSES) {
+            loader = new CursorLoader(this) {
+                @Override
+                public Cursor loadInBackground() {
+                    mIsCreated = true;
+
+                    // Open the database in read mode
+                    SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+                    // Create the list of columns to return
+                    String[] entryColumns = {
+                            TranslationEntry.COLUMN_CATEGORY,
+                            TranslationEntry.COLUMN_FIRST_LANGUAGE,
+                            TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD,
+                            TranslationEntry.COLUMN_SECOND_LANGUAGE,
+                            TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD,
+                            TranslationEntry.COLUMN_FAVORITE,
+                            TranslationEntry._ID
+                    };
+
+                    // Create an order by field for sorting purposes
+                    String entryOrderBy = TranslationEntry._ID;
+
+                    // Populate your cursor with the results of the query.
+                    return db.query(TranslationEntry.TABLE_NAME, entryColumns,
+                            null, null, null, null, entryOrderBy);
+                }
+            };
+        }
+
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+        if(loader.getId() == LOADER_COURSES && mIsCreated) {
+            // Associate the cursor with the RecyclerAdapter
+            mTranslationsAdapter.changeCursor(data);
+            mIsCreated = false;
+        }
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        if(loader.getId() == LOADER_COURSES) {
+            // Change the cursor to null (cleanup)
+            mTranslationsAdapter.changeCursor(null);
+        }
+    }
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

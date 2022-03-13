@@ -13,10 +13,14 @@ import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Constants
+    public static final int LOADER_COURSES = 0;
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+
     private DbHelper mDbHelper;
     // Initialize default category
     private static String mCategory = "";
+
     private static final String TAG = "MainActivity";
 
     @Override

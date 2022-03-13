@@ -1,6 +1,8 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
+
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -28,18 +32,62 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     private static final String TAG = "CategoryActivity";
 
-    private final List<TranslationModel> mTranslationList;
+    private final Context mContext;
+    //private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
+    private Cursor mCursor;
 
-    private int mPosition;
+    // Handle Column Positions
+    private int mEntryCategoryPosition;
+    private int mEntryFirstLangPosition;
+    private int mEntryFirstLangWordPosition;
+    private int mEntrySecondLangPosition;
+    private int mEntrySecondLangWordPosition;
+    private int mEntryFavoritePosition;
+    private int mIdPosition;
+
+    // Favorite variables
     private boolean mItemClicked = false;
     private boolean mAddToFavorites = false;
 
 
     // Constructor initializes the translation list from the data
-    public TranslationAdapter(Context context, List<TranslationModel> translationList) {
+    public TranslationAdapter(Context context, Cursor cursor) {
+        mContext = context;
+        mCursor = cursor;
         mInflater = LayoutInflater.from(context);
-        this.mTranslationList = translationList;
+
+        populateColumnPositions();
+    }
+
+    private void populateColumnPositions() {
+        if(mCursor != null) {
+            // Get the column indexes from the mCursor
+            mEntryCategoryPosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_CATEGORY);
+            mEntryFirstLangPosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_FIRST_LANGUAGE);
+            mEntryFirstLangWordPosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD);
+            mEntrySecondLangPosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_SECOND_LANGUAGE);
+            mEntrySecondLangWordPosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD);
+            mEntryFavoritePosition = mCursor.getColumnIndex(TranslationEntry.COLUMN_FAVORITE);
+            mIdPosition = mCursor.getColumnIndex(TranslationEntry._ID);
+        }
+    }
+
+    // Check to see if you are using the most up to date cursor
+    public void changeCursor(Cursor cursor) {
+        // If the cursor is open, then close it
+        if(mCursor != null) {
+            mCursor.close();
+        }
+
+        // Create a new cursor based upon the object passed into it.
+        mCursor = cursor;
+
+        // Get the positions of the columns in your cursor.
+        populateColumnPositions();
+
+        // Tell the activity that the data set has changed.
+        notifyDataSetChanged();
     }
 
     // Create the View Holder
@@ -63,9 +111,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         @Override
         public void onClick(View view) {
             // Get the position of the item that was clicked
-            mPosition = getLayoutPosition();
-            // Access the affected item in the list
-            TranslationModel element = mTranslationList.get(mPosition);
+            mIdPosition = getLayoutPosition();
 
             // Set itemClicked Global variable to true
             mItemClicked = true;
@@ -87,13 +133,24 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     // Connect the data to the view holder
     @Override
     public void onBindViewHolder(@NonNull TranslationAdapter.TranslationViewHolder holder, int position) {
-        // Get the list position
-        TranslationModel mCurrentEntry = mTranslationList.get(position);
+        // Move the cursor to the correct row
+        mCursor.moveToPosition(position);
+
+        // Get the actual values and pass them into an TranslationModel object
+        TranslationModel tm = new TranslationModel();
+        tm.setCategory(mCursor.getString(mEntryCategoryPosition));
+        tm.setFirstLanguage(mCursor.getString(mEntryFirstLangPosition));
+        tm.setFirstLanguageWord(mCursor.getString(mEntryFirstLangWordPosition));
+        tm.setSecondLanguage(mCursor.getString(mEntrySecondLangPosition));
+        tm.setSecondLanguageWord(mCursor.getString(mEntrySecondLangWordPosition));
+        tm.setFavorite(mCursor.getInt(mEntryFavoritePosition));
+        tm.setId(mCursor.getInt(mIdPosition));
+
 
         // Display the translation information
-        holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
-        holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
-        if(mCurrentEntry.getFavorite() == 1) {
+        holder.firstLangTranslationItemView.setText(tm.getFirstLanguageWord());
+        holder.secondLangTranslationItemView.setText(tm.getSecondLanguageWord());
+        if(tm.getFavorite() == 1) {
             Log.d(TAG, "Favorite Is Here");
             holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
         } else {
@@ -102,7 +159,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
 
         // Highlight the entry if clicked
-        if(mPosition == position && mItemClicked) {
+        if(mIdPosition == position && mItemClicked) {
 
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
@@ -110,7 +167,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Get the CategoryActivity Menu
             Menu modifyMenu = CategoryActivity.mModifyMenu;
             modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
-
 
 
 
@@ -139,6 +195,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     // Return the size of the translation list
     @Override
     public int getItemCount() {
-        return mTranslationList.size();
+        // If the cursor is null, return 0.  otherwise return the count of records in it.
+        return mCursor == null ? 0 : mCursor.getCount();
     }
 }
