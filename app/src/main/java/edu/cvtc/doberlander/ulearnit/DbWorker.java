@@ -17,6 +17,7 @@ public class DbWorker {
     // Initialize the database attribute
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
+    // Function to insertEntry from a list
     private void insertEntry(String category, String firstLang, String firstLangWord, String secondLang, String secondLangWord, int favorite) {
         ContentValues values = new ContentValues();
         values.put(DbContract.TranslationEntry.COLUMN_CATEGORY, category);
@@ -27,6 +28,24 @@ public class DbWorker {
         values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, favorite);
 
         long newRowId = mDb.insert(TranslationEntry.TABLE_NAME, null, values);
+    }
+
+    // Function to
+    public void insertTranslationModelEntry(TranslationModel tm) {
+
+        ContentValues values = new ContentValues();
+        values.put(DbContract.TranslationEntry.COLUMN_CATEGORY, tm.getCategory());
+        values.put(DbContract.TranslationEntry.COLUMN_FIRST_LANGUAGE, tm.getFirstLanguage());
+        values.put(DbContract.TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD, tm.getFirstLanguageWord());
+        values.put(DbContract.TranslationEntry.COLUMN_SECOND_LANGUAGE, tm.getSecondLanguage());
+        values.put(DbContract.TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD, tm.getSecondLanguageWord());
+        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tm.getFavorite());
+
+        // Insert the translation into the database - return a row id if wanting it later
+        long newRowId = mDb.insert(TranslationEntry.TABLE_NAME, null, values);
+
+        // Close the database
+        mDb.close();
     }
 
     // Get all of the entries from the predefined lists (Greetings and Numbers)

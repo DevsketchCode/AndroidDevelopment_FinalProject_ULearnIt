@@ -1,5 +1,7 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -78,6 +80,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 if (element.getFavorite() == 1) {
                     // The previous value was 1, so unfavorite it by setting to 0
                     element.setFavorite(0);
+                    // TODO: DELETE THIS COMMENT
+                    //element.setFirstLanguageWord("Good Afternoon"); THIS WORKS
                 } else {
                     // The previous value was 0, so favorite the item by setting it to one
                     element.setFavorite(1);
@@ -129,13 +133,16 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
 
+            // Update the selected ID with the database ID for this record
+            mSelectedItemID = (int)mCurrentEntry.getId();
 
             // Get the CategoryActivity Menu
             Menu modifyMenu = CategoryActivity.mModifyMenu;
             modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
 
             // Save the updated favorite item to the database
-            saveFavoritesToDatabase(mCurrentEntry.getId(), mCurrentEntry);
+            DataManager dm = new DataManager();
+            dm.saveEntryToDatabase(mCurrentEntry.getId(), mCurrentEntry, mInflater);
 
             // Reset Item Clicked variable
             mItemClicked = false;
@@ -145,31 +152,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         }
     }
 
-    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
-        // Create selection criteria as constants
-        final String selection = DbContract.TranslationEntry._ID + " = ?";
-        final String[] selectionArgs = {Integer.toString(entryId)};
 
-        // Use a ContentValues object to put our information into.
-        final ContentValues values = new ContentValues();
-        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
-
-        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(mInflater.getContext()) {
-            @Nullable
-            @Override
-            public String loadInBackground() {
-                // Get connection to the database. Use the writable method since we are changing the data.
-                DbHelper dbHelper = new DbHelper(getContext());
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-                // Call the update method
-                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
-                return null;
-            }
-        };
-
-        task.loadInBackground();
-    }
 
     // Return the size of the translation list
     @Override

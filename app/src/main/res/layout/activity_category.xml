@@ -28,10 +28,10 @@
 
     <LinearLayout
         android:id="@+id/category_Heading_LinearLayout"
+        style="@style/style_Heading_LinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/style_Heading_LinearLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/categoryHeaderText"

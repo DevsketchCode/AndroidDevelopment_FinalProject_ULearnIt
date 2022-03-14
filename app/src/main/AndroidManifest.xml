@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
+        <!-- windowSoftInputMode is set to allow for the page to scroll when the keyboard is up -->
         <activity
             android:name=".EntryModifierActivity"
             android:exported="false"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:parentActivityName=".CategoryActivity">
 
             <!-- meta data is used for API levels below AP 16 -->

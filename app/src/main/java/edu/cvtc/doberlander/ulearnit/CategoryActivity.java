@@ -1,7 +1,9 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,9 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +28,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity {
+import edu.cvtc.doberlander.ulearnit.databinding.ActivityCategoryBinding;
+import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
+
+public class CategoryActivity extends AppCompatActivity{
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
 
@@ -34,9 +43,10 @@ public class CategoryActivity extends AppCompatActivity {
     private String mCategory;
 
     // Public variables
-    public static final int ITEM_COURSES = 0;
+    public static final int LAUNCH_ENTRYMODIFIERACTIVITY = 1;
     public static Menu mModifyMenu;
     public static TranslationModel mSelectedItem = null;
+    public static int mSelectedItemID = 0;
 
     // Member variable for translations
     public List<TranslationModel> mTranslations;
@@ -44,10 +54,12 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the content view
         setContentView(R.layout.activity_category);
 
+        // Instantiate variables
         mCategory = "";
-        String categoryMessage;
+        String categoryMessage = "";
 
         // Create DbHelper to get access to the database
         mDbHelper = new DbHelper(this);
@@ -154,16 +166,26 @@ public class CategoryActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_newEntry:
+                // Bundle up the data
                 modifyType = getString(R.string.action_new);
-                modifierIntent.putExtra("modifyType", modifyType);
-                startActivity(modifierIntent);
+                modifierBundle.putString("category", mCategory);
+                modifierBundle.putString("modifyType", modifyType);
+                // Put the bundle in an intent
+                modifierIntent.putExtras(modifierBundle);
+                // Start the activity and pass the bundled intent, expecting success result
+                startActivityForResult(modifierIntent,LAUNCH_ENTRYMODIFIERACTIVITY);
                 return true;
             case R.id.action_editEntry:
+                // Bundle up the data
                 modifyType = getString(R.string.action_edit);
+                modifierBundle.putInt("selectedId", mSelectedItemID);
+                modifierBundle.putString("category", mCategory);
                 modifierBundle.putString("modifyType", modifyType);
                 modifierBundle.putParcelable("SelectedItem", mSelectedItem);
+                // Put the bundle in an intent
                 modifierIntent.putExtras(modifierBundle);
-                startActivity(modifierIntent);
+                // Start the activity and pass the bundled intent, expecting success result
+                startActivityForResult(modifierIntent,LAUNCH_ENTRYMODIFIERACTIVITY);
                 return true;
             case R.id.action_favorites:
                 category = getString(R.string.action_favorites);
@@ -201,32 +223,20 @@ public class CategoryActivity extends AppCompatActivity {
         mRecyclerItems.setAdapter(mTranslationsAdapter);
     }
 
-//    private void saveFavoritesToDatabase(int entryId, TranslationModel tEntry) {
-//        // Create selection criteria as constants
-//        final String selection = DbContract.TranslationEntry._ID + " = ?";
-//        final String[] selectionArgs = {Integer.toString(entryId)};
-//
-//        // Use a ContentValues object to put our information into.
-//        final ContentValues values = new ContentValues();
-//        values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
-//
-//        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(this) {
-//            @Nullable
-//            @Override
-//            public String loadInBackground() {
-//                // Get connection to the database. Use the writable method since we are changing the data.
-//                DbHelper dbHelper = new DbHelper(getContext());
-//                SQLiteDatabase db = dbHelper.getWritableDatabase();
-//
-//                // Call the update method
-//                db.update(DbContract.TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
-//                return null;
-//            }
-//        };
-//
-//        task.loadInBackground();
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // If came from the EntryModifierActivity then update the page
+        if (requestCode == LAUNCH_ENTRYMODIFIERACTIVITY) {
+            if(resultCode == Activity.RESULT_OK) {
+                // Update data from the database and update the recycler
+                initializeDisplayContent();
+                // Display toast of successful entry
+                displayToast(data.getStringExtra("Result"));
+            }
+        }
+    }
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

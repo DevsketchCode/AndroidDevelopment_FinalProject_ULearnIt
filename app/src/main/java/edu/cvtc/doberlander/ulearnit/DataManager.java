@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -103,6 +104,46 @@ public class DataManager {
 
         // Call the method to load the array list
         loadTranslationsFromDatabase(entryCursor);
+    }
+
+    // Save the item to favorites from the Translation Adapter that passes a LayoutInflator
+    public void saveEntryToDatabase(int entryId, TranslationModel tEntry, LayoutInflater inflater) {
+        // Create selection criteria as constants
+        final String selection = DbContract.TranslationEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(entryId)};
+
+        // Use a ContentValues object to put our information into.
+        final ContentValues values = new ContentValues();
+
+        // fill all the values from the Translation Model Object
+        // This will update both the favorites as well as if the translation was edited
+        values.put(TranslationEntry.COLUMN_CATEGORY, tEntry.getCategory());
+        values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE, tEntry.getFirstLanguage());
+        values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD, tEntry.getFirstLanguageWord());
+        values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE, tEntry.getSecondLanguage());
+        values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD, tEntry.getSecondLanguageWord());
+        values.put(TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
+
+
+        AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(inflater.getContext()) {
+            @Nullable
+            @Override
+            public String loadInBackground() {
+
+                // Get connection to the database. Use the writable method since we are changing the data.
+                DbHelper dbHelper = new DbHelper(getContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                // Call the update method
+                db.update(TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
+                // Close the database
+                db.close();
+                Log.d(TAG, "What happened now?: " + values.get(TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD));
+                return null;
+            }
+        };
+
+        task.loadInBackground();
     }
 
 }
