@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
@@ -69,12 +70,10 @@ public class QuizActivity extends AppCompatActivity {
         // Set the Activity Title with the Category that was selected
         setTitle("Category: " + category);
 
-        // Get the translation List
-        TranslationList translationListObject = new TranslationList();
+        // Get the translation List from the database via Data Manager
+        List<TranslationModel> translations = CategoryActivity.mTranslations;
 
-        // Convert the LinkedList to an ArrayList to allow for randomization
-        ArrayList<TranslationModel> translations = new ArrayList<>(translationListObject.GetTranslations(category));
-
+        displayToast(String.valueOf(translations.size()));
         // Only populate the quiz if there are enough items in the list for a quiz
         if(translations.size() > 3) {
 
@@ -84,6 +83,11 @@ public class QuizActivity extends AppCompatActivity {
             // Get random item from array
             int index = (int) (Math.random() * translations.size());
 
+            // TODO: Extract these questions to a function that can be ran every time an answer has clicked
+            // TODO: Also add a class level variable to keep track of correct answers and total questions asked
+            // TODO: Perhaps set a limit to how many questions are asked, consider max (if less than 10), else 10;
+            // TODO: Quiz now shows entries from the database. Need to implement next question on answer click,
+            // TODO: but only after waiting changing the color of the buttons, and waiting a couple seconds.
             // Add Index to Keep track of questions already asked in the quiz
             questionsAsked.add(index);
 

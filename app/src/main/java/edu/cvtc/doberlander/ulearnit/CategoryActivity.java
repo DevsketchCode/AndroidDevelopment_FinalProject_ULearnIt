@@ -36,7 +36,7 @@ public class CategoryActivity extends AppCompatActivity{
     public static int mSelectedItemID = 0;
 
     // Member variable for translations
-    public List<TranslationModel> mTranslations;
+    public static List<TranslationModel> mTranslations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,36 +79,12 @@ public class CategoryActivity extends AppCompatActivity{
         // Set the Activity Title with the Category that was selected
         setTitle(mCategory);
 
-        // Get the translation List
-        //TranslationList translationListObject = new TranslationList();
-        //LinkedList<TranslationModel> translations = translationListObject.GetTranslations(category);
-
-        // Get the list from the database
-        DataManager dm = new DataManager();
-        List<TranslationModel> translations = dm.getTranslations();
-
-        // Only attach data if there is data
-        if (translations.size() > 0) {
-            // Create the RecyclerView and Connect the Adapter and Data
-            // Create list used to store the list of data
-            RecyclerView mRecyclerView = findViewById(R.id.categoryRecyclerView);
-
-            // Create the adapter and attach the data
-            TranslationAdapter mAdapter = new TranslationAdapter(this, translations);
-
-            // Connect the adapter to the RecyclerView
-            mRecyclerView.setAdapter(mAdapter);
-
-            // Give the RecyclerView a default Layout Manager
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        }
-
-
+        // Create an extended floating action button, an icon with text
         ExtendedFloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Open the Quiz activity with previously passed intent data
                 Intent quizIntent = new Intent(CategoryActivity.this, QuizActivity.class);
                 quizIntent.putExtras(bundle);
                 startActivity(quizIntent);
