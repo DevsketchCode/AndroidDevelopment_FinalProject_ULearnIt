@@ -17,7 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private DbHelper mDbHelper;
     // Initialize default category
     private static String mCategory = "";
+    private static String mFirstLanguage;
+    private static String mSecondLanguage;
     private static final String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
                 displayToast("Take Test");
             }
         });
+
+        // Initialize variables
+        mFirstLanguage = getString(R.string.first_language_text);
+        mSecondLanguage = getString(R.string.second_language_text);
 
         initializeDisplayContent();
     }
@@ -83,19 +90,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Category Variables
         String categoryName;
-        String categoryMessage = getString(R.string.category_message_learn);
+        String categoryMessage = mFirstLanguage + " - " + mSecondLanguage;
 
         // Determine which Category button was clicked
         switch (view.getId()) {
             case R.id.greetings_ImageBtn:
                 // Set Greetings Category
                 categoryName = getString(R.string.greetings_category_text);
-                categoryMessage = categoryMessage + categoryName;
+                categoryMessage = categoryMessage;
                 break;
             case R.id.numbers_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.numbers_category_text);
-                categoryMessage = categoryMessage + categoryName;
+                categoryMessage = categoryMessage;
                 break;
             case R.id.action_favorites:
                 // Set the Favorites Category

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">U Learn It</string>
     <string name="action_settings">Settings</string>
+    <string name="first_language_text">English</string>
+    <string name="second_language_text">Tagalog</string>
     <string name="title_categories">Choose Your Category</string>
     <string name="greetings_category_image">Greetings Image - Penguin Waving</string>
     <string name="greetings_category_text">Greetings</string>
@@ -17,7 +19,6 @@
     <string name="favorites_category_text">Favorites</string>
     <string name="default_category_name">No Category Selected</string>
     <string name="default_category_text">Please Go Back and Select a Category</string>
-    <string name="title_activity_deleteme">DELETEME</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -46,4 +47,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="fab_quiz_text">Quiz</string>
+    <string name="fab_text_test">Test</string>
 </resources>
