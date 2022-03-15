@@ -3,9 +3,7 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
@@ -18,8 +16,7 @@ import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
 public class DataManager {
 
     private static DataManager ourInstance = null;
-    private List<TranslationModel> mTranslations = new ArrayList<>();
-    private static final String TAG = "CategoryActivity";
+    private final List<TranslationModel> mTranslations = new ArrayList<>();
 
     public static DataManager getInstance() {
         if (ourInstance == null) {
@@ -88,7 +85,6 @@ public class DataManager {
 
         // Create an order by field for sorting
         String entryOrderBy = TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD;
-        Log.d(TAG, "Category test: " + category);
         // Where statement
         if(category.equals("Favorites")) {
             entryWhere = "favorite = ?";
@@ -106,14 +102,9 @@ public class DataManager {
         loadTranslationsFromDatabase(entryCursor);
     }
 
-    // Save the item to favorites from the Translation Adapter that passes a LayoutInflator
-    public void saveEntryToDatabase(int entryId, TranslationModel tEntry, LayoutInflater inflater) {
-        // Create selection criteria as constants
-        final String selection = DbContract.TranslationEntry._ID + " = ?";
-        final String[] selectionArgs = {Integer.toString(entryId)};
-
-        // Use a ContentValues object to put our information into.
-        final ContentValues values = new ContentValues();
+    public static ContentValues populateValues(TranslationModel tEntry) {
+        // Use a ContentValues object to put the information into
+        ContentValues values = new ContentValues();
 
         // fill all the values from the Translation Model Object
         // This will update both the favorites as well as if the translation was edited
@@ -124,7 +115,19 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD, tEntry.getSecondLanguageWord());
         values.put(TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
 
+        return values;
+    }
 
+    // Save the item to favorites from the Translation Adapter that passes a LayoutInflater
+    public void saveEntryFromAdapterToDatabase(int entryId, TranslationModel tEntry, LayoutInflater inflater) {
+        // Create selection criteria as constants
+        final String selection = DbContract.TranslationEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(entryId)};
+
+        // Use a ContentValues object to put the information into
+        final ContentValues values = populateValues(tEntry);
+
+        // Use AsyncTaskLoader to run the update process on a separate thread from main
         AsyncTaskLoader<String> task = new AsyncTaskLoader<String>(inflater.getContext()) {
             @Nullable
             @Override
@@ -138,12 +141,11 @@ public class DataManager {
                 db.update(TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
                 // Close the database
                 db.close();
-                Log.d(TAG, "What happened now?: " + values.get(TranslationEntry.COLUMN_FIRST_LANGUAGE_WORD));
                 return null;
             }
         };
 
+        // Update the db from the Adapter on a separate thread from main
         task.loadInBackground();
     }
-
 }

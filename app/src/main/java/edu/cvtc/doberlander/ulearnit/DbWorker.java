@@ -1,18 +1,18 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import org.w3c.dom.Node;
+import java.util.LinkedList;
 
 import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
 
-import java.util.LinkedList;
-
 public class DbWorker {
-    private static final String TAG = "MainActivity";
-    private SQLiteDatabase mDb;
+
+    private static final String TAG = "EntryModifierActivity";
+    private final SQLiteDatabase mDb;
 
     // Initialize the database attribute
     public DbWorker(SQLiteDatabase db) { mDb = db; }
@@ -73,7 +73,41 @@ public class DbWorker {
                     m.getFirstLanguageWord(),
                     m.getSecondLanguage(),
                     m.getSecondLanguageWord(),
-                    (int)m.getFavorite());
+                    m.getFavorite());
         }
+    }
+
+    public void UpdateOrDeleteEntries(int entryId, TranslationModel tEntry, Context context, String action) {
+        // Create selection criteria as constants
+        final String selection = DbContract.TranslationEntry._ID + " = ?";
+        final String[] selectionArgs = {Integer.toString(entryId)};
+
+
+        // Use a ContentValues object to put the information into
+        final ContentValues values = DataManager.populateValues(tEntry);
+
+        // Run update on a new thread, code method was found from
+        // https://developer.android.com/guide/components/processes-and-threads
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Get connection to the database. Use the writable method since we are changing the data.
+                // Get the activity context (example: CategoryActivity.this) and create the DbHelper with it
+                DbHelper dbHelper = new DbHelper(context);
+                // Assign the writable database to apply updates
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                // Run the potentially time consuming task
+                if(action.equalsIgnoreCase("update")) {
+                    // Update the selected entry
+                    db.update(TranslationEntry.TABLE_NAME, values, selection, selectionArgs);
+                } else if (action.equalsIgnoreCase("delete")) {
+                    // Delete the selected entry
+                    db.delete(TranslationEntry.TABLE_NAME,selection,selectionArgs);
+                }
+                // Close the database
+                db.close();
+            }
+        // Start the thread
+        }).start();
     }
 }

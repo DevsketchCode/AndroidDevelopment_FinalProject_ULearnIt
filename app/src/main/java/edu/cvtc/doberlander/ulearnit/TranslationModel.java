@@ -3,6 +3,8 @@ package edu.cvtc.doberlander.ulearnit;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class TranslationModel implements Parcelable {
     // Declare Variables
     private int mId;
@@ -18,12 +20,12 @@ public class TranslationModel implements Parcelable {
     }
 
     // Overloaded Constructors
-    public TranslationModel(String category, String firstLanguage, String firstLanguageWord, String secondLanguage, String secondLanguageWord, int favorite) {
+    public TranslationModel(String category, int favorite) {
         this.mCategory = category;
-        this.mFirstLanguage = firstLanguage;
-        this.mFirstLanguageWord = firstLanguageWord;
-        this.mSecondLanguage = secondLanguage;
-        this.mSecondLanguageWord = secondLanguageWord;
+        this.mFirstLanguage = "";
+        this.mFirstLanguageWord = "";
+        this.mSecondLanguage = "";
+        this.mSecondLanguageWord = "";
         this.mFavorite = favorite;
     }
 
@@ -99,10 +101,12 @@ public class TranslationModel implements Parcelable {
         return getCompareKey().equals((that.getCompareKey()));
     }
 
+    @NonNull
     @Override
     public String toString() { return getCompareKey(); }
 
     protected TranslationModel(Parcel parcel) {
+        setCategory(parcel.readString());
         setFirstLanguage(parcel.readString());
         setFirstLanguageWord(parcel.readString());
         setSecondLanguage(parcel.readString());
@@ -116,6 +120,7 @@ public class TranslationModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
+        parcel.writeString(mCategory);
         parcel.writeString(mFirstLanguage);
         parcel.writeString(mFirstLanguageWord);
         parcel.writeString(mSecondLanguage);

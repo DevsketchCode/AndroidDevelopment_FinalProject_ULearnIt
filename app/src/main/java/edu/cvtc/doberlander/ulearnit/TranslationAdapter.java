@@ -2,40 +2,27 @@ package edu.cvtc.doberlander.ulearnit;
 
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
 
-    private static final String TAG = "CategoryActivity";
-
     private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
 
     private int mPosition;
     private boolean mItemClicked = false;
-    private boolean mAddToFavorites = false;
 
 
     // Constructor initializes the translation list from the data
@@ -78,10 +65,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Get the current favorites value of that selected item
                 // Formatting of this setting can be found in the onBindViewHolder
                 if (element.getFavorite() == 1) {
-                    // The previous value was 1, so unfavorite it by setting to 0
+                    // The previous value was 1, so un-favorite it by setting to 0
                     element.setFavorite(0);
-                    // TODO: DELETE THIS COMMENT
-                    //element.setFirstLanguageWord("Good Afternoon"); THIS WORKS
                 } else {
                     // The previous value was 0, so favorite the item by setting it to one
                     element.setFavorite(1);
@@ -134,7 +119,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
 
             // Update the selected ID with the database ID for this record
-            mSelectedItemID = (int)mCurrentEntry.getId();
+            mSelectedItemID = mCurrentEntry.getId();
 
             // Get the CategoryActivity Menu
             Menu modifyMenu = CategoryActivity.mModifyMenu;
@@ -142,7 +127,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
             // Save the updated favorite item to the database
             DataManager dm = new DataManager();
-            dm.saveEntryToDatabase(mCurrentEntry.getId(), mCurrentEntry, mInflater);
+            dm.saveEntryFromAdapterToDatabase(mCurrentEntry.getId(), mCurrentEntry, mInflater);
 
             // Reset Item Clicked variable
             mItemClicked = false;

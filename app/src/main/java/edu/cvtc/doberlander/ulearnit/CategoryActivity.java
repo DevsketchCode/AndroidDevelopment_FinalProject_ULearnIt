@@ -1,10 +1,7 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,23 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import edu.cvtc.doberlander.ulearnit.databinding.ActivityCategoryBinding;
-import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 
 public class CategoryActivity extends AppCompatActivity{
 
@@ -43,7 +30,7 @@ public class CategoryActivity extends AppCompatActivity{
     private String mCategory;
 
     // Public variables
-    public static final int LAUNCH_ENTRYMODIFIERACTIVITY = 1;
+    public static final int LAUNCH_ENTRY_MODIFIER_ACTIVITY = 1;
     public static Menu mModifyMenu;
     public static TranslationModel mSelectedItem = null;
     public static int mSelectedItemID = 0;
@@ -59,7 +46,7 @@ public class CategoryActivity extends AppCompatActivity{
 
         // Instantiate variables
         mCategory = "";
-        String categoryMessage = "";
+        String categoryMessage;
 
         // Create DbHelper to get access to the database
         mDbHelper = new DbHelper(this);
@@ -90,7 +77,7 @@ public class CategoryActivity extends AppCompatActivity{
         }
 
         // Set the Activity Title with the Category that was selected
-        setTitle("Category: " + mCategory);
+        setTitle(mCategory);
 
         // Get the translation List
         //TranslationList translationListObject = new TranslationList();
@@ -118,7 +105,7 @@ public class CategoryActivity extends AppCompatActivity{
         }
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,17 +125,16 @@ public class CategoryActivity extends AppCompatActivity{
         return super.onPrepareOptionsMenu(menu);
     }
 
-    // Allow the menu to be accessed from the adapter
-    public Menu getMenu() {
-        return mModifyMenu;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_modify, menu);
-        // Set the edit item so that it can be visible when an item is highlighted.
-        return true;
+        // Only add modification menu if the category is not favorites
+        if(!mCategory.equals("Favorites")) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu_modify, menu);
+            // Set the edit item so that it can be visible when an item is highlighted.
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -161,33 +147,37 @@ public class CategoryActivity extends AppCompatActivity{
         Intent categoryIntent = new Intent(this, CategoryActivity.class);
         Intent modifierIntent = new Intent(this, EntryModifierActivity.class);
         Bundle modifierBundle = new Bundle();
-        String modifyType = "";
-        String category = "";
+        String modifyType;
+        String category;
 
+        // Determine which Intent combination to pass and activity to launch
         switch (item.getItemId()) {
             case R.id.action_newEntry:
                 // Bundle up the data
                 modifyType = getString(R.string.action_new);
                 modifierBundle.putString("category", mCategory);
+                modifierBundle.putString("message", getString(R.string.new_entry_modifier_message));
                 modifierBundle.putString("modifyType", modifyType);
                 // Put the bundle in an intent
                 modifierIntent.putExtras(modifierBundle);
                 // Start the activity and pass the bundled intent, expecting success result
-                startActivityForResult(modifierIntent,LAUNCH_ENTRYMODIFIERACTIVITY);
+                startActivityForResult(modifierIntent,LAUNCH_ENTRY_MODIFIER_ACTIVITY);
                 return true;
             case R.id.action_editEntry:
                 // Bundle up the data
                 modifyType = getString(R.string.action_edit);
                 modifierBundle.putInt("selectedId", mSelectedItemID);
                 modifierBundle.putString("category", mCategory);
+                modifierBundle.putString("message", getString(R.string.edit_entry_modifier_message));
                 modifierBundle.putString("modifyType", modifyType);
                 modifierBundle.putParcelable("SelectedItem", mSelectedItem);
                 // Put the bundle in an intent
                 modifierIntent.putExtras(modifierBundle);
                 // Start the activity and pass the bundled intent, expecting success result
-                startActivityForResult(modifierIntent,LAUNCH_ENTRYMODIFIERACTIVITY);
+                startActivityForResult(modifierIntent,LAUNCH_ENTRY_MODIFIER_ACTIVITY);
                 return true;
             case R.id.action_favorites:
+                // Favorites are separate so the category is set manually here
                 category = getString(R.string.action_favorites);
                 categoryIntent.putExtra(EXTRA_MESSAGE, category);
                 startActivity(categoryIntent);
@@ -204,7 +194,7 @@ public class CategoryActivity extends AppCompatActivity{
         DataManager.loadFromDatabase(mDbHelper, mCategory);
 
         // Set a reference to the translations of the items layout
-        mRecyclerItems = (RecyclerView) findViewById(R.id.categoryRecyclerView);
+        mRecyclerItems = findViewById(R.id.categoryRecyclerView);
         mTranslationsLayoutManager = new LinearLayoutManager(this);
 
         // Get the translations and save it to the global variable
@@ -228,7 +218,7 @@ public class CategoryActivity extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
 
         // If came from the EntryModifierActivity then update the page
-        if (requestCode == LAUNCH_ENTRYMODIFIERACTIVITY) {
+        if (requestCode == LAUNCH_ENTRY_MODIFIER_ACTIVITY) {
             if(resultCode == Activity.RESULT_OK) {
                 // Update data from the database and update the recycler
                 initializeDisplayContent();

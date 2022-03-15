@@ -6,25 +6,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/abstract_background"
+    android:backgroundTint="#CCA0D3FA"
+    android:backgroundTintMode="screen"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".CategoryActivity">
 
     <!-- Quiz icon source is from -->
     <!-- https://icons8.com/icon/56576/quiz, icon by Icons8 -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#3F51B5"
         android:contentDescription="@string/fab_quiz"
+        android:paddingStart="23dp"
+        android:paddingEnd="20dp"
+        android:text="@string/fab_quiz_text"
+        android:textColor="@color/white"
         app:backgroundTint="#2C3981"
+        app:icon="@drawable/ic_quiz"
+        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_quiz"
         app:tint="@color/white" />
+    <!--app:srcCompat="@drawable/ic_quiz"-->
 
     <LinearLayout
         android:id="@+id/category_Heading_LinearLayout"
@@ -35,13 +43,7 @@
 
         <TextView
             android:id="@+id/categoryHeaderText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:textAlignment="center"
-            android:textColor="#F7FCFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            style="@style/header_message_text" />
 
     </LinearLayout>
 
@@ -49,9 +51,18 @@
         android:id="@+id/categoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CCA0D3FA"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="16dp"
+        android:isScrollContainer="true"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="6dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbarThumbVertical="@color/purple_500"
+        android:scrollbars="vertical"
+        android:verticalScrollbarPosition="defaultPosition"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_Heading_LinearLayout">

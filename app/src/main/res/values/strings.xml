@@ -41,4 +41,9 @@
     <string name="btn_delete_text">Delete</string>
     <string name="action_new">New</string>
     <string name="action_edit">Edit</string>
+    <string name="new_entry_modifier_message">Enter a New Translation Entry</string>
+    <string name="edit_entry_modifier_message">Update the Translation Entry</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="fab_quiz_text">Quiz</string>
 </resources>

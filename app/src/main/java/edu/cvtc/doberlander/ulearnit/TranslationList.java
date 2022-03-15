@@ -1,13 +1,8 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import android.util.Log;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class TranslationList {
-    private static final String TAG = "CategoryActivity";
 
     // PreDefined Translation Lists
     // The lists are used when filling a new database with the preset translations
@@ -21,7 +16,7 @@ public class TranslationList {
     public static final LinkedList<TranslationModel> Favorites_List = new LinkedList<>();
 
     // Create the Translation list of translation objects
-    private LinkedList<TranslationModel> translationList = new LinkedList<>();
+    private final LinkedList<TranslationModel> translationList = new LinkedList<>();
 
     // Greetings List
     public LinkedList<TranslationModel> GetTranslations(String category) {

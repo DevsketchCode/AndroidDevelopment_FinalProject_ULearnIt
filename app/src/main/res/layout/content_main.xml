@@ -15,14 +15,8 @@
 
         <TextView
             android:id="@+id/categories_TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="@string/title_categories"
-            android:textAlignment="center"
-            android:textColor="#F7FCFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            style="@style/header_message_text"
+            android:text="@string/title_categories" />
     </LinearLayout>
 
     <!-- Penguin Waving image resource link -->
