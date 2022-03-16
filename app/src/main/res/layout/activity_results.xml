@@ -46,7 +46,7 @@
         android:background="@color/darker_shaded_grey"
         android:elegantTextHeight="false"
         android:fontFamily="sans-serif"
-        android:text="Your Grade Is: "
+        android:text="@string/results_your_grade_is"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="48sp"

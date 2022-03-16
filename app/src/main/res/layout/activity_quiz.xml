@@ -89,7 +89,8 @@
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_QuestionCard" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_QuestionCard"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btn_AnswerOption2"
@@ -97,7 +98,8 @@
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption1" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption1"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btn_AnswerOption3"
@@ -105,7 +107,8 @@
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption2" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption2"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btn_AnswerOption4"
@@ -114,5 +117,6 @@
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption3" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption3"
+        tools:ignore="SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
