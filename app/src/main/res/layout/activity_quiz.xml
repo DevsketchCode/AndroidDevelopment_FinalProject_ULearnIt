@@ -11,10 +11,10 @@
 
     <LinearLayout
         android:id="@+id/quiz_Heading_LinearLayout"
+        style="@style/style_Heading_LinearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/style_Heading_LinearLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/quizHeaderText"
@@ -36,52 +36,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quiz_Heading_LinearLayout">
 
-        <TextView
-            android:id="@+id/quiz_QuestionText"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_QuestionNumbers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8403F4"
+                android:elevation="6dp"
+                android:paddingVertical="5dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/quiz_QuestionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_QuestionNumbers"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView_QuestionNumbers" />
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/btn_AnswerOption1"
+        style="@style/quiz_option_buttons"
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_QuestionCard"
-        style="@style/quiz_option_buttons" />
+        app:layout_constraintTop_toBottomOf="@+id/quiz_QuestionCard" />
 
     <Button
         android:id="@+id/btn_AnswerOption2"
+        style="@style/quiz_option_buttons"
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption1"
-        style="@style/quiz_option_buttons" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption1" />
 
     <Button
         android:id="@+id/btn_AnswerOption3"
+        style="@style/quiz_option_buttons"
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption2"
-        style="@style/quiz_option_buttons" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption2" />
 
     <Button
         android:id="@+id/btn_AnswerOption4"
+        style="@style/quiz_option_buttons"
         android:layout_marginTop="25dp"
         android:onClick="checkAnswer"
         app:layout_constraintEnd_toEndOf="@+id/quiz_QuestionCard"
         app:layout_constraintStart_toStartOf="@+id/quiz_QuestionCard"
-        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption3"
-        style="@style/quiz_option_buttons" />
+        app:layout_constraintTop_toBottomOf="@id/btn_AnswerOption3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

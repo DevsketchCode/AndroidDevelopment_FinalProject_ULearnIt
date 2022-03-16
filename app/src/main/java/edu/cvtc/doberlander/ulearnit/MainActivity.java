@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayToast("Take Test");
+                displayToast("Tests are not available at this time");
             }
         });
 

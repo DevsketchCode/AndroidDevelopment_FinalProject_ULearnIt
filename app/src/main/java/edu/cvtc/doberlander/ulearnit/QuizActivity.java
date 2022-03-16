@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,14 +22,31 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class QuizActivity extends AppCompatActivity {
 
+    // Constants
+    private final static int MAX_QUIZ_SIZE = 10;
+
     // Keep track of items already used in a question
-    private ArrayList<Integer> questionsAsked = new ArrayList<>();
+    private ArrayList<Integer> mQuestionsAsked = new ArrayList<>();
+    // Keep track of index
+    private int mIndex = 0;
+
+    // Member variables for populating the quiz on each click
+    List<TranslationModel> mQuizTranslations;
+    TextView mQuiz_Question;
+    ArrayList<Button> mOptions;
+    Button mCorrectAnswerOptionButton;
+    ArrayList<String> mQuizAnswersPopulated;
 
     // Store correct answer
-    private String correctAnswer;
+    private String mCorrectAnswer;
+
+    // Store the quizResults
+    private int mCorrectAnswers = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +72,8 @@ public class QuizActivity extends AppCompatActivity {
             categoryMessage = bundle.getString("category_message");
 
             // Set category header TextView
-            TextView textView = findViewById(R.id.quizHeaderText);
-            textView.setText(categoryMessage);
+            TextView quizHeaderText = findViewById(R.id.quizHeaderText);
+            quizHeaderText.setText(categoryMessage);
         }
 
         // Check to see if the bundle was not used to populate the category
@@ -71,75 +90,41 @@ public class QuizActivity extends AppCompatActivity {
         setTitle("Category: " + category);
 
         // Get the translation List from the database via Data Manager
-        List<TranslationModel> translations = CategoryActivity.mTranslations;
+        mQuizTranslations = CategoryActivity.mTranslations;
 
-        displayToast(String.valueOf(translations.size()));
         // Only populate the quiz if there are enough items in the list for a quiz
-        if(translations.size() > 3) {
+        if(mQuizTranslations.size() > 3) {
 
             // Randomize Translations List
-            Collections.shuffle(translations);
-
-            // Get random item from array
-            int index = (int) (Math.random() * translations.size());
-
-            // TODO: Extract these questions to a function that can be ran every time an answer has clicked
-            // TODO: Also add a class level variable to keep track of correct answers and total questions asked
-            // TODO: Perhaps set a limit to how many questions are asked, consider max (if less than 10), else 10;
-            // TODO: Quiz now shows entries from the database. Need to implement next question on answer click,
-            // TODO: but only after waiting changing the color of the buttons, and waiting a couple seconds.
-            // Add Index to Keep track of questions already asked in the quiz
-            questionsAsked.add(index);
+            Collections.shuffle(mQuizTranslations);
 
             // Get Quiz Views
-            TextView quiz_Question = findViewById(R.id.quiz_QuestionText);
+            mQuiz_Question = findViewById(R.id.quiz_QuestionText);
             Button quiz_Option1 = findViewById(R.id.btn_AnswerOption1);
             Button quiz_Option2 = findViewById(R.id.btn_AnswerOption2);
             Button quiz_Option3 = findViewById(R.id.btn_AnswerOption3);
             Button quiz_Option4 = findViewById(R.id.btn_AnswerOption4);
 
             // Add the options to an Array so they can be looped through for random entries
-            ArrayList<Button> options = new ArrayList<>();
-            options.add(quiz_Option1);
-            options.add(quiz_Option2);
-            options.add(quiz_Option3);
-            options.add(quiz_Option4);
+            mOptions = new ArrayList<>();
+            mOptions.add(quiz_Option1);
+            mOptions.add(quiz_Option2);
+            mOptions.add(quiz_Option3);
+            mOptions.add(quiz_Option4);
 
-            ArrayList<String> quizAnswersPopulated = new ArrayList<>();
+            mQuizAnswersPopulated = new ArrayList<>();
+
+            // Set buttons to reset color for consistency
+            resetButtonFormatting();
+
+            // Populate the quiz
+            populateQuiz();
+
+            // OnButton Click is build into the Layout to go to CheckAnswer
+            // TODO: Build a Wait Timer on last click, to wait before it displays the results
+            // That they will be able to see what the correct answer was.
 
 
-            // Populate the quiz Question
-            quiz_Question.setText(translations.get(index).getFirstLanguageWord());
-
-            // Get the correct answer
-            correctAnswer = translations.get(index).getSecondLanguageWord();
-
-            // Determine which Option will include the correct answer.
-            Random random = new Random();
-            int randomOptionForCorrectAnswer = random.nextInt(3);
-
-            options.get(randomOptionForCorrectAnswer).setText(correctAnswer);
-            // Add correct answer to the populated answers list
-            quizAnswersPopulated.add(correctAnswer);
-
-            String test = "";
-            displayToast(correctAnswer);
-
-            // Variable to adjust the entry if there is a duplicate correct answer in the list
-            int entry = 0;
-            // Fill in the rest of the options
-            for (int i = 0; i < options.size(); i++) {
-                if (i != randomOptionForCorrectAnswer) {
-
-                    // Increment to next in list if the option is already the correct answer
-                    if (translations.get(entry).getSecondLanguageWord() == correctAnswer) {
-                        entry++;
-                    }
-                    // Populate the button text
-                    options.get(i).setText(translations.get(entry).getSecondLanguageWord());
-                    entry++;
-                }
-            }
         } else {
             displayToast("You must have at least 4 items in the list for a quiz.");
             finish();
@@ -161,14 +146,81 @@ public class QuizActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
+    private void populateQuiz() {
+        // Get random item from array for the Quiz Question
+        // Keep randomizing the index until there is one that is not already in the list
+        do {
+            // Randomize the index to determine the next quiz question
+            mIndex = (int) (Math.random() * mQuizTranslations.size());
+        } while (mQuestionsAsked.contains(mIndex));
+
+        // Add Index to Keep track of questions already asked in the quiz
+        mQuestionsAsked.add(mIndex);
+
+        // Populate the quiz question number text
+        TextView textView_QuestionNumbers = findViewById(R.id.textView_QuestionNumbers);
+
+        int quizSize = 4;
+        if(mQuizTranslations.size() > MAX_QUIZ_SIZE) {
+            // Limit the quiz to the Max Size
+            quizSize = MAX_QUIZ_SIZE;
+        } else if (mQuizTranslations.size() > 3){
+            // Use all the entries in the quiz, since it is less than 10
+            // This must be greater than 4
+            quizSize = (int) mQuizTranslations.size();
+        } else {
+            // If it gets this far, quizes are not allowed with items less than 4
+            displayToast("The category must have at least 4 items in it for a quiz");
+            return;
+        }
+        // Display what question you are on of how many questions there are total
+        textView_QuestionNumbers.setText(mQuestionsAsked.size() + " of " + quizSize);
+
+        // Populate the quiz Question
+        mQuiz_Question.setText(mQuizTranslations.get(mIndex).getFirstLanguageWord());
+
+        // Get the correct answer
+        mCorrectAnswer = mQuizTranslations.get(mIndex).getSecondLanguageWord();
+
+        // Determine which Option will include the correct answer.
+        Random random = new Random();
+        int randomOptionForCorrectAnswer = random.nextInt(3);
+
+        mCorrectAnswerOptionButton = mOptions.get(randomOptionForCorrectAnswer);
+        mCorrectAnswerOptionButton.setText(mCorrectAnswer);
+        // Add correct answer to the populated answers list
+        mQuizAnswersPopulated.add(mCorrectAnswer);
+
+        String test = "";
+
+        // Variable to adjust the entry if there is a duplicate correct answer in the list
+        int entry = 0;
+        // Fill in the rest of the options
+        for (int i = 0; i < mOptions.size(); i++) {
+            if (i != randomOptionForCorrectAnswer) {
+
+                // Increment to next in list if the option is already the correct answer
+                if (mQuizTranslations.get(entry).getSecondLanguageWord() == mCorrectAnswer) {
+                    entry++;
+                }
+                // Populate the button text
+                mOptions.get(i).setText(mQuizTranslations.get(entry).getSecondLanguageWord());
+                entry++;
+            }
+        }
+    }
+
     public void checkAnswer(View view) {
         Button b = (Button)view;
         String buttonText = b.getText().toString();
-        if(buttonText.equals(correctAnswer)) {
-            displayToast("Great Job");
-        } else {
-            displayToast("Sorry, Wrong Answer!");
 
+        formatButtonsOnGuess();
+
+        // Determine if the answer was correct and score accordingly
+        if(buttonText.equals(mCorrectAnswer)) {
+            // Increment the correct answers variable
+            mCorrectAnswers++;
+        } else {
             // Make the button shake if the answer was wrong
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
 
@@ -177,5 +229,58 @@ public class QuizActivity extends AppCompatActivity {
             b.clearAnimation();
             b.startAnimation(animation);
         }
+
+        // Create a handler to delay the next actions before populating the next question
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                resetButtonFormatting();
+
+                // Only populate if the Quiz is within the designated size parameters
+                if (mQuestionsAsked.size() < mQuizTranslations.size()) {
+                    // Increment to next question
+                    mIndex++;
+                    // Populate the next question
+                    populateQuiz();
+                } else {
+                    // Set up the intent to be sent to the ResultsActivity
+                    Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("correctAnswers", mCorrectAnswers);
+                    bundle.putInt("totalQuestions", mQuestionsAsked.size());
+                    intent.putExtras(bundle);
+                    // Start the results Activity with the bundled intent
+                    startActivity(intent);
+                    // close quiz activity so the results page goes back to the categories instead of this activity
+                    finish();
+                }
+            } // Delay in milliseconds
+        }, 1000);
     }
+
+    private void formatButtonsOnGuess() {
+        // Iterate through the option buttons
+        for (Button button : mOptions) {
+            if(button != mCorrectAnswerOptionButton) {
+                // if the option button was incorrect, turn it red
+                button.setBackgroundColor(Color.RED);
+                // disable the buttons until they are reset on the next questions
+                button.setEnabled(false);
+            } else {
+                // if the option button was correct, turn it green
+                mCorrectAnswerOptionButton.setBackgroundColor(Color.GREEN);
+            }
+        }
+    }
+
+    private void resetButtonFormatting() {
+        // Iterate through the option buttons and reset the color
+        for (Button button : mOptions) {
+            button.setBackgroundColor(Color.parseColor("#FF6200EE"));
+            // re-enable the buttons
+            button.setEnabled(true);
+        }
+    }
+
 }
