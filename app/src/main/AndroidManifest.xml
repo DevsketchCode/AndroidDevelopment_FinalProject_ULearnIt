@@ -2,19 +2,32 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cvtc.doberlander.ulearnit">
 
+    <!-- Penguin Logo -->
+    <!-- https://openclipart.org/detail/221475/sleuth-penguin -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_ulearnit_logo_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:parentActivityName=".CategoryActivity">
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CategoryActivity" />
+        </activity>
         <!-- windowSoftInputMode is set to allow for the page to scroll when the keyboard is up -->
         <activity
             android:name=".EntryModifierActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
-            android:windowSoftInputMode="stateHidden|adjustPan"
-            android:parentActivityName=".CategoryActivity">
+            android:parentActivityName=".CategoryActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
@@ -23,6 +36,7 @@
         </activity>
         <activity
             android:name=".ResultsActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".CategoryActivity">
 
@@ -33,6 +47,7 @@
         </activity>
         <activity
             android:name=".QuizActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".CategoryActivity">
 
@@ -43,6 +58,7 @@
         </activity>
         <activity
             android:name=".CategoryActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="Category"
             android:parentActivityName=".MainActivity">
@@ -54,6 +70,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ULearnIt.NoActionBar">

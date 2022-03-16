@@ -66,6 +66,19 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/textView_QuestionNumbers" />
+
+            <ImageView
+                android:id="@+id/question_ResponseImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textView_QuestionNumbers"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:contentDescription="@string/question_response_image_content_desc"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_correct"
+                app:tint="@color/correct" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

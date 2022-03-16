@@ -121,9 +121,13 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Update the selected ID with the database ID for this record
             mSelectedItemID = mCurrentEntry.getId();
 
-            // Get the CategoryActivity Menu
-            Menu modifyMenu = CategoryActivity.mModifyMenu;
-            modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
+            // Only run when using the Category Activity and the category is NOT favorites
+            if(!mCurrentEntry.getCategory().equals("Favorites")) {
+                // Get the CategoryActivity ModifyMenu
+                Menu modifyMenu = CategoryActivity.mModifyMenu;
+                // Display the edit option when entry is selected
+                modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
+            }
 
             // Save the updated favorite item to the database
             DataManager dm = new DataManager();

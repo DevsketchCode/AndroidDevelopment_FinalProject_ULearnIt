@@ -12,6 +12,12 @@ public class TranslationList {
     private static final String[] English_Numbers = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"};
     private static final String[] Tagalog_Numbers = {"Isa", "Dalawa", "Tatlo", "Apat", "Lima", "Anim", "Pito", "Walo", "Siyam", "Sampu"};
 
+    private static final String[] English_Food = {"Eat", "Food", "Rice", "Hungry", "Fish", "Chicken", "Pork"};
+    private static final String[] Tagalog_Food = {"Kumain", "Pagkain", "Kanin", "Gutom", "Isda", "Manok", "Baboy"};
+
+    private static final String[] English_People = {"Family", "Mother", "Father", "Brother", "Sister", "Friend"};
+    private static final String[] Tagalog_People = {"Pamilya", "Nanay", "Tatay", "Kuya", "Ate", "Kaibigan"};
+
     // Create public variable that is used to add translation objects as favorites - MUST BE STATIC
     public static final LinkedList<TranslationModel> Favorites_List = new LinkedList<>();
 
@@ -38,6 +44,14 @@ public class TranslationList {
             case "Numbers":
                 firstLangWords = English_Numbers;
                 secondLangWords = Tagalog_Numbers;
+                break;
+            case "Food":
+                firstLangWords = English_Food;
+                secondLangWords = Tagalog_Food;
+                break;
+            case "People":
+                firstLangWords = English_People;
+                secondLangWords = Tagalog_People;
                 break;
             case "Favorites":
                 // Populate the list with the selected favorites

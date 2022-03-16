@@ -40,6 +40,27 @@
         app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
         app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
 
+    <!-- Polar Bear image resource link -->
+    <!-- https://openclipart.org/detail/169961/cartoon-polar-bear -->
+    <ImageButton
+        android:id="@+id/people_ImageBtn"
+        style="@style/category_button_image"
+        android:layout_marginStart="24dp"
+        android:backgroundTint="#A43AB7"
+        android:contentDescription="@string/people_category_image"
+        android:onClick="launchCategoryActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/greetings_ImageBtn"
+        app:srcCompat="@drawable/ic_people_owl_family" />
+
+    <TextView
+        android:id="@+id/people_TextView"
+        style="@style/category_button_text"
+        android:text="@string/people_category_text"
+        app:layout_constraintBottom_toBottomOf="@+id/people_ImageBtn"
+        app:layout_constraintEnd_toEndOf="@+id/people_ImageBtn"
+        app:layout_constraintStart_toStartOf="@+id/people_ImageBtn" />
+
     <!-- Snake Number One image resource link -->
     <!-- https://publicdomainvectors.org/en/free-clipart/Snake-number-one-vector-clip-art/30666.html -->
     <ImageButton
@@ -60,5 +81,26 @@
         app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
         app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
         app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
+
+    <!-- Owl Family One image resource link -->
+    <!-- https://publicdomainvectors.org/en/free-clipart/Happy-family-of-owls-vector-illustration/33749.html -->
+    <ImageButton
+        android:id="@+id/food_ImageBtn"
+        style="@style/category_button_image"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#3FB5AB"
+        android:contentDescription="@string/food_category_image"
+        android:onClick="launchCategoryActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numbers_ImageBtn"
+        app:srcCompat="@drawable/ic_bear_with_food" />
+
+    <TextView
+        android:id="@+id/food_TextView"
+        style="@style/category_button_text"
+        android:text="@string/food_category_text"
+        app:layout_constraintBottom_toBottomOf="@+id/food_ImageBtn"
+        app:layout_constraintEnd_toEndOf="@+id/food_ImageBtn"
+        app:layout_constraintStart_toStartOf="@+id/food_ImageBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

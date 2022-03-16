@@ -3,22 +3,27 @@ package edu.cvtc.doberlander.ulearnit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -30,10 +35,14 @@ public class QuizActivity extends AppCompatActivity {
     // Constants
     private final static int MAX_QUIZ_SIZE = 10;
 
+    private final static String TAG = "QuizActivity";
+
     // Keep track of items already used in a question
     private ArrayList<Integer> mQuestionsAsked = new ArrayList<>();
     // Keep track of index
     private int mIndex = 0;
+    // Instantiate the quiz size with the lowest possible size
+    private int mQuizSize = 4;
 
     // Member variables for populating the quiz on each click
     List<TranslationModel> mQuizTranslations;
@@ -120,11 +129,6 @@ public class QuizActivity extends AppCompatActivity {
             // Populate the quiz
             populateQuiz();
 
-            // OnButton Click is build into the Layout to go to CheckAnswer
-            // TODO: Build a Wait Timer on last click, to wait before it displays the results
-            // That they will be able to see what the correct answer was.
-
-
         } else {
             displayToast("You must have at least 4 items in the list for a quiz.");
             finish();
@@ -134,6 +138,9 @@ public class QuizActivity extends AppCompatActivity {
     // Event that is enabled when pressing the back button in the ActionBar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Sort the translations alphabetically before returning
+        mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageWord));
+        // Return back to the previous activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
@@ -160,21 +167,21 @@ public class QuizActivity extends AppCompatActivity {
         // Populate the quiz question number text
         TextView textView_QuestionNumbers = findViewById(R.id.textView_QuestionNumbers);
 
-        int quizSize = 4;
+        // Determine the size limits of the quiz depending on the translation list size
         if(mQuizTranslations.size() > MAX_QUIZ_SIZE) {
             // Limit the quiz to the Max Size
-            quizSize = MAX_QUIZ_SIZE;
+            mQuizSize = MAX_QUIZ_SIZE;
         } else if (mQuizTranslations.size() > 3){
             // Use all the entries in the quiz, since it is less than 10
             // This must be greater than 4
-            quizSize = (int) mQuizTranslations.size();
+            mQuizSize = (int) mQuizTranslations.size();
         } else {
-            // If it gets this far, quizes are not allowed with items less than 4
+            // If it gets this far, quizzes are not allowed with items less than 4
             displayToast("The category must have at least 4 items in it for a quiz");
             return;
         }
         // Display what question you are on of how many questions there are total
-        textView_QuestionNumbers.setText(mQuestionsAsked.size() + " of " + quizSize);
+        textView_QuestionNumbers.setText(mQuestionsAsked.size() + " of " + mQuizSize);
 
         // Populate the quiz Question
         mQuiz_Question.setText(mQuizTranslations.get(mIndex).getFirstLanguageWord());
@@ -184,28 +191,34 @@ public class QuizActivity extends AppCompatActivity {
 
         // Determine which Option will include the correct answer.
         Random random = new Random();
-        int randomOptionForCorrectAnswer = random.nextInt(3);
+        int randomOptionForCorrectAnswer = random.nextInt(4);
 
+        // Get the option button that matches the randomNumber that generated.
         mCorrectAnswerOptionButton = mOptions.get(randomOptionForCorrectAnswer);
         mCorrectAnswerOptionButton.setText(mCorrectAnswer);
         // Add correct answer to the populated answers list
         mQuizAnswersPopulated.add(mCorrectAnswer);
-
-        String test = "";
 
         // Variable to adjust the entry if there is a duplicate correct answer in the list
         int entry = 0;
         // Fill in the rest of the options
         for (int i = 0; i < mOptions.size(); i++) {
             if (i != randomOptionForCorrectAnswer) {
-
                 // Increment to next in list if the option is already the correct answer
-                if (mQuizTranslations.get(entry).getSecondLanguageWord() == mCorrectAnswer) {
+                if (mQuizTranslations.get(entry).getSecondLanguageWord().equals(mCorrectAnswer)) {
+                    // If next entry is (4), then reset to 0 (if entry > 3, then reset to 0)
                     entry++;
+                    if(entry == mOptions.size()) {
+                        entry = 0;
+                    }
                 }
                 // Populate the button text
                 mOptions.get(i).setText(mQuizTranslations.get(entry).getSecondLanguageWord());
+                // If next entry is (4), then reset to 0 (if entry > 3, then reset to 0)
                 entry++;
+                if(entry == mOptions.size()) {
+                    entry = 0;
+                }
             }
         }
     }
@@ -215,12 +228,31 @@ public class QuizActivity extends AppCompatActivity {
         String buttonText = b.getText().toString();
 
         formatButtonsOnGuess();
+        // Get ImageView to show an X or Checkmark depending on if the user got the answer right or wrong
+        ImageView answerResponseImageView = findViewById(R.id.question_ResponseImageView);
 
         // Determine if the answer was correct and score accordingly
         if(buttonText.equals(mCorrectAnswer)) {
+            // ANSWER IS CORRECT
             // Increment the correct answers variable
             mCorrectAnswers++;
+
+            // Display an Check Mark over the question
+            answerResponseImageView.setImageResource(R.drawable.ic_correct);
+            // Change the color of the image
+            answerResponseImageView.setColorFilter(ContextCompat.getColor(this, R.color.correct));
+            // Display the response image
+            answerResponseImageView.setVisibility(View.VISIBLE);
+
         } else {
+            // ANSWER IS INCORRECT
+            // Display an X over the question
+            answerResponseImageView.setImageResource(R.drawable.ic_incorrect);
+            // Change the color of the image
+            answerResponseImageView.setColorFilter(ContextCompat.getColor(this, R.color.incorrect));
+            // Display the response image
+            answerResponseImageView.setVisibility(View.VISIBLE);
+
             // Make the button shake if the answer was wrong
             Animation animation = AnimationUtils.loadAnimation(this, R.anim.shake);
 
@@ -238,12 +270,17 @@ public class QuizActivity extends AppCompatActivity {
                 resetButtonFormatting();
 
                 // Only populate if the Quiz is within the designated size parameters
-                if (mQuestionsAsked.size() < mQuizTranslations.size()) {
+                if (mQuestionsAsked.size() < mQuizSize) {
                     // Increment to next question
                     mIndex++;
                     // Populate the next question
                     populateQuiz();
                 } else {
+                    // Sort the translations list back to it's alphabetical order
+                    // This is used to display the list appropriately when going back to the Category Activity,
+                    // After the ResultsActivity
+                    mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageWord));
+
                     // Set up the intent to be sent to the ResultsActivity
                     Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);
                     Bundle bundle = new Bundle();
@@ -265,12 +302,12 @@ public class QuizActivity extends AppCompatActivity {
             if(button != mCorrectAnswerOptionButton) {
                 // if the option button was incorrect, turn it red
                 button.setBackgroundColor(Color.RED);
-                // disable the buttons until they are reset on the next questions
-                button.setEnabled(false);
             } else {
                 // if the option button was correct, turn it green
                 mCorrectAnswerOptionButton.setBackgroundColor(Color.GREEN);
             }
+            // disable the buttons until they are reset on the next questions
+            button.setEnabled(false);
         }
     }
 
@@ -281,6 +318,11 @@ public class QuizActivity extends AppCompatActivity {
             // re-enable the buttons
             button.setEnabled(true);
         }
+
+        // Get ImageView to show an X or Checkmark depending on if the user got the answer right or wrong
+        ImageView answerResponseImageView = findViewById(R.id.question_ResponseImageView);
+        // hide the imageView
+        answerResponseImageView.setVisibility(View.GONE);
     }
 
 }

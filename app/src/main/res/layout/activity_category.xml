@@ -32,7 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
-    <!--app:srcCompat="@drawable/ic_quiz"-->
 
     <LinearLayout
         android:id="@+id/category_Heading_LinearLayout"

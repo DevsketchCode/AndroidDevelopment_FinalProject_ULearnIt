@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                displayToast("Tests are not available at this time");
+                displayToast(getString(R.string.test_not_available));
             }
         });
 
@@ -68,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.action_favorites:
-                Intent intent = new Intent(this, CategoryActivity.class);
+                // Run the CategoryActivity, passing the Favorites Category
+                Intent favoritesIntent = new Intent(this, CategoryActivity.class);
                 String category = getString(R.string.action_favorites);
-                intent.putExtra(EXTRA_MESSAGE, category);
-                startActivity(intent);
+                favoritesIntent.putExtra(EXTRA_MESSAGE, category);
+                startActivity(favoritesIntent);
                 return true;
-            case R.id.action_contact:
-                displayToast(getString(R.string.action_contact_message));
+            case R.id.action_about:
+                // Run the AboutActivity
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
                 return true;
             default:
                 // Do Nothing
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Category Variables
         String categoryName;
-        String categoryMessage = mFirstLanguage + " - " + mSecondLanguage;
+        String categoryMessage = getString(R.string.category_message_learn);
 
         // Determine which Category button was clicked
         switch (view.getId()) {
@@ -102,6 +105,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.numbers_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.numbers_category_text);
+                categoryMessage = categoryMessage;
+                break;
+            case R.id.people_ImageBtn:
+                // Set Numbers Category
+                categoryName = getString(R.string.people_category_text);
+                categoryMessage = categoryMessage;
+                break;
+            case R.id.food_ImageBtn:
+                // Set Numbers Category
+                categoryName = getString(R.string.food_category_text);
                 categoryMessage = categoryMessage;
                 break;
             case R.id.action_favorites:

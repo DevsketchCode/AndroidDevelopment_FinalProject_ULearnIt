@@ -8,25 +8,20 @@
     <string name="greetings_category_text">Greetings</string>
     <string name="numbers_category_image">Numbers Category - Snake in shape of Number 1</string>
     <string name="numbers_category_text">Numbers</string>
+    <string name="food_category_image">Food Image - Polar Bear with Fish</string>
+    <string name="food_category_text">Food</string>
+    <string name="people_category_image">People Image - Owl Family</string>
+    <string name="people_category_text">People</string>
 
     <!-- Menu Options -->
-    <string name="action_contact">Contact</string>
+    <string name="action_about">About</string>
     <string name="action_favorites">Favorites</string>
-    <string name="action_contact_message">You selected Contact.</string>
-    <string name="action_favorites_message">You selected Favorites.</string>
-    <string name="category_message_learn">Learn the\ </string>
+    <string name="category_message_learn">Learn the Words or Phrases</string>
     <string name="floating_button_content_desc">Floating Button for Taking The Test</string>
     <string name="favorites_category_text">Favorites</string>
     <string name="default_category_name">No Category Selected</string>
     <string name="default_category_text">Please Go Back and Select a Category</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="fab_quiz">Take the Quiz</string>
     <string name="entry_first_language_text">First Language:</string>
     <string name="entry_first_language_edit_hint">Place the first language here</string>
@@ -48,4 +43,13 @@
     <string name="cancel">Cancel</string>
     <string name="fab_quiz_text">Quiz</string>
     <string name="fab_text_test">Test</string>
+    <string name="question_response_image_content_desc">Question Response Image</string>
+    <string name="developed_by_text">Developed by David Oberlander</string>
+    <string name="code_name_text">a.k.a. DevSketch.Code</string>
+    <string name="version_number_text">v 1.0.0</string>
+    <string name="about_text_paragraph_one">I am an Application Developer that designed this app in college for a final assignment.</string>
+    <string name="about_text_paragraph_two">This is the first android app I created with Java, and I was inspired to create this app through my love of learning new languages. This app is designed to start you off with a few basics, but allows you to add your own entries as you grow to learn new words and phrases. Images used are CC Public Domain images from openclipart.org</string>
+    <string name="about_text_paragraph_three">Thank you for checking out my app. I hope it helps you in your journey.</string>
+    <string name="test_not_available">Tests are not available at this time</string>
+    <string name="about">About</string>
 </resources>

@@ -24,6 +24,9 @@ public class ResultsActivity extends AppCompatActivity {
         // Show the back button in the Action Bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // Set the title of the page
+        setTitle("Your Results");
+
         // Declare variables
         int correctAnswers = 0;
         int totalQuestions = 0;
@@ -36,9 +39,10 @@ public class ResultsActivity extends AppCompatActivity {
             totalQuestions = bundle.getInt("totalQuestions");
             percentGrade = (((double) correctAnswers / (double) totalQuestions) * 100);
 
-            // format the grade
-
-            //percentGrade = (percentGrade);
+            // format the grade to have a max of 2 decimals
+            DecimalFormat decimalFormat = new DecimalFormat();
+            decimalFormat.setMaximumFractionDigits(2);
+            percentGrade = Double.parseDouble(decimalFormat.format(percentGrade));
         } else {
             System.out.println("Bundle came back null");
         }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/abstract_background"
+    tools:context=".AboutActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cardBackgroundColor="#CCFFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_About_Title"
+                style="@style/about_text_views"
+                android:layout_marginTop="25dp"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_DevelopedBy"
+                style="@style/about_text_views"
+                android:layout_marginTop="40dp"
+                android:text="@string/developed_by_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About_Title" />
+
+            <TextView
+                android:id="@+id/textView_CodeName"
+                style="@style/about_text_views"
+                android:layout_marginTop="11dp"
+                android:text="@string/code_name_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_DevelopedBy" />
+
+            <TextView
+                android:id="@+id/textView_Version"
+                style="@style/about_text_views"
+                android:text="@string/version_number_text"
+                app:layout_constraintEnd_toEndOf="@+id/textView_About_Title"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About_Title" />
+
+            <TextView
+                android:id="@+id/textView_About_Paragraph1"
+                style="@style/about_me_text_view"
+                android:text="@string/about_text_paragraph_one"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_CodeName" />
+
+            <TextView
+                android:id="@+id/textView_About_Paragraph2"
+                style="@style/about_me_text_view"
+                android:text="@string/about_text_paragraph_two"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About_Paragraph1" />
+
+            <TextView
+                android:id="@+id/textView_About_Paragraph3"
+                style="@style/about_me_text_view"
+                android:text="@string/about_text_paragraph_three"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About_Paragraph2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

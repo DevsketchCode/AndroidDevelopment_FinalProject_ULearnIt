@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.cvtc.doberlander.ulearnit.MainActivity">
     <item
-        android:id="@+id/action_contact"
+        android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="@string/action_contact"
+        android:title="@string/action_about"
         app:showAsAction="never" />
 
     <item

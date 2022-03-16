@@ -3,7 +3,6 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.LinkedList;
 
@@ -54,10 +53,15 @@ public class DbWorker {
         LinkedList<TranslationModel> tm;
         // Create the translation list object
         TranslationList list = new TranslationList();
+
         // Get the greetings and add it to the list
         list.GetTranslations("Greetings");
         // Get the numbers and add it to the list, then attach tot the LinkedList
         tm = list.GetTranslations("Numbers");
+        // Get the food list and add it to the list
+        tm = list.GetTranslations("Food");
+        // Get the people list and add it to the list
+        tm = list.GetTranslations("People");
         // Return the LinkedList
         return tm;
     }
