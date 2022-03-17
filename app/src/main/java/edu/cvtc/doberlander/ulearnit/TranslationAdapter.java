@@ -1,5 +1,6 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.Context;
@@ -56,7 +57,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Connect the onClickListener to the view
             // https://developer.android.com/training/gestures/detector
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
-            //itemView.setOnClickListener(this);
 
             // Create the long click listener to show the languages of the selected item
             itemView.setOnLongClickListener(new View.OnLongClickListener(){
@@ -94,6 +94,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     // Double tap to open up the translation in the WebActivity
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
+
                         if(recyclerViewInterface != null) {
                             int position = getAdapterPosition();
                                 // Only do the onLongClick action if there is a position and it equals the one that is highlighted.
@@ -114,6 +115,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             });
         }
 
+        // Use this onClick method for selecting an entry to be added or removed from favorites
         @Override
         public void onClick(View view) {
             // Get the position of the item that was clicked
@@ -134,9 +136,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 }
             }
 
-            // Pass the selected item to the CategoryActivity, so it can be used to pass to the
-            // Modifier Activity
-            CategoryActivity.mSelectedItem = element;
+            // Set itemClicked Global variable to true
+            mItemClicked = true;
 
             // Notify the adapter that data has changed and update the RecyclerView
             mAdapter.notifyDataSetChanged();
@@ -156,6 +157,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public void onBindViewHolder(@NonNull TranslationAdapter.TranslationViewHolder holder, int position) {
         // Get the list position
         TranslationModel mCurrentEntry = mTranslationList.get(position);
+
+        CategoryActivity.mSelectedItem = mCurrentEntry;
 
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());

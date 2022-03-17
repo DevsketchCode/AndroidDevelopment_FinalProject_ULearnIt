@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Initialize default category
     private static String mCategory = "";
-    private static final String TAG = "MainActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
                 categoryName = getString(R.string.numbers_category_text);
                 break;
             case R.id.people_ImageBtn:
-                // Set Numbers Category
+                // Set People Category
                 categoryName = getString(R.string.people_category_text);
                 break;
             case R.id.food_ImageBtn:
-                // Set Numbers Category
+                // Set Food Category
                 categoryName = getString(R.string.food_category_text);
                 break;
             case R.id.action_favorites:

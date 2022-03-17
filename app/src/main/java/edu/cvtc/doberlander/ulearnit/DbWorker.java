@@ -50,7 +50,6 @@ public class DbWorker {
     // Get all of the entries from the predefined lists (Greetings and Numbers)
     private LinkedList<TranslationModel> GetPredefinedTranslationList() {
         // Create the LinkedList variable
-        LinkedList<TranslationModel> tm;
         // Create the translation list object
         TranslationList list = new TranslationList();
 
@@ -60,8 +59,8 @@ public class DbWorker {
         list.GetTranslations("Numbers");
         // Get the food list and add it to the list
         list.GetTranslations("Food");
-        // Get the people list and add it to the list, then assign it
-        tm = list.GetTranslations("People");
+        // Get the people list and add them all to the linked list
+        LinkedList<TranslationModel> tm = new LinkedList<>(list.GetTranslations("People"));
         // Return the LinkedList
         return tm;
     }

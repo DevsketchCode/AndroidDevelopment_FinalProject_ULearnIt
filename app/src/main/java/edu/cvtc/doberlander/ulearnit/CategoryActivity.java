@@ -233,7 +233,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public void onItemLongTap(int position) {
-
-        displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage());
+        if(mSelectedItem != null) {
+            displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage());
+        }
     }
 }
