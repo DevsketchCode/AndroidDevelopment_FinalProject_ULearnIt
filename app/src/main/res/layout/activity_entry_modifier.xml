@@ -1,139 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abstract_background"
-    android:backgroundTint="#CCA7D2F6"
-    android:backgroundTintMode="src_over"
-    app:layout_scrollEffect="compress"
-    tools:context=".EntryModifierActivity">
+    android:fillViewport="true">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/abstract_background"
+        android:backgroundTint="#CCA7D2F6"
+        android:backgroundTintMode="src_over"
+        app:layout_scrollEffect="compress"
+        tools:context=".EntryModifierActivity">
 
-    <LinearLayout
-        android:id="@+id/entryModifier_Heading_LinearLayout"
-        style="@style/style_Heading_LinearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:id="@+id/entryModifier_Heading_LinearLayout"
+            style="@style/style_Heading_LinearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/entryModifierHeaderText"
+                style="@style/header_message_text" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/entryModifierHeaderText"
-            style="@style/header_message_text" />
+            android:id="@+id/textView_FirstLang"
+            style="@style/style_entry_modifier_textview"
+            android:text="@string/entry_first_language_text"
+            app:layout_constraintBottom_toTopOf="@+id/editText_FirstLang"
+            app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
+            app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/editText_FirstLang"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/shaded_grey"
+            android:backgroundTintMode="src_over"
+            android:enabled="true"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:hint="@string/entry_first_language_edit_hint"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
+            android:singleLine="true"
+            android:text="@string/entry_first_language_edittext"
+            android:textColor="@color/disabled_color_text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_FirstLang" />
 
-    <TextView
-        android:id="@+id/textView_FirstLang"
-        style="@style/style_entry_modifier_textview"
-        android:text="@string/entry_first_language_text"
-        app:layout_constraintBottom_toTopOf="@+id/editText_FirstLang"
-        app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
-        app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
+        <TextView
+            android:id="@+id/textView_FirstLangWord"
+            style="@style/style_entry_modifier_textview"
+            android:layout_marginTop="40dp"
+            android:text="@string/entry_word_or_phrase_text"
+            app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
+            app:layout_constraintTop_toBottomOf="@+id/editText_FirstLang" />
 
-    <EditText
-        android:id="@+id/editText_FirstLang"
-        style="@style/style_entry_modifier_edittext"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/shaded_grey"
-        android:backgroundTintMode="src_over"
-        android:enabled="true"
-        android:focusable="auto"
-        android:focusableInTouchMode="true"
-        android:hint="@string/entry_first_language_edit_hint"
-        android:importantForAutofill="no"
-        android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
-        android:singleLine="true"
-        android:text="@string/entry_first_language_edittext"
-        android:textColor="@color/disabled_color_text"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_FirstLang" />
+        <EditText
+            android:id="@+id/editText_FirstLangWord"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginTop="10dp"
+            android:hint="@string/entry_word_or_phrase_edit_hint"
+            android:importantForAutofill="no"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="@id/editText_FirstLang"
+            app:layout_constraintStart_toStartOf="@id/editText_FirstLang"
+            app:layout_constraintTop_toBottomOf="@+id/textView_FirstLangWord"
+            tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/textView_FirstLangWord"
-        style="@style/style_entry_modifier_textview"
-        android:layout_marginTop="40dp"
-        android:text="@string/entry_word_or_phrase_text"
-        app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
-        app:layout_constraintTop_toBottomOf="@+id/editText_FirstLang" />
+        <TextView
+            android:id="@+id/textView_SecondLang"
+            style="@style/style_entry_modifier_textview"
+            android:layout_marginTop="40dp"
+            android:text="@string/entry_second_language_text"
+            app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
+            app:layout_constraintTop_toBottomOf="@id/editText_FirstLangWord" />
 
-    <EditText
-        android:id="@+id/editText_FirstLangWord"
-        style="@style/style_entry_modifier_edittext"
-        android:layout_marginTop="10dp"
-        android:hint="@string/entry_word_or_phrase_edit_hint"
-        android:importantForAutofill="no"
-        android:singleLine="true"
-        app:layout_constraintEnd_toEndOf="@id/editText_FirstLang"
-        app:layout_constraintStart_toStartOf="@id/editText_FirstLang"
-        app:layout_constraintTop_toBottomOf="@+id/textView_FirstLangWord"
-        tools:ignore="TextContrastCheck" />
+        <EditText
+            android:id="@+id/editText_SecondLang"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/shaded_grey"
+            android:backgroundTintMode="src_over"
+            android:enabled="true"
+            android:focusable="auto"
+            android:focusableInTouchMode="true"
+            android:hint="@string/entry_second_language_edit_hint"
+            android:importantForAutofill="no"
+            android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
+            android:singleLine="true"
+            android:text="@string/entry_second_language_edittext"
+            android:textColor="@color/disabled_color_text"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/editText_FirstLangWord"
+            app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
+            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLang"/>
 
-    <TextView
-        android:id="@+id/textView_SecondLang"
-        style="@style/style_entry_modifier_textview"
-        android:layout_marginTop="40dp"
-        android:text="@string/entry_second_language_text"
-        app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
-        app:layout_constraintTop_toBottomOf="@id/editText_FirstLangWord" />
+        <TextView
+            android:id="@+id/textView_SecondLangWord"
+            style="@style/style_entry_modifier_textview"
+            android:layout_marginTop="40dp"
+            android:text="@string/entry_translated_word_or_phrase_text"
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
+            app:layout_constraintTop_toBottomOf="@id/editText_SecondLang" />
 
-    <EditText
-        android:id="@+id/editText_SecondLang"
-        style="@style/style_entry_modifier_edittext"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/shaded_grey"
-        android:backgroundTintMode="src_over"
-        android:enabled="true"
-        android:focusable="auto"
-        android:focusableInTouchMode="true"
-        android:hint="@string/entry_second_language_edit_hint"
-        android:importantForAutofill="no"
-        android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
-        android:singleLine="true"
-        android:text="@string/entry_second_language_edittext"
-        android:textColor="@color/disabled_color_text"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/editText_FirstLangWord"
-        app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
-        app:layout_constraintTop_toBottomOf="@+id/textView_SecondLang" />
+        <EditText
+            android:id="@+id/editText_SecondLangWord"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginTop="10dp"
+            android:hint="@string/entry_translated_word_or_phrase_edittext"
+            android:importantForAutofill="no"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLang"
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
+            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLangWord"
+            tools:ignore="TextContrastCheck" />
 
-    <TextView
-        android:id="@+id/textView_SecondLangWord"
-        style="@style/style_entry_modifier_textview"
-        android:layout_marginTop="40dp"
-        android:text="@string/entry_translated_word_or_phrase_text"
-        app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
-        app:layout_constraintTop_toBottomOf="@id/editText_SecondLang" />
+        <Button
+            android:id="@+id/btn_Save"
+            style="@style/style_entry_modifier_button"
+            android:text="@string/btn_save_text"
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangWord"
+            app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
 
-    <EditText
-        android:id="@+id/editText_SecondLangWord"
-        style="@style/style_entry_modifier_edittext"
-        android:layout_marginTop="10dp"
-        android:hint="@string/entry_translated_word_or_phrase_edittext"
-        android:importantForAutofill="no"
-        android:singleLine="true"
-        android:textCursorDrawable="@null"
-        app:layout_constraintEnd_toEndOf="@+id/editText_SecondLang"
-        app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
-        app:layout_constraintTop_toBottomOf="@+id/textView_SecondLangWord"
-        tools:ignore="TextContrastCheck" />
+        <Button
+            android:id="@+id/btn_Delete"
+            style="@style/style_entry_modifier_button"
+            android:text="@string/btn_delete_text"
+            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangWord"
+            app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
 
-    <Button
-        android:id="@+id/btn_Save"
-        style="@style/style_entry_modifier_button"
-        android:text="@string/btn_save_text"
-        app:layout_constraintStart_toStartOf="@+id/editText_SecondLangWord"
-        app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
-
-    <Button
-        android:id="@+id/btn_Delete"
-        style="@style/style_entry_modifier_button"
-        android:text="@string/btn_delete_text"
-        app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangWord"
-        app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

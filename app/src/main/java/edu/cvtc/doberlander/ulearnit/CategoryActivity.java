@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,7 +19,7 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import java.util.List;
 
-public class CategoryActivity extends AppCompatActivity{
+public class CategoryActivity extends AppCompatActivity implements RecyclerViewInterface{
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
 
@@ -177,7 +178,7 @@ public class CategoryActivity extends AppCompatActivity{
         mTranslations = DataManager.getInstance().getTranslations();
 
         // Fill the RecyclerAdapter with the translations
-        mTranslationsAdapter = new TranslationAdapter(this, mTranslations);
+        mTranslationsAdapter = new TranslationAdapter(this, mTranslations, this);
 
         // Display the translations
         displayTranslations();
@@ -206,5 +207,33 @@ public class CategoryActivity extends AppCompatActivity{
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        displayToast("Nope");
+    }
+
+    @Override
+    public void onItemDoubleTap(int position) {
+        // Pass the selected item to the CategoryActivity, so it can be used to pass to the
+        // Modifier Activity
+        CategoryActivity.mSelectedItem = mTranslations.get(position);
+
+        // Open the WebActivity Intent
+        Intent webActivityIntent = new Intent(this, WebTranslateActivity.class);
+        Bundle webActivityBundle = new Bundle();
+        // Put the parcelable selected item object in the bundle
+        webActivityBundle.putParcelable("SelectedItem", mSelectedItem);
+        // Put the bundle in the Intent
+        webActivityIntent.putExtras(webActivityBundle);
+        // Pass the selected item
+        startActivity(webActivityIntent);
+    }
+
+    @Override
+    public void onItemLongTap(int position) {
+
+        displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage());
     }
 }

@@ -10,8 +10,14 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_translate"
+        android:id="@+id/action_help"
         android:orderInCategory="90"
+        android:title="@string/action_help"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_translate"
+        android:orderInCategory="60"
         android:title="@string/action_translate"
         app:showAsAction="never" />
 

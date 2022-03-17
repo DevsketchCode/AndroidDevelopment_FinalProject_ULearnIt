@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent translateIntent = new Intent(this, WebTranslateActivity.class);
                 startActivity(translateIntent);
                 return true;
+            case R.id.action_help:
+                // Run the AboutActivity
+                Intent helpIntent = new Intent(this, HelpActivity.class);
+                startActivity(helpIntent);
+                return true;
             case R.id.action_about:
                 // Run the AboutActivity
                 Intent aboutIntent = new Intent(this, AboutActivity.class);

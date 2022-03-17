@@ -51,8 +51,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Display the header for a Quiz
         TextView resultsCompleteTextView = findViewById(R.id.results_CompleteText);
-        // TODO: EXTRACT ALL THE STRING RESOURCES IN CODE!!!!!!
-        // TODO: DO THIS!!!
         resultsCompleteTextView.setText(R.string.quiz_completed_message);
 
         // Get the Results Grade textview and place the results percentage
@@ -70,13 +68,13 @@ public class ResultsActivity extends AppCompatActivity {
         String resultsMessage;
 
         if(percentGrade > 90) {
-            resultsMessage = "Great Job!";
+            resultsMessage = getString(R.string.resultMessage_Great);
         } else if (percentGrade > 70) {
-            resultsMessage = "Good Job";
+            resultsMessage = getString(R.string.resultMessage_Good);
         } else if (percentGrade > 50) {
-            resultsMessage = "Keep practicing";
+            resultsMessage = getString(R.string.resultMessage_Okay);
         } else {
-            resultsMessage = "You can do it, don't give up!";
+            resultsMessage = getString(R.string.resultMessage_Bad);
         }
 
         // Display the results message

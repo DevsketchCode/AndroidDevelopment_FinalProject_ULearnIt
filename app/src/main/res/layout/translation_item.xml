@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#00FF0808"
+    android:focusable="auto"
     android:orientation="horizontal"
     android:padding="6dp"
     android:weightSum="5">

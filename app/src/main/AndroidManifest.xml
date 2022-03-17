@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cvtc.doberlander.ulearnit">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,6 +11,9 @@
         android:roundIcon="@drawable/ic_ulearnit_logo_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
+        <activity
+            android:name=".HelpActivity"
+            android:exported="false" />
         <activity
             android:name=".WebTranslateActivity"
             android:exported="false" />
@@ -29,7 +33,7 @@
             android:exported="false"
             android:parentActivityName=".CategoryActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data

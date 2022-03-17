@@ -4,14 +4,19 @@ import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -20,15 +25,18 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
+    private final RecyclerViewInterface recyclerViewInterface;
+
+    private static final String TAG = "CategoryActivity";
 
     private int mPosition;
-    private boolean mItemClicked = false;
-
+    public static boolean mItemClicked = false;
 
     // Constructor initializes the translation list from the data
-    public TranslationAdapter(Context context, List<TranslationModel> translationList) {
+    public TranslationAdapter(Context context, List<TranslationModel> translationList, RecyclerViewInterface recyclerViewInterface) {
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     // Create the View Holder
@@ -46,9 +54,64 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
+            // https://developer.android.com/training/gestures/detector
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
 
+            // Create the long click listener to show the languages of the selected item
+            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view) {
+                    if(recyclerViewInterface != null) {
+                        int position = getAdapterPosition();
+                        // Only do the onLongClick action if there is a position and it equals the one that is highlighted.
+                        if (position != RecyclerView.NO_POSITION && mPosition == position) {
+                            // Run the actions in the CategoryActivity
+                            recyclerViewInterface.onItemLongTap(position);
+                        }
+                    }
+                    return true;
+                }
+            });
+
+            // Create an onTouch listener to handle some touch gestures
+            itemView.setOnTouchListener(new View.OnTouchListener(){
+                // Create the GestureDetector to be able to capture a double tap and long press
+                GestureDetector gestureDetector = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener(){
+                    // This is the confirm the click, in order for the web activity to activate
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        // Get the position of the item that was clicked
+                         mPosition = getLayoutPosition();
+
+                        // Set itemClicked Global variable to true
+                        mItemClicked = true;
+
+                        // Notify the adapter that data has changed and update the RecyclerView
+                        mAdapter.notifyDataSetChanged();
+                        return super.onSingleTapConfirmed(e);
+                    }
+                    // Double tap to open up the translation in the WebActivity
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        if(recyclerViewInterface != null) {
+                            int position = getAdapterPosition();
+                                // Only do the onLongClick action if there is a position and it equals the one that is highlighted.
+                                if (position != RecyclerView.NO_POSITION && mPosition == position) {
+                                    // Run the actions in the CategoryActivity
+                                    recyclerViewInterface.onItemDoubleTap(position);
+                                }
+                        }
+                        return super.onDoubleTap(e);
+                    }
+                });
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    // Process the gesture
+                    gestureDetector.onTouchEvent(motionEvent);
+                    return false;
+                }
+            });
         }
 
         @Override
@@ -57,9 +120,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             mPosition = getLayoutPosition();
             // Access the affected item in the list
             TranslationModel element = mTranslationList.get(mPosition);
-
-            // Set itemClicked Global variable to true
-            mItemClicked = true;
 
             // Check to see if the heart favorite imageView is what was clicked
             if(view.getId() == R.id.favorite_imageView) {
@@ -115,7 +175,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
-
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
 
@@ -141,8 +200,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             holder.itemView.setBackgroundColor(16777215);
         }
     }
-
-
 
     // Return the size of the translation list
     @Override

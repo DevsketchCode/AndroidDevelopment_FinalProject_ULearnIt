@@ -59,4 +59,20 @@
     <string name="translation_item_favorites_toggle_content_desc">Favorites toggle heart</string>
     <string name="quiz_completed_message">Quiz Completed</string>
     <string name="action_translate">Google Translate</string>
+    <string name="resultMessage_Great">Great Job!</string>
+    <string name="resultMessage_Good">Good Job</string>
+    <string name="resultMessage_Okay">Keep practicing</string>
+    <string name="resultMessage_Bad">You can do it, don\'t give up!</string>
+    <string name="web_translate_language_not_avail">This language could not be loaded.</string>
+    <string name="help_category_page_heading">CATEGORY PAGE:</string>
+    <string name="help_single_tap">Single Tap:</string>
+    <string name="help_users_guide">Users Guide</string>
+    <string name="help_long_press">Long Press:</string>
+    <string name="help_double_tap">Double Tap:</string>
+    <string name="help_single_tap_text">Selects Entry and Displays Edit Menu Option</string>
+    <string name="help_double_tap_text">Searches Google Translate for Selected Word</string>
+    <string name="help_long_press_text">Displays the Selected Entries Languages</string>
+    <string name="help_red_hearts">Red Hearts:</string>
+    <string name="help_red_hearts_text">Tap a Heart to Add to Favorites. Tap Again to Remove It.</string>
+    <string name="action_help">Help</string>
 </resources>

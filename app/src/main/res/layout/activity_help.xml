@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/abstract_background"
+    tools:context=".HelpActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        app:cardBackgroundColor="#CCFFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_About_Title"
+                style="@style/about_text_views"
+                android:layout_marginTop="25dp"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_DevelopedBy"
+                style="@style/about_text_views"
+                android:layout_marginTop="10dp"
+                android:text="@string/developed_by_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_About_Title"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/textView_CodeName"
+                style="@style/about_text_views"
+                android:layout_marginTop="11dp"
+                android:text="@string/code_name_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_DevelopedBy"
+                tools:ignore="TextContrastCheck" />
+
+            <TextView
+                android:id="@+id/textView_Help_Category_Page"
+                style="@style/about_me_text_view"
+                android:text="@string/help_category_page_heading"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Users_Guide" />
+
+            <TextView
+                android:id="@+id/textView_Help_Single_Tap"
+                style="@style/about_me_text_view"
+                android:text="@string/help_single_tap"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Category_Page" />
+
+            <TextView
+                android:id="@+id/textView_Help_Double_Tap"
+                style="@style/about_me_text_view"
+                android:text="@string/help_double_tap"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Single_Tap_Text" />
+
+            <TextView
+                android:id="@+id/textView_Help_Long_Press"
+                style="@style/about_me_text_view"
+                android:text="@string/help_long_press"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Double_Tap_Text" />
+
+            <TextView
+                android:id="@+id/textView_Help_Users_Guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/help_users_guide"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_CodeName" />
+
+            <TextView
+                android:id="@+id/textView_Help_Single_Tap_Text"
+                style="@style/about_me_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:text="@string/help_single_tap_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_Help_Single_Tap"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Category_Page" />
+
+            <TextView
+                android:id="@+id/textView_Help_Double_Tap_Text"
+                style="@style/about_me_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/help_double_tap_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_Help_Double_Tap"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Single_Tap_Text" />
+
+            <TextView
+                android:id="@+id/textView_Help_Long_Press_Text"
+                style="@style/about_me_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/help_long_press_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_Help_Long_Press"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Double_Tap_Text" />
+
+            <TextView
+                android:id="@+id/textView_Help_Red_Hearts"
+                style="@style/about_me_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/help_red_hearts"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_Help_Long_Press_Text" />
+
+            <TextView
+                android:id="@+id/textView_Help_Red_Hearts_Text"
+                style="@style/about_me_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/help_red_hearts_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView_Help_Red_Hearts"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Help_Long_Press_Text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
