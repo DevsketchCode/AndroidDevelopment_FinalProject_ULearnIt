@@ -3,6 +3,7 @@ package edu.cvtc.doberlander.ulearnit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -211,7 +212,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public void onItemClick(int position) {
-        displayToast("Nope");
+        //mSelectedItem = mTranslations.get(position);
     }
 
     @Override
@@ -233,6 +234,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public void onItemLongTap(int position) {
+        // On Long Tap of an Entry Item, display the languages of that translation entry
         if(mSelectedItem != null) {
             displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage());
         }

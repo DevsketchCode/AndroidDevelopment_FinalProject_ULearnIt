@@ -66,7 +66,7 @@
     <string name="web_translate_language_not_avail">This language could not be loaded.</string>
     <string name="help_category_page_heading">CATEGORY PAGE:</string>
     <string name="help_single_tap">Single Tap:</string>
-    <string name="help_users_guide">Users Guide</string>
+    <string name="help_users_guide">User Guide</string>
     <string name="help_long_press">Long Press:</string>
     <string name="help_double_tap">Double Tap:</string>
     <string name="help_single_tap_text">Selects Entry and Displays Edit Menu Option</string>

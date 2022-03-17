@@ -27,8 +27,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
     private final RecyclerViewInterface recyclerViewInterface;
-
-    private static final String TAG = "CategoryActivity";
+    //private static final String TAG = "CategoryActivity";
 
     private int mPosition;
     public static boolean mItemClicked = false;
@@ -135,7 +134,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     element.setFavorite(1);
                 }
             }
-
             // Set itemClicked Global variable to true
             mItemClicked = true;
 
@@ -158,8 +156,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Get the list position
         TranslationModel mCurrentEntry = mTranslationList.get(position);
 
-        CategoryActivity.mSelectedItem = mCurrentEntry;
-
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
@@ -180,6 +176,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
+
+            // Set the Selected Item to the currently clicked item
+            CategoryActivity.mSelectedItem = mCurrentEntry;
 
             // Update the selected ID with the database ID for this record
             mSelectedItemID = mCurrentEntry.getId();

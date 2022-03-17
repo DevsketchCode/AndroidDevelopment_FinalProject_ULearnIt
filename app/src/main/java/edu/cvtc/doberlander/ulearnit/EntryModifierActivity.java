@@ -3,6 +3,7 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +77,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
+
                 // Set the object with the selected category
                 mSelectedEntry.setCategory(category);
             } else {
