@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cvtc.doberlander.ulearnit">
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Penguin Logo -->
-    <!-- https://openclipart.org/detail/221475/sleuth-penguin -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,21 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
         <activity
+            android:name=".WebTranslateActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity">
+            android:parentActivityName=".CategoryActivity"
+            android:screenOrientation="portrait">
+
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CategoryActivity" />
-        </activity>
-        <!-- windowSoftInputMode is set to allow for the page to scroll when the keyboard is up -->
+        </activity> <!-- windowSoftInputMode is set to allow for the page to scroll when the keyboard is up -->
         <activity
             android:name=".EntryModifierActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".CategoryActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan">
 
             <!-- meta data is used for API levels below AP 16 -->
@@ -36,9 +38,9 @@
         </activity>
         <activity
             android:name=".ResultsActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity">
+            android:parentActivityName=".CategoryActivity"
+            android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
@@ -47,9 +49,9 @@
         </activity>
         <activity
             android:name=".QuizActivity"
-            android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity">
+            android:parentActivityName=".CategoryActivity"
+            android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
@@ -58,10 +60,10 @@
         </activity>
         <activity
             android:name=".CategoryActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
             android:label="Category"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
@@ -70,9 +72,9 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.ULearnIt.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

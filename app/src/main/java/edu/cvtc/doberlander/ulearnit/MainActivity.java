@@ -69,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
                 favoritesIntent.putExtra(EXTRA_MESSAGE, category);
                 startActivity(favoritesIntent);
                 return true;
+            case R.id.action_translate:
+                // Run the AboutActivity
+                Intent translateIntent = new Intent(this, WebTranslateActivity.class);
+                startActivity(translateIntent);
+                return true;
             case R.id.action_about:
                 // Run the AboutActivity
                 Intent aboutIntent = new Intent(this, AboutActivity.class);

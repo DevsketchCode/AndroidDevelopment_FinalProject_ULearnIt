@@ -48,11 +48,15 @@
     <string name="code_name_text">a.k.a. DevSketch.Code</string>
     <string name="version_number_text">v 1.0.0</string>
     <string name="about_text_paragraph_one">I am an Application Developer that designed this app in college for a final assignment.</string>
-    <string name="about_text_paragraph_two">This is the first android app I created with Java, and I was inspired to create this app through my love of learning new languages. This app is designed to start you off with a few basics, but allows you to add your own entries as you grow to learn new words and phrases. Images used are CC Public Domain images from openclipart.org</string>
+    <string name="about_text_paragraph_two">This is the first android app I created with Java, and I was inspired to create this app through
+        my love of learning new languages. This app is designed to start you off with a few basics,
+        but allows you to add your own entries as you grow to learn new words and phrases.
+        Images used are CC Public Domain images from openclipart.org</string>
     <string name="about_text_paragraph_three">Thank you for checking out my app. I hope it helps you in your journey.</string>
     <string name="test_not_available">Tests are not available at this time</string>
     <string name="about">About</string>
     <string name="results_your_grade_is">Your Grade Is:</string>
     <string name="translation_item_favorites_toggle_content_desc">Favorites toggle heart</string>
     <string name="quiz_completed_message">Quiz Completed</string>
+    <string name="action_translate">Google Translate</string>
 </resources>

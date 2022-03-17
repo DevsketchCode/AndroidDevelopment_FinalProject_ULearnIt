@@ -10,6 +10,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_translate"
+        android:orderInCategory="90"
+        android:title="@string/action_translate"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_favorites"
         android:iconTint="#FF03F2"

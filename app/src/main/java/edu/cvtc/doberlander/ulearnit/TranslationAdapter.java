@@ -48,6 +48,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Connect the onClickListener to the view
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
             itemView.setOnClickListener(this);
+
         }
 
         @Override
