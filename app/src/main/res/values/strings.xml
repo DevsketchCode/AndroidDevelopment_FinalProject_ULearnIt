@@ -54,4 +54,5 @@
     <string name="about">About</string>
     <string name="results_your_grade_is">Your Grade Is:</string>
     <string name="translation_item_favorites_toggle_content_desc">Favorites toggle heart</string>
+    <string name="quiz_completed_message">Quiz Completed</string>
 </resources>

@@ -10,7 +10,6 @@ import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
 
 public class DbWorker {
 
-    private static final String TAG = "EntryModifierActivity";
     private final SQLiteDatabase mDb;
 
     // Initialize the database attribute
@@ -26,10 +25,11 @@ public class DbWorker {
         values.put(DbContract.TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD, secondLangWord);
         values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, favorite);
 
-        long newRowId = mDb.insert(TranslationEntry.TABLE_NAME, null, values);
+        // Insert the translation into the database
+        mDb.insert(TranslationEntry.TABLE_NAME, null, values);
     }
 
-    // Function to
+    // Function to insert a new translation into the database via an object
     public void insertTranslationModelEntry(TranslationModel tm) {
 
         ContentValues values = new ContentValues();
@@ -40,8 +40,8 @@ public class DbWorker {
         values.put(DbContract.TranslationEntry.COLUMN_SECOND_LANGUAGE_WORD, tm.getSecondLanguageWord());
         values.put(DbContract.TranslationEntry.COLUMN_FAVORITE, tm.getFavorite());
 
-        // Insert the translation into the database - return a row id if wanting it later
-        long newRowId = mDb.insert(TranslationEntry.TABLE_NAME, null, values);
+        // Insert the translation into the database
+        mDb.insert(TranslationEntry.TABLE_NAME, null, values);
 
         // Close the database
         mDb.close();
@@ -57,10 +57,10 @@ public class DbWorker {
         // Get the greetings and add it to the list
         list.GetTranslations("Greetings");
         // Get the numbers and add it to the list, then attach tot the LinkedList
-        tm = list.GetTranslations("Numbers");
+        list.GetTranslations("Numbers");
         // Get the food list and add it to the list
-        tm = list.GetTranslations("Food");
-        // Get the people list and add it to the list
+        list.GetTranslations("Food");
+        // Get the people list and add it to the list, then assign it
         tm = list.GetTranslations("People");
         // Return the LinkedList
         return tm;

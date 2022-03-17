@@ -1,15 +1,9 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -20,25 +14,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.Collator;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class QuizActivity extends AppCompatActivity {
 
     // Constants
     private final static int MAX_QUIZ_SIZE = 10;
 
-    private final static String TAG = "QuizActivity";
-
     // Keep track of items already used in a question
-    private ArrayList<Integer> mQuestionsAsked = new ArrayList<>();
+    private final ArrayList<Integer> mQuestionsAsked = new ArrayList<>();
     // Keep track of index
     private int mIndex = 0;
     // Instantiate the quiz size with the lowest possible size
@@ -65,7 +58,9 @@ public class QuizActivity extends AppCompatActivity {
         // Call the action bar
         ActionBar actionBar = getSupportActionBar();
         // Show the back button in the Action Bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         String category = "";
         String categoryMessage;
@@ -141,10 +136,9 @@ public class QuizActivity extends AppCompatActivity {
         // Sort the translations alphabetically before returning
         mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageWord));
         // Return back to the previous activity
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -174,14 +168,15 @@ public class QuizActivity extends AppCompatActivity {
         } else if (mQuizTranslations.size() > 3){
             // Use all the entries in the quiz, since it is less than 10
             // This must be greater than 4
-            mQuizSize = (int) mQuizTranslations.size();
+            mQuizSize = mQuizTranslations.size();
         } else {
             // If it gets this far, quizzes are not allowed with items less than 4
             displayToast("The category must have at least 4 items in it for a quiz");
             return;
         }
         // Display what question you are on of how many questions there are total
-        textView_QuestionNumbers.setText(mQuestionsAsked.size() + " of " + mQuizSize);
+        String questionNumberMessage = mQuestionsAsked.size() + " of " + mQuizSize;
+        textView_QuestionNumbers.setText(questionNumberMessage);
 
         // Populate the quiz Question
         mQuiz_Question.setText(mQuizTranslations.get(mIndex).getFirstLanguageWord());

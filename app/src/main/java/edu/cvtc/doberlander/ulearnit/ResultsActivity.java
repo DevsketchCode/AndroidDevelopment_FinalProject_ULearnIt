@@ -22,7 +22,9 @@ public class ResultsActivity extends AppCompatActivity {
         // Call the action bar
         ActionBar actionBar = getSupportActionBar();
         // Show the back button in the Action Bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Set the title of the page
         setTitle("Your Results");
@@ -51,19 +53,21 @@ public class ResultsActivity extends AppCompatActivity {
         TextView resultsCompleteTextView = findViewById(R.id.results_CompleteText);
         // TODO: EXTRACT ALL THE STRING RESOURCES IN CODE!!!!!!
         // TODO: DO THIS!!!
-        resultsCompleteTextView.setText("Quiz Completed");
+        resultsCompleteTextView.setText(R.string.quiz_completed_message);
 
         // Get the Results Grade textview and place the results percentage
         TextView resultsTextView = findViewById(R.id.results_Grade);
-        resultsTextView.setText(String.valueOf(percentGrade) + "%");
+        String resultsPercentage = percentGrade + "%";
+        resultsTextView.setText(resultsPercentage);
 
         // Get the Ratio Grade textview and place the ratio of correct answers
         TextView resultsGradeRatioTextView = findViewById(R.id.results_GradeRatio);
-        resultsGradeRatioTextView.setText(correctAnswers + " out of " + totalQuestions + " Correct");
+        String resultsRatioText = correctAnswers + " out of " + totalQuestions + " Correct";
+        resultsGradeRatioTextView.setText(resultsRatioText);
 
         // Get the results Message textview and display the appropriate message
         TextView resultsMessageTextView = findViewById(R.id.results_Message);
-        String resultsMessage = "";
+        String resultsMessage;
 
         if(percentGrade > 90) {
             resultsMessage = "Great Job!";
@@ -84,15 +88,10 @@ public class ResultsActivity extends AppCompatActivity {
     // Event that is enabled when pressing the back button in the ActionBar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void displayToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

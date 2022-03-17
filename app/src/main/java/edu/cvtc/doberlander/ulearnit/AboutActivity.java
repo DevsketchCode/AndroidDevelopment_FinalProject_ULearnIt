@@ -17,7 +17,9 @@ public class AboutActivity extends AppCompatActivity {
         // Call the action bar
         ActionBar actionBar = getSupportActionBar();
         // Show the back button in the Action Bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Set the title of the page
         setTitle(getString(R.string.app_name) + " : " + getString(R.string.about));
@@ -26,10 +28,9 @@ public class AboutActivity extends AppCompatActivity {
     // Event that is enabled when pressing the back button in the ActionBar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

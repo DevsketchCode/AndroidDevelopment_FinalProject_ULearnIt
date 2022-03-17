@@ -1,17 +1,8 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,14 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
     // Member level variables
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
     private String dbResult = "Failed";
-
-    private static final String TAG = "EntryModifierActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

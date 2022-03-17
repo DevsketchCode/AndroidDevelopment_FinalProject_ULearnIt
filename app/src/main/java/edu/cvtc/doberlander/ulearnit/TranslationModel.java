@@ -19,7 +19,7 @@ public class TranslationModel implements Parcelable {
     public TranslationModel() {
     }
 
-    // Overloaded Constructors
+    // Empty Overloaded Constructor with predefined category and favorites set
     public TranslationModel(String category, int favorite) {
         this.mCategory = category;
         this.mFirstLanguage = "";
@@ -29,6 +29,7 @@ public class TranslationModel implements Parcelable {
         this.mFavorite = favorite;
     }
 
+    // Overloaded Constructor to create entire object, including Id
     public TranslationModel(int id, String category, String firstLanguage, String firstLanguageWord, String secondLanguage, String secondLanguageWord, int favorite) {
         this.mId = id;
         this.mCategory = category;

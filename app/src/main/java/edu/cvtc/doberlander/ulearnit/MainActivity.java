@@ -15,10 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
     private DbHelper mDbHelper;
+
     // Initialize default category
     private static String mCategory = "";
-    private static String mFirstLanguage;
-    private static String mSecondLanguage;
     private static final String TAG = "MainActivity";
 
 
@@ -41,10 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 displayToast(getString(R.string.test_not_available));
             }
         });
-
-        // Initialize variables
-        mFirstLanguage = getString(R.string.first_language_text);
-        mSecondLanguage = getString(R.string.second_language_text);
 
         initializeDisplayContent();
     }
@@ -100,26 +95,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.greetings_ImageBtn:
                 // Set Greetings Category
                 categoryName = getString(R.string.greetings_category_text);
-                categoryMessage = categoryMessage;
                 break;
             case R.id.numbers_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.numbers_category_text);
-                categoryMessage = categoryMessage;
                 break;
             case R.id.people_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.people_category_text);
-                categoryMessage = categoryMessage;
                 break;
             case R.id.food_ImageBtn:
                 // Set Numbers Category
                 categoryName = getString(R.string.food_category_text);
-                categoryMessage = categoryMessage;
                 break;
             case R.id.action_favorites:
                 // Set the Favorites Category
                 categoryName = getString(R.string.favorites_category_text);
+                // No category message needed for Favorites
                 categoryMessage = "";
                 break;
             default:
