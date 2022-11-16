@@ -54,13 +54,17 @@ public class DbWorker {
         TranslationList list = new TranslationList();
 
         // Get the greetings and add it to the list
-        list.GetTranslations("Greetings");
+        list.GetTranslations("Tagalog", "Greetings");
         // Get the numbers and add it to the list, then attach tot the LinkedList
-        list.GetTranslations("Numbers");
+        list.GetTranslations("Tagalog", "Numbers");
         // Get the food list and add it to the list
-        list.GetTranslations("Food");
-        // Get the people list and add them all to the linked list
-        LinkedList<TranslationModel> tm = new LinkedList<>(list.GetTranslations("People"));
+        list.GetTranslations("Tagalog", "Food");
+        // Get the people list and add it to the list
+        list.GetTranslations("Tagalog", "People");
+        // Get the korean greetings list and add it to the list
+        list.GetTranslations("Korean", "Greetings");
+        // Get the korean greetings list and add them all to the linked list
+        LinkedList<TranslationModel> tm = new LinkedList<>(list.GetTranslations("Korean", "Numbers"));
         // Return the LinkedList
         return tm;
     }

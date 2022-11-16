@@ -31,12 +31,12 @@
             android:id="@+id/textView_FirstLang"
             style="@style/style_entry_modifier_textview"
             android:text="@string/entry_first_language_text"
-            app:layout_constraintBottom_toTopOf="@+id/editText_FirstLang"
-            app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
+            app:layout_constraintBottom_toTopOf="@+id/spinner_FirstLang"
+            app:layout_constraintStart_toStartOf="@+id/spinner_FirstLang"
             app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
 
-        <EditText
-            android:id="@+id/editText_FirstLang"
+        <Spinner
+            android:id="@+id/spinner_FirstLang"
             style="@style/style_entry_modifier_edittext"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
@@ -47,9 +47,8 @@
             android:focusable="auto"
             android:focusableInTouchMode="true"
             android:hint="@string/entry_first_language_edit_hint"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
             android:singleLine="true"
+            android:spinnerMode="dropdown"
             android:text="@string/entry_first_language_edittext"
             android:textColor="@color/disabled_color_text"
             android:textStyle="bold"
@@ -62,8 +61,8 @@
             style="@style/style_entry_modifier_textview"
             android:layout_marginTop="40dp"
             android:text="@string/entry_word_or_phrase_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_FirstLang"
-            app:layout_constraintTop_toBottomOf="@+id/editText_FirstLang" />
+            app:layout_constraintStart_toStartOf="@+id/spinner_FirstLang"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_FirstLang" />
 
         <EditText
             android:id="@+id/editText_FirstLangWord"
@@ -72,8 +71,8 @@
             android:hint="@string/entry_word_or_phrase_edit_hint"
             android:importantForAutofill="no"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@id/editText_FirstLang"
-            app:layout_constraintStart_toStartOf="@id/editText_FirstLang"
+            app:layout_constraintEnd_toEndOf="@id/spinner_FirstLang"
+            app:layout_constraintStart_toStartOf="@id/spinner_FirstLang"
             app:layout_constraintTop_toBottomOf="@+id/textView_FirstLangWord"
             tools:ignore="TextContrastCheck" />
 
@@ -85,8 +84,8 @@
             app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
             app:layout_constraintTop_toBottomOf="@id/editText_FirstLangWord" />
 
-        <EditText
-            android:id="@+id/editText_SecondLang"
+        <Spinner
+            android:id="@+id/spinner_SecondLang"
             style="@style/style_entry_modifier_edittext"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/shaded_grey"
@@ -98,20 +97,21 @@
             android:importantForAutofill="no"
             android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
             android:singleLine="true"
+            android:spinnerMode="dropdown"
             android:text="@string/entry_second_language_edittext"
             android:textColor="@color/disabled_color_text"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/editText_FirstLangWord"
             app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
-            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLang"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLang" />
 
         <TextView
             android:id="@+id/textView_SecondLangWord"
             style="@style/style_entry_modifier_textview"
             android:layout_marginTop="40dp"
             android:text="@string/entry_translated_word_or_phrase_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
-            app:layout_constraintTop_toBottomOf="@id/editText_SecondLang" />
+            app:layout_constraintStart_toStartOf="@+id/spinner_SecondLang"
+            app:layout_constraintTop_toBottomOf="@id/spinner_SecondLang" />
 
         <EditText
             android:id="@+id/editText_SecondLangWord"
@@ -120,8 +120,8 @@
             android:hint="@string/entry_translated_word_or_phrase_edittext"
             android:importantForAutofill="no"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLang"
-            app:layout_constraintStart_toStartOf="@+id/editText_SecondLang"
+            app:layout_constraintEnd_toEndOf="@+id/spinner_SecondLang"
+            app:layout_constraintStart_toStartOf="@+id/spinner_SecondLang"
             app:layout_constraintTop_toBottomOf="@+id/textView_SecondLangWord"
             tools:ignore="TextContrastCheck" />
 

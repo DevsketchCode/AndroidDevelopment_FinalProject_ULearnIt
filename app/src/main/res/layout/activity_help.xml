@@ -9,7 +9,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
-        android:layout_height="500dp"
+        android:layout_height="600dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         app:cardBackgroundColor="#CCFFFFFF"
@@ -62,6 +62,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_Help_Users_Guide" />
+
+            <TextView
+                android:id="@+id/textView_Help_Settings_Page"
+                style="@style/about_me_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/help_settings_page_heading"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.475"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_Help_Red_Hearts_Text" />
 
             <TextView
                 android:id="@+id/textView_Help_Single_Tap"

@@ -3,13 +3,14 @@ package edu.cvtc.doberlander.ulearnit;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -21,6 +22,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
     private String dbResult = "Failed";
+    private String defaultNewLanguage = "Korean";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,15 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         saveButton.setOnClickListener(this);
         Button deleteButton = findViewById(R.id.btn_Delete);
         deleteButton.setOnClickListener(this);
+
+        // Setup Language Spinners
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
+        Spinner firstLang=findViewById(R.id.spinner_FirstLang);
+        firstLang.setAdapter(adapter);
+        Spinner secondLang=findViewById(R.id.spinner_SecondLang);
+        secondLang.setAdapter(adapter);
 
 
         // Get the previous activities category
@@ -72,7 +83,9 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 // fill the entry fields to edit
                 EditText firstLangWord = findViewById(R.id.editText_FirstLangWord);
                 EditText secondLangWord = findViewById(R.id.editText_SecondLangWord);
+                firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
                 firstLangWord.setText(mSelectedEntry.getFirstLanguageWord());
+                secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
                 secondLangWord.setText(mSelectedEntry.getSecondLanguageWord());
 
                 // Set the object with the appropriate item id from the database
@@ -88,7 +101,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
             // after the form has been filled out.
-
+            secondLang.setSelection(adapter.getPosition(defaultNewLanguage));
             // New entry to true, so the proper db function can be ran.
             isNewEntry = true;
 
@@ -100,15 +113,15 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
     private TranslationModel getEntryFormValues() {
         // Get the fields
-        EditText firstLang = findViewById(R.id.editText_FirstLang);
+        Spinner firstLang = findViewById(R.id.spinner_FirstLang);
         EditText firstLangWord = findViewById(R.id.editText_FirstLangWord);
-        EditText secondLang = findViewById(R.id.editText_SecondLang);
+        Spinner secondLang = findViewById(R.id.spinner_SecondLang);
         EditText secondLangWord = findViewById(R.id.editText_SecondLangWord);
 
         // Update the selected entry with the new values
-        mSelectedEntry.setFirstLanguage(firstLang.getText().toString());
+        mSelectedEntry.setFirstLanguage(firstLang.getSelectedItem().toString());
         mSelectedEntry.setFirstLanguageWord(firstLangWord.getText().toString());
-        mSelectedEntry.setSecondLanguage(secondLang.getText().toString());
+        mSelectedEntry.setSecondLanguage(secondLang.getSelectedItem().toString());
         mSelectedEntry.setSecondLanguageWord(secondLangWord.getText().toString());
 
         // Return the updated/new selectedItem
