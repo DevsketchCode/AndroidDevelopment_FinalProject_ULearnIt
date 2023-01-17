@@ -6,6 +6,8 @@ public class TranslationList {
 
     // PreDefined Translation Lists
     // The lists are used when filling a new database with the preset translations
+
+    // NOTE: Adding a list here will also need to be called from DBWorker
     private static final String[] English_Greetings_ToTagalog = {"Good Morning", "Good Afternoon", "Good Night", "How are you?"};
     private static final String[] Tagalog_Greetings = {"Magandang Umaga", "Magandang Hapon", "Magandang Gabi", "Kumusta po kayo?"};
 
@@ -25,11 +27,11 @@ public class TranslationList {
     private static final String[] English_Numbers_ToKorean = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"};
     private static final String[] Korean_Numbers = {"일 / 하나", "이 / 둘", "삼 / 셋", "사 / 넷", "오 / 다섯", "육 / 여섯", "칠 / 일곱", "팔 / 여덟", "구 / 아홉", "십 / 열"};
 
-    private static final String[] English_Food_ToKorean = {};
-    private static final String[] Korean_Food = {};
+    private static final String[] English_Food_ToKorean = {"Eat", "Food", "Rice", "Hungry", "Fish", "Chicken", "Pork", "Beef"};
+    private static final String[] Korean_Food = {"먹다", "음식", "쌀", "배고픈", "생선", "닭고기", "돼지고기", "쇠고기"};
 
-    private static final String[] English_People_ToKorean = {};
-    private static final String[] Korean_People = {};
+    private static final String[] English_People_ToKorean = {"I Love You", "I Miss You", "God", "Jehovah", "Jesus Christ", "Faith", "Father", "Friend", "Congregation", "Prayer", "Bible", "God's Kingdom"};
+    private static final String[] Korean_People = {"사랑해", "보고 싶다", "하나님", "여호와", "예수 그리스도", "믿음", "아버지", "친구", "회중", "기도", "성경", "하느님의 왕국"};
 
     // Create public variable that is used to add translation objects as favorites - MUST BE STATIC
     public static final LinkedList<TranslationModel> Favorites_List = new LinkedList<>();
@@ -41,7 +43,7 @@ public class TranslationList {
     public LinkedList<TranslationModel> GetTranslations(String language, String category) {
         // Set translation languages for initial db creation
         String firstLang = "English";
-        String secondLang = "Tagalog";
+        String secondLang = "Korean";
 
         String[] firstLangWords = new String[0];
         String[] secondLangWords = new String[0];

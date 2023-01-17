@@ -116,6 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 // Set Food Category
                 categoryName = getString(R.string.food_category_text);
                 break;
+            case R.id.general_ImageBtn:
+                // Set General Category
+                categoryName = getString(R.string.general_category_text);
+                break;
             case R.id.action_favorites:
                 // Set the Favorites Category
                 categoryName = getString(R.string.favorites_category_text);

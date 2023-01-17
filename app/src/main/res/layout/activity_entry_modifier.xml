@@ -50,7 +50,7 @@
             android:singleLine="true"
             android:spinnerMode="dropdown"
             android:text="@string/entry_first_language_edittext"
-            android:textColor="@color/disabled_color_text"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
             android:singleLine="true"
             android:spinnerMode="dropdown"
             android:text="@string/entry_second_language_edittext"
-            android:textColor="@color/disabled_color_text"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/editText_FirstLangWord"
             app:layout_constraintStart_toStartOf="@+id/editText_FirstLangWord"
@@ -128,15 +128,19 @@
         <Button
             android:id="@+id/btn_Save"
             style="@style/style_entry_modifier_button"
+            android:layout_width="130dp"
             android:text="@string/btn_save_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangWord"
+            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangWord"
             app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
 
         <Button
             android:id="@+id/btn_Delete"
             style="@style/style_entry_modifier_button"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:backgroundTint="#B12218"
             android:text="@string/btn_delete_text"
-            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangWord"
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangWord"
             app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangWord" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

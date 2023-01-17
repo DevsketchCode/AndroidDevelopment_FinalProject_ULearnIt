@@ -63,8 +63,12 @@ public class DbWorker {
         list.GetTranslations("Tagalog", "People");
         // Get the korean greetings list and add it to the list
         list.GetTranslations("Korean", "Greetings");
-        // Get the korean greetings list and add them all to the linked list
-        LinkedList<TranslationModel> tm = new LinkedList<>(list.GetTranslations("Korean", "Numbers"));
+        // Get the korean numbers list and add it to the list
+        list.GetTranslations("Korean", "Numbers");
+        // Get the korean food list and add it to the list
+        list.GetTranslations("Korean", "Food");
+        // Get the korean people list and add them all to the linked list
+        LinkedList<TranslationModel> tm = new LinkedList<>(list.GetTranslations("Korean", "People"));
         // Return the LinkedList
         return tm;
     }

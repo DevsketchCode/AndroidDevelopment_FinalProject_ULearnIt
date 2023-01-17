@@ -39,7 +39,7 @@ public class WebTranslateActivity extends AppCompatActivity {
         // Initialized variables
         String firstLangCode = "";
         String secondLangCode = "";
-        String firstLangWord = "";
+        String secondLangWord = "";
 
         // Create hashmap for various languages and providing their google translate code
         HashMap<String, String> googleLanguageCodeMap = new HashMap<>();
@@ -82,10 +82,10 @@ public class WebTranslateActivity extends AppCompatActivity {
             }
 
             // Get the first language word to input to use in the translation
-            firstLangWord = mSelectedEntry.getFirstLanguageWord();
+            secondLangWord = mSelectedEntry.getSecondLanguageWord();
 
             // Encode the word or phrase to be passed via http
-            firstLangWord = encode (firstLangWord, String.valueOf(Charset.defaultCharset()));
+            secondLangWord = encode (secondLangWord, String.valueOf(Charset.defaultCharset()));
         } else {
             // Set the default values that match the languages in the startup database
             firstLangCode = "en";
@@ -93,8 +93,8 @@ public class WebTranslateActivity extends AppCompatActivity {
         }
 
         // Create the url string
-        String url = "https://translate.google.com?sl=" + firstLangCode + "&tl=" +
-                secondLangCode + "&text=" + firstLangWord + "&op=translate";
+        String url = "https://translate.google.com?sl=" + secondLangCode + "&tl=" +
+                firstLangCode + "&text=" + secondLangWord + "&op=translate";
 
         // Setup the WebView to be able to open the URL
         // Web View resource: https://developer.android.com/guide/webapps/webview
