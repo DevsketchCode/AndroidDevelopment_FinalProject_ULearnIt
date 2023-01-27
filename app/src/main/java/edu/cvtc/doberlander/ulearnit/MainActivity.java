@@ -120,6 +120,14 @@ public class MainActivity extends AppCompatActivity {
                 // Set General Category
                 categoryName = getString(R.string.general_category_text);
                 break;
+            case R.id.relationship_ImageBtn:
+                // Set Relationship Category
+                categoryName = "Relationship";
+                break;
+            case R.id.theocratic_ImageBtn:
+                // Set Theocratic Category
+                categoryName = "Theocratic";
+                break;
             case R.id.action_favorites:
                 // Set the Favorites Category
                 categoryName = getString(R.string.favorites_category_text);

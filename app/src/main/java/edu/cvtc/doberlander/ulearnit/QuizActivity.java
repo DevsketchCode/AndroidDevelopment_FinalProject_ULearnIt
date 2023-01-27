@@ -134,7 +134,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Sort the translations alphabetically before returning
-        mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageWord));
+        mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageEntry));
         // Return back to the previous activity
         if (item.getItemId() == android.R.id.home) {
             this.finish();
@@ -179,10 +179,10 @@ public class QuizActivity extends AppCompatActivity {
         textView_QuestionNumbers.setText(questionNumberMessage);
 
         // Populate the quiz Question
-        mQuiz_Question.setText(mQuizTranslations.get(mIndex).getFirstLanguageWord());
+        mQuiz_Question.setText(mQuizTranslations.get(mIndex).getFirstLanguageEntry());
 
         // Get the correct answer
-        mCorrectAnswer = mQuizTranslations.get(mIndex).getSecondLanguageWord();
+        mCorrectAnswer = mQuizTranslations.get(mIndex).getSecondLanguageEntry();
 
         // Determine which Option will include the correct answer.
         Random random = new Random();
@@ -200,7 +200,7 @@ public class QuizActivity extends AppCompatActivity {
         for (int i = 0; i < mOptions.size(); i++) {
             if (i != randomOptionForCorrectAnswer) {
                 // Increment to next in list if the option is already the correct answer
-                if (mQuizTranslations.get(entry).getSecondLanguageWord().equals(mCorrectAnswer)) {
+                if (mQuizTranslations.get(entry).getSecondLanguageEntry().equals(mCorrectAnswer)) {
                     // If next entry is (4), then reset to 0 (if entry > 3, then reset to 0)
                     entry++;
                     if(entry == mOptions.size()) {
@@ -208,7 +208,7 @@ public class QuizActivity extends AppCompatActivity {
                     }
                 }
                 // Populate the button text
-                mOptions.get(i).setText(mQuizTranslations.get(entry).getSecondLanguageWord());
+                mOptions.get(i).setText(mQuizTranslations.get(entry).getSecondLanguageEntry());
                 // If next entry is (4), then reset to 0 (if entry > 3, then reset to 0)
                 entry++;
                 if(entry == mOptions.size()) {
@@ -274,7 +274,7 @@ public class QuizActivity extends AppCompatActivity {
                     // Sort the translations list back to it's alphabetical order
                     // This is used to display the list appropriately when going back to the Category Activity,
                     // After the ResultsActivity
-                    mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageWord));
+                    mQuizTranslations.sort(Comparator.comparing(TranslationModel::getFirstLanguageEntry));
 
                     // Set up the intent to be sent to the ResultsActivity
                     Intent intent = new Intent(getApplicationContext(), ResultsActivity.class);

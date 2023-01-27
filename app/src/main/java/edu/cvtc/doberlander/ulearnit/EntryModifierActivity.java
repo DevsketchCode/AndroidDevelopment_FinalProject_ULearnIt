@@ -84,9 +84,9 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 EditText firstLangWord = findViewById(R.id.editText_FirstLangWord);
                 EditText secondLangWord = findViewById(R.id.editText_SecondLangWord);
                 firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
-                firstLangWord.setText(mSelectedEntry.getFirstLanguageWord());
+                firstLangWord.setText(mSelectedEntry.getFirstLanguageEntry());
                 secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
-                secondLangWord.setText(mSelectedEntry.getSecondLanguageWord());
+                secondLangWord.setText(mSelectedEntry.getSecondLanguageEntry());
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
@@ -120,9 +120,9 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
         // Update the selected entry with the new values
         mSelectedEntry.setFirstLanguage(firstLang.getSelectedItem().toString());
-        mSelectedEntry.setFirstLanguageWord(firstLangWord.getText().toString());
+        mSelectedEntry.setFirstLanguageEntry(firstLangWord.getText().toString());
         mSelectedEntry.setSecondLanguage(secondLang.getSelectedItem().toString());
-        mSelectedEntry.setSecondLanguageWord(secondLangWord.getText().toString());
+        mSelectedEntry.setSecondLanguageEntry(secondLangWord.getText().toString());
 
         // Return the updated/new selectedItem
         return mSelectedEntry;
@@ -189,7 +189,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         } else {
             // New Entry
             // Verify if both fields are populated
-            if(!mSelectedEntry.getFirstLanguageWord().isEmpty() && !mSelectedEntry.getSecondLanguageWord().isEmpty()) {
+            if(!mSelectedEntry.getFirstLanguageEntry().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()) {
                 // Both fields are populated, continue to insert entry
                 try {
                     // If the entry is new, then use the insert the entry into the database

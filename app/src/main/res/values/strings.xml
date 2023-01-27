@@ -11,8 +11,12 @@
     <string name="food_category_text">Food</string>
     <string name="people_category_image">People Image - Owl Family</string>
     <string name="people_category_text">People</string>
+    <string name="relationship_category_image">Relationship Image - Owl Family</string>
+    <string name="relationship_category_text">Relationship</string>
     <string name="general_category_image">General Image - Detective Penguin</string>
     <string name="general_category_text">General</string>
+    <string name="theocratic_category_image">Theocratic Image - Owl Family</string>
+    <string name="theocratic_category_text">Theocratic</string>
 
     <!-- Menu Options -->
     <string name="action_about">About</string>

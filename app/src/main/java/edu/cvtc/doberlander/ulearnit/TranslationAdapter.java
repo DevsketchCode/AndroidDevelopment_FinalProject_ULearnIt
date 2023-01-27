@@ -1,11 +1,9 @@
 package edu.cvtc.doberlander.ulearnit;
 
-import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,10 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -152,13 +148,13 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
     // Connect the data to the view holder
     @Override
-    public void onBindViewHolder(@NonNull TranslationAdapter.TranslationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TranslationViewHolder holder, int position) {
         // Get the list position
         TranslationModel mCurrentEntry = mTranslationList.get(position);
 
         // Display the translation information
-        holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageWord());
-        holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageWord());
+        holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageEntry());
+        holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
 
         // Check to see if the item clicked is the Favorite Heart imageView
         if(holder.favoriteImageView.getId() == R.id.favorite_imageView) {

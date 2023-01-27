@@ -12,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
@@ -82,7 +81,7 @@ public class WebTranslateActivity extends AppCompatActivity {
             }
 
             // Get the first language word to input to use in the translation
-            secondLangWord = mSelectedEntry.getSecondLanguageWord();
+            secondLangWord = mSelectedEntry.getSecondLanguageEntry();
 
             // Encode the word or phrase to be passed via http
             secondLangWord = encode (secondLangWord, String.valueOf(Charset.defaultCharset()));
