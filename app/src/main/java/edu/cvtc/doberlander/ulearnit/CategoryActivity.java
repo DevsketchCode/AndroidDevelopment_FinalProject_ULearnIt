@@ -2,6 +2,7 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.List;
+
+import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
 
 public class CategoryActivity extends AppCompatActivity implements RecyclerViewInterface{
 
@@ -43,6 +47,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Set the content view
         setContentView(R.layout.activity_category);
 
@@ -236,7 +241,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     public void onItemLongTap(int position) {
         // On Long Tap of an Entry Item, display the languages of that translation entry
         if(mSelectedItem != null) {
-            displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage());
+            displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage() + ".\nEntry Type: " + mSelectedItem.getEntryType());
         }
     }
 }

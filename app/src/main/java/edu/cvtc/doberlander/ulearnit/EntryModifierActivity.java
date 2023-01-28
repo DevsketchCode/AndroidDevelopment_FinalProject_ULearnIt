@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private ArrayAdapter<CharSequence> adapter = null;
     // Member level variables
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
@@ -47,7 +48,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         deleteButton.setOnClickListener(this);
 
         // Setup Language Spinners
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
+        adapter=ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
         Spinner firstLang=findViewById(R.id.spinner_FirstLang);
@@ -81,12 +82,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             // if there is a translation item found, then populate the fields
             if(mSelectedEntry != null) {
                 // fill the entry fields to edit
-                EditText firstLangWord = findViewById(R.id.editText_FirstLangWord);
-                EditText secondLangWord = findViewById(R.id.editText_SecondLangWord);
+                EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
+                EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
+                EditText entryType = findViewById(R.id.editText_Entry);
                 firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
-                firstLangWord.setText(mSelectedEntry.getFirstLanguageEntry());
+                firstLangEntry.setText(mSelectedEntry.getFirstLanguageEntry());
                 secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
-                secondLangWord.setText(mSelectedEntry.getSecondLanguageEntry());
+                secondLangEntry.setText(mSelectedEntry.getSecondLanguageEntry());
+                entryType.setText(mSelectedEntry.getEntryType());
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
@@ -114,15 +117,17 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
     private TranslationModel getEntryFormValues() {
         // Get the fields
         Spinner firstLang = findViewById(R.id.spinner_FirstLang);
-        EditText firstLangWord = findViewById(R.id.editText_FirstLangWord);
+        EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
         Spinner secondLang = findViewById(R.id.spinner_SecondLang);
-        EditText secondLangWord = findViewById(R.id.editText_SecondLangWord);
+        EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
+        EditText entryType = findViewById(R.id.editText_Entry);
 
         // Update the selected entry with the new values
         mSelectedEntry.setFirstLanguage(firstLang.getSelectedItem().toString());
-        mSelectedEntry.setFirstLanguageEntry(firstLangWord.getText().toString());
+        mSelectedEntry.setFirstLanguageEntry(firstLangEntry.getText().toString());
         mSelectedEntry.setSecondLanguage(secondLang.getSelectedItem().toString());
-        mSelectedEntry.setSecondLanguageEntry(secondLangWord.getText().toString());
+        mSelectedEntry.setSecondLanguageEntry(secondLangEntry.getText().toString());
+        mSelectedEntry.setEntryType(entryType.getText().toString());
 
         // Return the updated/new selectedItem
         return mSelectedEntry;
@@ -161,6 +166,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                         // Run the Save to DB function in the Data Manager
                         dbWorker.UpdateOrDeleteEntries(mSelectedEntry.getId(), mSelectedEntry,
                                 EntryModifierActivity.this, "update");
+                        adapter.notifyDataSetChanged();
                         dbResult = "Successfully Updated";
                     } catch (Exception ex) {
                         // Display error for the user to see
@@ -189,7 +195,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         } else {
             // New Entry
             // Verify if both fields are populated
-            if(!mSelectedEntry.getFirstLanguageEntry().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()) {
+            if(!mSelectedEntry.getFirstLanguageEntry().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
+            && !mSelectedEntry.getEntryType().isEmpty()) {
                 // Both fields are populated, continue to insert entry
                 try {
                     // If the entry is new, then use the insert the entry into the database
@@ -218,6 +225,12 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         setResult(CategoryActivity.RESULT_OK, intent);
         // Close the activity and go back
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 
     public void displayToast(String message) {

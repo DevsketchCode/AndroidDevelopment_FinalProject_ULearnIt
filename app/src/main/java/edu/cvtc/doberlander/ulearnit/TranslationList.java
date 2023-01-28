@@ -39,7 +39,7 @@ public class TranslationList {
     // The lists are used when filling a new database with the preset translations
     private static final String[] English_Greetings_ToKorean = {"Hello", "How are you?"};
     private static final String[] Korean_Greetings = {"안녕하세요", "어떻게 지내세요?"};
-    private static final String[] EngToKor_Greetings_EntryType = {"Phrase", "Phrase"};
+    private static final String[] EngToKor_Greetings_EntryType = {"Noun", "Phrase"};
 
     private static final String[] English_Numbers_ToKorean = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "20", "21", "30", "40", "50", "60", "70", "80",

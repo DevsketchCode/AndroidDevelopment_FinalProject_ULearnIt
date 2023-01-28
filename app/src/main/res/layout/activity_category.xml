@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/categoryHeaderText"
-            style="@style/header_message_text" />
+            style="@style/header_message_text"/>
 
     </LinearLayout>
 

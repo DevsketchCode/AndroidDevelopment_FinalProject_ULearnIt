@@ -39,13 +39,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public class TranslationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView firstLangTranslationItemView;
         public final TextView secondLangTranslationItemView;
+        public final TextView entryTypeView;
         public final ImageView favoriteImageView;
-        final TranslationAdapter mAdapter;
+        private final TranslationAdapter mAdapter;
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
             super(itemView);
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
+            entryTypeView = itemView.findViewById(R.id.langTranslationEntryType);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             this.mAdapter = adapter;
 
@@ -130,6 +132,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     element.setFavorite(1);
                 }
             }
+            // TODO: Flip these later
+            if(view.getId() == R.id.textView_FirstLangEntry || view.getId() == R.id.textView_SecondLangEntry) {
+                if (view.findViewById(R.id.layout_TranslationEntryDetails).getVisibility() == View.VISIBLE) {
+                    view.findViewById(R.id.layout_TranslationEntryDetails).setVisibility(View.GONE);
+                } else {
+                    view.findViewById(R.id.layout_TranslationEntryDetails).setVisibility(View.VISIBLE);
+                }
+            }
+
             // Set itemClicked Global variable to true
             mItemClicked = true;
 
@@ -155,6 +166,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageEntry());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
+        holder.entryTypeView.setText(mCurrentEntry.getEntryType());
+
 
         // Check to see if the item clicked is the Favorite Heart imageView
         if(holder.favoriteImageView.getId() == R.id.favorite_imageView) {

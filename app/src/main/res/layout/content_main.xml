@@ -1,185 +1,262 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abstract_background"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<com.google.android.flexbox.FlexboxLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:flexWrap="wrap"
-    app:alignItems="stretch"
-    app:alignContent="stretch">
+    android:background="@drawable/abstract_background">
 
-    <!--<LinearLayout
-        android:id="@+id/heading_LinearLayout"
-        style="@style/style_Heading_LinearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexboxLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:justifyContent="space_evenly"
+        app:flexWrap="wrap">
 
         <TextView
             android:id="@+id/categories_TextView"
             style="@style/header_message_text"
             android:text="@string/title_categories" />
-    </LinearLayout>-->
 
-    <!-- Penguin Waving image resource link -->
-    <!-- https://publicdomainvectors.org/en/free-clipart/Waving-penguin/75280.html -->
-    <ImageButton
-        android:id="@+id/greetings_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginStart="24dp"
-        android:backgroundTint="#3F51B5"
-        android:contentDescription="@string/greetings_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categories_TextView"
-        app:srcCompat="@drawable/ic_penguin_wave" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/greetings_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
 
-    <TextView
-        android:id="@+id/greeting_TextView"
-        style="@style/category_button_text"
-        android:text="@string/greetings_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/greetings_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
+            <!-- Penguin Waving image resource link -->
+            <!-- https://publicdomainvectors.org/en/free-clipart/Waving-penguin/75280.html -->
+            <ImageButton
+                android:id="@+id/greetings_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#3F51B5"
+                android:contentDescription="@string/greetings_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_penguin_wave" />
 
-    <!-- Polar Bear image resource link -->
-    <!-- https://openclipart.org/detail/169961/cartoon-polar-bear -->
-    <ImageButton
-        android:id="@+id/people_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginStart="24dp"
-        android:backgroundTint="#A43AB7"
-        android:contentDescription="@string/people_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/greetings_ImageBtn"
-        app:srcCompat="@drawable/ic_people_owl_family" />
+            <TextView
+                android:id="@+id/greeting_TextView"
+                style="@style/category_button_text"
+                android:text="@string/greetings_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/greetings_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
 
-    <TextView
-        android:id="@+id/people_TextView"
-        style="@style/category_button_text"
-        android:text="@string/people_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/people_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/people_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/people_ImageBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Snake Number One image resource link -->
-    <!-- https://publicdomainvectors.org/en/free-clipart/Snake-number-one-vector-clip-art/30666.html -->
-    <ImageButton
-        android:id="@+id/numbers_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#673AB7"
-        android:contentDescription="@string/numbers_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading_LinearLayout"
-        app:srcCompat="@drawable/ic_numbers_foreground"
-        tools:ignore="ImageContrastCheck" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/numbers_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
 
-    <TextView
-        android:id="@+id/numbers_TextView"
-        style="@style/category_button_text"
-        android:text="@string/numbers_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
+            <!-- Snake Number One image resource link -->
+            <!-- https://publicdomainvectors.org/en/free-clipart/Snake-number-one-vector-clip-art/30666.html -->
+            <ImageButton
+                android:id="@+id/numbers_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#673AB7"
+                android:contentDescription="@string/numbers_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_numbers_foreground"
+                tools:ignore="ImageContrastCheck" />
 
-    <!-- Owl Family One image resource link -->
-    <!-- https://publicdomainvectors.org/en/free-clipart/Happy-family-of-owls-vector-illustration/33749.html -->
-    <ImageButton
-        android:id="@+id/food_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#3FB5AB"
-        android:contentDescription="@string/food_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numbers_ImageBtn"
-        app:srcCompat="@drawable/ic_bear_with_food" />
+            <TextView
+                android:id="@+id/numbers_TextView"
+                style="@style/category_button_text"
+                android:text="@string/numbers_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
 
-    <TextView
-        android:id="@+id/food_TextView"
-        style="@style/category_button_text"
-        android:text="@string/food_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/food_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/food_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/food_ImageBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Other image resource link -->
-    <!-- https://publicdomainvectors.org/en/free-clipart/Vector-drawing-of-search-penguin/32953.html -->
-    <ImageButton
-        android:id="@+id/general_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginStart="24dp"
-        android:backgroundTint="#B5A9A3"
-        android:contentDescription="@string/general_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/people_ImageBtn"
-        app:srcCompat="@drawable/ic_detective_penguin" />
 
-    <TextView
-        android:id="@+id/general_TextView"
-        style="@style/category_button_text"
-        android:text="@string/general_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/general_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/general_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/general_ImageBtn" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/people_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
 
-    <!-- Polar Bear image resource link -->
-    <!-- https://openclipart.org/detail/169961/cartoon-polar-bear -->
-    <ImageButton
-        android:id="@+id/relationship_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="#A43AB7"
-        android:contentDescription="@string/relationship_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/food_ImageBtn"
-        app:srcCompat="@drawable/ic_favorites" />
+            <!-- Polar Bear image resource link -->
+            <!-- https://openclipart.org/detail/169961/cartoon-polar-bear -->
+            <ImageButton
+                android:id="@+id/people_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#A43AB7"
+                android:contentDescription="@string/people_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_people_owl_family" />
 
-    <TextView
-        android:id="@+id/relationship_TextView"
-        style="@style/category_button_text"
-        android:text="@string/relationship_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/relationship_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/relationship_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/relationship_ImageBtn" />
+            <TextView
+                android:id="@+id/people_TextView"
+                style="@style/category_button_text"
+                android:text="@string/people_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/people_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/people_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/people_ImageBtn" />
 
-    <!-- Other image resource link -->
-    <!-- https://publicdomainvectors.org/en/free-clipart/Vector-drawing-of-search-penguin/32953.html -->
-    <ImageButton
-        android:id="@+id/theocratic_ImageBtn"
-        style="@style/category_button_image"
-        android:layout_marginStart="24dp"
-        android:backgroundTint="#B5A9A3"
-        android:contentDescription="@string/theocratic_category_image"
-        android:onClick="launchCategoryActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/general_ImageBtn"
-        app:srcCompat="@drawable/ic_correct" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/theocratic_TextView"
-        style="@style/category_button_text"
-        android:text="@string/theocratic_category_text"
-        app:layout_constraintBottom_toBottomOf="@+id/theocratic_ImageBtn"
-        app:layout_constraintEnd_toEndOf="@+id/theocratic_ImageBtn"
-        app:layout_constraintStart_toStartOf="@+id/theocratic_ImageBtn" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/relationship_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
 
-</com.google.android.flexbox.FlexboxLayout>
+            <ImageButton
+                android:id="@+id/relationship_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#EA418F"
+                android:contentDescription="@string/relationship_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_favorites" />
+
+            <TextView
+                android:id="@+id/relationship_TextView"
+                style="@style/category_button_text"
+                android:text="@string/relationship_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/relationship_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/relationship_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/relationship_ImageBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/food_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
+
+            <ImageButton
+                android:id="@+id/food_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#3FB5AB"
+                android:contentDescription="@string/food_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_bear_with_food" />
+
+            <TextView
+                android:id="@+id/food_TextView"
+                style="@style/category_button_text"
+                android:text="@string/food_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/food_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/food_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/food_ImageBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/general_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
+
+            <ImageButton
+                android:id="@+id/general_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#B5A9A3"
+                android:contentDescription="@string/general_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_detective_penguin" />
+
+            <TextView
+                android:id="@+id/general_TextView"
+                style="@style/category_button_text"
+                android:text="@string/general_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/general_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/general_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/general_ImageBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/theocratic_CardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            app:layout_flexGrow="1"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardMaxElevation="8dp"
+            app:contentPadding="4dp">
+
+            <ImageButton
+                android:id="@+id/theocratic_ImageBtn"
+                style="@style/category_button_image"
+                android:backgroundTint="#52BBEF"
+                android:contentDescription="@string/theocratic_category_image"
+                android:onClick="launchCategoryActivity"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_correct" />
+
+            <TextView
+                android:id="@+id/theocratic_TextView"
+                style="@style/category_button_text"
+                android:text="@string/theocratic_category_text"
+                app:layout_constraintBottom_toBottomOf="@+id/theocratic_ImageBtn"
+                app:layout_constraintEnd_toEndOf="@+id/theocratic_ImageBtn"
+                app:layout_constraintStart_toStartOf="@+id/theocratic_ImageBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.flexbox.FlexboxLayout>
 </ScrollView>
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
