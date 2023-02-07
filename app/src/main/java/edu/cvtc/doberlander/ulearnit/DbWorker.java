@@ -16,7 +16,7 @@ public class DbWorker {
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
     // Function to insertEntry from a list
-    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangExample, String secondLang, String secondLangEntry, String secondLangExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags) {
+    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangExample, String secondLang, String secondLangEntry, String secondLangExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags, String modifiedDate) {
         ContentValues values = new ContentValues();
         values.put(TranslationEntry.COLUMN_CATEGORY, category);
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, subCategory);
@@ -34,6 +34,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_NOTES, notes);
         values.put(TranslationEntry.COLUMN_FAVORITE, favorite);
         values.put(TranslationEntry.COLUMN_TAGS, tags);
+        values.put(TranslationEntry.COLUMN_MODIFIED_DATE, modifiedDate);
 
         // Insert the translation into the database
         mDb.insert(TranslationEntry.TABLE_NAME, null, values);
@@ -59,6 +60,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_NOTES, tm.getNotes());
         values.put(TranslationEntry.COLUMN_FAVORITE, tm.getFavorite());
         values.put(TranslationEntry.COLUMN_TAGS, tm.getTags());
+        values.put(TranslationEntry.COLUMN_MODIFIED_DATE, tm.getModifiedDate());
 
         // Insert the translation into the database
         mDb.insert(TranslationEntry.TABLE_NAME, null, values);
@@ -125,7 +127,8 @@ public class DbWorker {
                     m.getPercentLearned(),
                     m.getNotes(),
                     m.getFavorite(),
-                    m.getTags());
+                    m.getTags(),
+                    m.getModifiedDate());
         }
     }
 

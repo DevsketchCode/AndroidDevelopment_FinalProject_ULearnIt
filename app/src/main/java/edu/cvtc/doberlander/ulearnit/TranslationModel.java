@@ -2,8 +2,13 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import android.text.Html;
+import android.text.SpannableString;
 import androidx.annotation.NonNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class TranslationModel implements Parcelable {
     // Declare Variables
@@ -24,6 +29,7 @@ public class TranslationModel implements Parcelable {
     private String mNotes;
     private int mFavorite;
     private String mTags;
+    private String mModifiedDate;
 
     // Default constructor
     public TranslationModel() {
@@ -47,10 +53,12 @@ public class TranslationModel implements Parcelable {
         this.mNotes = "";
         this.mFavorite = favorite;
         this.mTags = "";
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+        this.mModifiedDate = sdf.format(new Date());
     }
 
     // Overloaded Constructor to create entire object, including Id
-    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String secondLanguageExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags) {
+    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String secondLanguageExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags, String modifiedDate) {
         this.mId = id;
         this.mCategory = category;
         this.mSubCategory = subCategory;
@@ -68,6 +76,7 @@ public class TranslationModel implements Parcelable {
         this.mNotes = notes;
         this.mFavorite = favorite;
         this.mTags = tags;
+        this.mModifiedDate = modifiedDate;
     }
 
 
@@ -147,9 +156,14 @@ public class TranslationModel implements Parcelable {
 
     public void setPercentLearned(int percentLearned) { this.mPercentLearned = percentLearned; }
 
-    public String getNotes() { return mNotes; }
+    public String getNotes() {
+        mNotes = String.valueOf(Html.fromHtml(mNotes, Html.FROM_HTML_MODE_COMPACT));
+        return mNotes;
+    }
 
-    public void setNotes(String notes) { this.mNotes = notes; }
+    public void setNotes(String notes) {
+        this.mNotes = String.valueOf(Html.toHtml(new SpannableString(notes), Html.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE));
+    }
 
     public int getFavorite() {
         return mFavorite;
@@ -162,6 +176,17 @@ public class TranslationModel implements Parcelable {
     public String getTags() { return mTags; }
 
     public void setTags(String tags) { this.mTags = tags; }
+
+    public String getModifiedDate() {
+        return mModifiedDate;
+    }
+
+    public void setModifiedDate(String newDate) {
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+        // Always set a new date and time to become the modified date/time stamp
+        newDate = sdf.format(new Date());
+        this.mModifiedDate = newDate;
+    }
 
     // Compare key that concatenates the firstLangEntry and secondLangEntry
     private String getCompareKey() { return mFirstLanguageEntry + "|" + mSecondLanguageEntry; }
@@ -196,6 +221,7 @@ public class TranslationModel implements Parcelable {
         setNotes(parcel.readString());
         setFavorite(parcel.readInt());
         setTags(parcel.readString());
+        setModifiedDate(parcel.readString());
     }
 
     // Override the hashCode and toString to pull out rows for comparison.
@@ -220,6 +246,7 @@ public class TranslationModel implements Parcelable {
         parcel.writeString(mNotes);
         parcel.writeInt(mFavorite);
         parcel.writeString(mTags);
+        parcel.writeString(mModifiedDate);
     }
 
     @Override

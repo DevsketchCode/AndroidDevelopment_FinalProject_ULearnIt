@@ -1,6 +1,9 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public class TranslationList {
 
@@ -73,13 +76,13 @@ public class TranslationList {
     private static final String[] Korean_Relationship = {"사랑해", "보고 싶다"};
     private static final String[] EngToKor_Relationship_EntryType = {"Phrase", "Phrase"};
 
-    private static final String[] English_General_ToKorean = {"More"};
-    private static final String[] Korean_General = {"더"};
-    private static final String[] EngToKor_General_EntryType = {"Determiner"};
+    private static final String[] English_General_ToKorean = {"More", "Life", "Problems/Hardships", "Research/Study"};
+    private static final String[] Korean_General = {"더", "생명", "문제", "연구"};
+    private static final String[] EngToKor_General_EntryType = {"Determiner", "Noun", "Noun", "Noun"};
 
-    private static final String[] English_Theocratic_ToKorean = {"God", "Jehovah", "Jesus Christ", "Faith", "Congregation", "Prayer", "Bible", "God's Kingdom"};
-    private static final String[] Korean_Theocratic = {"하나님", "여호와", "예수 그리스도", "믿음", "회중", "기도", "성경", "하느님의 왕국"};
-    private static final String[] EngToKor_Theocratic_EntryType = {"Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun"};
+    private static final String[] English_Theocratic_ToKorean = {"God", "Jehovah", "Jesus Christ", "Faith", "Congregation", "Prayer", "Bible", "God's Kingdom", "Everlasting Life", "Prayer", "Satan", "Devil"};
+    private static final String[] Korean_Theocratic = {"하나님", "여호와", "예수 그리스도", "믿음", "회중", "기도", "성경", "하느님의 왕국", "영원한 생명", "기도", "사탄", "마귀"};
+    private static final String[] EngToKor_Theocratic_EntryType = {"Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun", "Noun"};
 
     // Create public variable that is used to add translation objects as favorites - MUST BE STATIC
     public static final LinkedList<TranslationModel> Favorites_List = new LinkedList<>();
@@ -221,6 +224,8 @@ public class TranslationList {
             translation.setNotes("");
             translation.setFavorite(0);
             translation.setTags("");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+            translation.setModifiedDate(sdf.format(new Date()));
 
             // add the translation to the greetings list
             translationList.add(translation);

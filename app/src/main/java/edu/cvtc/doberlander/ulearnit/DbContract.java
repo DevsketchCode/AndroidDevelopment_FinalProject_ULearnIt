@@ -30,6 +30,7 @@ public class DbContract {
         public static final String COLUMN_NOTES = "notes";
         public static final String COLUMN_FAVORITE = "favorite";
         public static final String COLUMN_TAGS = "tags";
+        public static final String COLUMN_MODIFIED_DATE = "modifiedDate";
 
 
 
@@ -57,7 +58,8 @@ public class DbContract {
                         COLUMN_PERCENT_LEARNED + " INTEGER NOT NULL, " +
                         COLUMN_NOTES + " TEXT NOT NULL, " +
                         COLUMN_FAVORITE + " INTEGER NOT NULL, " +
-                        COLUMN_TAGS + " TEXT NOT NULL)";
+                        COLUMN_TAGS + " TEXT NOT NULL, " +
+                        COLUMN_MODIFIED_DATE + " TEXT NOT NULL)";
     }
 
 }

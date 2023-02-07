@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayAdapter<CharSequence> adapter = null;
+    private ArrayAdapter<CharSequence> entryTypeAdapter = null;
     // Member level variables
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
@@ -56,6 +57,10 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         Spinner secondLang=findViewById(R.id.spinner_SecondLang);
         secondLang.setAdapter(adapter);
 
+        entryTypeAdapter=ArrayAdapter.createFromResource(this, R.array.entryTypes, android.R.layout.simple_spinner_item);
+        Spinner entryType=findViewById(R.id.spinner_EntryType);
+        entryType.setAdapter(entryTypeAdapter);
+
 
         // Get the previous activities category
         String category = getIntent().getExtras().getString("category");
@@ -84,12 +89,13 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 // fill the entry fields to edit
                 EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
                 EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
-                EditText entryType = findViewById(R.id.editText_Entry);
+                EditText notes = findViewById(R.id.editText_Notes);
                 firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
                 firstLangEntry.setText(mSelectedEntry.getFirstLanguageEntry());
                 secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
                 secondLangEntry.setText(mSelectedEntry.getSecondLanguageEntry());
-                entryType.setText(mSelectedEntry.getEntryType());
+                entryType.setSelection(entryTypeAdapter.getPosition(mSelectedEntry.getEntryType()));
+                notes.setText(mSelectedEntry.getNotes());
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
@@ -120,14 +126,16 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
         Spinner secondLang = findViewById(R.id.spinner_SecondLang);
         EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
-        EditText entryType = findViewById(R.id.editText_Entry);
+        Spinner entryType = findViewById(R.id.spinner_EntryType);
+        EditText notes = findViewById(R.id.editText_Notes);
 
         // Update the selected entry with the new values
         mSelectedEntry.setFirstLanguage(firstLang.getSelectedItem().toString());
         mSelectedEntry.setFirstLanguageEntry(firstLangEntry.getText().toString());
         mSelectedEntry.setSecondLanguage(secondLang.getSelectedItem().toString());
         mSelectedEntry.setSecondLanguageEntry(secondLangEntry.getText().toString());
-        mSelectedEntry.setEntryType(entryType.getText().toString());
+        mSelectedEntry.setEntryType(entryType.getSelectedItem().toString());
+        mSelectedEntry.setNotes(notes.getText().toString());
 
         // Return the updated/new selectedItem
         return mSelectedEntry;

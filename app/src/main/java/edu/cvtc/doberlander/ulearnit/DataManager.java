@@ -48,6 +48,7 @@ public class DataManager {
         int listNotesPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_NOTES);
         int listFavoritePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FAVORITE);
         int listTagsPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_TAGS);
+        int listModifiedDatePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_MODIFIED_DATE);
         int idPosition = cursor.getColumnIndex(TranslationEntry._ID);
 
         // Create an instance of the DataManager and use it to clear any information from the array.
@@ -73,10 +74,11 @@ public class DataManager {
             String listNotes = cursor.getString(listNotesPosition);
             int listFavorite = cursor.getInt(listFavoritePosition);
             String listTags = cursor.getString(listTagsPosition);
+            String listModifiedDate = cursor.getString(listModifiedDatePosition);
 
             TranslationModel list = new TranslationModel(id, listCategory, listSubCategory, listFirstLang,
                     listFirstLangEntry, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangExample,
-                    listEntryType, listTense, listSingularOrPlural, listMasculineOrFeminine, listPercentLearned, listNotes, listFavorite, listTags);
+                    listEntryType, listTense, listSingularOrPlural, listMasculineOrFeminine, listPercentLearned, listNotes, listFavorite, listTags, listModifiedDate);
 
             dm.mTranslations.add(list);
         }
@@ -111,7 +113,8 @@ public class DataManager {
           TranslationEntry.COLUMN_PERCENT_LEARNED,
           TranslationEntry.COLUMN_NOTES,
           TranslationEntry.COLUMN_FAVORITE,
-          TranslationEntry.COLUMN_TAGS
+          TranslationEntry.COLUMN_TAGS,
+          TranslationEntry.COLUMN_MODIFIED_DATE
         };
 
         // Create an order by field for sorting
@@ -155,6 +158,7 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_NOTES, tEntry.getNotes());
         values.put(TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
         values.put(TranslationEntry.COLUMN_TAGS, tEntry.getTags());
+        values.put(TranslationEntry.COLUMN_MODIFIED_DATE, tEntry.getModifiedDate());
 
         return values;
     }

@@ -1,5 +1,6 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.Context;
@@ -40,6 +41,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView firstLangTranslationItemView;
         public final TextView secondLangTranslationItemView;
         public final TextView entryTypeView;
+        public final TextView notesView;
         public final ImageView favoriteImageView;
         private final TranslationAdapter mAdapter;
 
@@ -48,6 +50,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
             entryTypeView = itemView.findViewById(R.id.langTranslationEntryType);
+            notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             this.mAdapter = adapter;
 
@@ -132,14 +135,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     element.setFavorite(1);
                 }
             }
-            // TODO: Flip these later
-            if(view.getId() == R.id.textView_FirstLangEntry || view.getId() == R.id.textView_SecondLangEntry) {
-                if (view.findViewById(R.id.layout_TranslationEntryDetails).getVisibility() == View.VISIBLE) {
-                    view.findViewById(R.id.layout_TranslationEntryDetails).setVisibility(View.GONE);
-                } else {
-                    view.findViewById(R.id.layout_TranslationEntryDetails).setVisibility(View.VISIBLE);
-                }
-            }
 
             // Set itemClicked Global variable to true
             mItemClicked = true;
@@ -167,6 +162,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageEntry());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
         holder.entryTypeView.setText(mCurrentEntry.getEntryType());
+        holder.notesView.setText(mCurrentEntry.getNotes());
 
 
         // Check to see if the item clicked is the Favorite Heart imageView
@@ -191,6 +187,21 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
             // Update the selected ID with the database ID for this record
             mSelectedItemID = mCurrentEntry.getId();
+
+            //TODO: This needs to be adjusted, if it's clicked multiple times, the previous one shows instead.
+            View mEntryDetailsLayout = holder.itemView.findViewById(R.id.layout_TranslationEntryDetails);
+            // Show the Entry Details
+            if(mEntryDetailsLayout.getVisibility() == View.GONE) {
+                mEntryDetailsLayout.setVisibility(View.VISIBLE);
+                // Show Notes only if there are notes populated for that entry
+                if(!mSelectedItem.getNotes().isEmpty()) {
+                    mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.VISIBLE);
+                } else {
+                    mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.GONE);
+                }
+            } else {
+                mEntryDetailsLayout.setVisibility(View.GONE);
+            }
 
             // Only run when using the Category Activity and the category is NOT favorites
             if(!mCurrentEntry.getCategory().equals("Favorites")) {

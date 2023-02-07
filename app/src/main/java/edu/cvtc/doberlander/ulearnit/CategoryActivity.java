@@ -241,7 +241,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     public void onItemLongTap(int position) {
         // On Long Tap of an Entry Item, display the languages of that translation entry
         if(mSelectedItem != null) {
-            displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage() + ".\nEntry Type: " + mSelectedItem.getEntryType());
+            displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage() + ".\nEntry Type: " + mSelectedItem.getEntryType() +
+                    "\n Last Modified: " + mSelectedItem.getModifiedDate());
         }
     }
 }
