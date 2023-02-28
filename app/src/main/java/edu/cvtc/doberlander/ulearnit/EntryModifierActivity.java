@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,15 +18,24 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
+
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayAdapter<CharSequence> adapter = null;
     private ArrayAdapter<CharSequence> entryTypeAdapter = null;
+    private ArrayAdapter<CharSequence> tenseAdapter = null;
+    private ArrayAdapter<CharSequence> genderAdapter = null;
+    private Button firstLangRomanizeButton = null;
+    private Button secondLangRomanizeButton = null;
+    private Button langExampleButton = null;
     // Member level variables
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
     private String dbResult = "Failed";
     private String defaultNewLanguage = "Korean";
+    private String defaultEntryType = "Noun";
+    private String defaultTense = "N/A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +56,44 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         // Set onClickListeners to the buttons
         Button saveButton = findViewById(R.id.btn_Save);
         saveButton.setOnClickListener(this);
+        Button archiveButton = findViewById(R.id.btn_Archive);
+        archiveButton.setOnClickListener(this);
         Button deleteButton = findViewById(R.id.btn_Delete);
         deleteButton.setOnClickListener(this);
+        firstLangRomanizeButton = findViewById(R.id.btn_FirstLangDisplayRomanization);
+        firstLangRomanizeButton.setOnClickListener(this);
+        langExampleButton = findViewById(R.id.btn_LangDisplayExample);
+        langExampleButton.setOnClickListener(this);
+        secondLangRomanizeButton = findViewById(R.id.btn_SecondLangDisplayRomanization);
+        secondLangRomanizeButton.setOnClickListener(this);
 
         // Setup Language Spinners
-        adapter=ArrayAdapter.createFromResource(this, R.array.languages, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-
-        Spinner firstLang=findViewById(R.id.spinner_FirstLang);
+        adapter=ArrayAdapter.createFromResource(this, R.array.languages, R.layout.dropdown_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        AutoCompleteTextView firstLang = findViewById(R.id.firstLangDropdown);
         firstLang.setAdapter(adapter);
-        Spinner secondLang=findViewById(R.id.spinner_SecondLang);
-        secondLang.setAdapter(adapter);
 
-        entryTypeAdapter=ArrayAdapter.createFromResource(this, R.array.entryTypes, android.R.layout.simple_spinner_item);
-        Spinner entryType=findViewById(R.id.spinner_EntryType);
+        AutoCompleteTextView secondLang = findViewById(R.id.secondLangDropdown);
+        secondLang.setAdapter(adapter);
+        //Spinner firstLang=findViewById(R.id.spinner_FirstLang);
+        //firstLang.setAdapter(adapter);
+        //Spinner secondLang=findViewById(R.id.spinner_SecondLang);
+        //secondLang.setAdapter(adapter);
+
+        //entryTypeAdapter=ArrayAdapter.createFromResource(this, R.array.entryTypeOptions, android.R.layout.simple_spinner_item);
+        //Spinner entryType=findViewById(R.id.spinner_EntryType);
+        //entryType.setAdapter(entryTypeAdapter);
+        entryTypeAdapter= ArrayAdapter.createFromResource(this, R.array.entryTypeOptions, R.layout.dropdown_item);
+        AutoCompleteTextView entryType=findViewById(R.id.entryTypeDropdown);
         entryType.setAdapter(entryTypeAdapter);
+
+        tenseAdapter= ArrayAdapter.createFromResource(this, R.array.tenseOptions, R.layout.dropdown_item);
+        AutoCompleteTextView tense=findViewById(R.id.tenseDropdown);
+        tense.setAdapter(tenseAdapter);
+
+        genderAdapter= ArrayAdapter.createFromResource(this, R.array.genderOptions, R.layout.dropdown_item);
+        AutoCompleteTextView gender=findViewById(R.id.genderDropdown);
+        gender.setAdapter(genderAdapter);
 
 
         // Get the previous activities category
@@ -88,14 +122,40 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             if(mSelectedEntry != null) {
                 // fill the entry fields to edit
                 EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
+                EditText firstLangEntryRomanization = findViewById(R.id.editText_FirstLangEntryRomanization);
+                EditText firstLangEntryExample = findViewById(R.id.editText_FirstLangEntryExample);
                 EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
+                EditText secondLangEntryRomanization = findViewById(R.id.editText_SecondLangEntryRomanization);
+                EditText secondLangEntryExample = findViewById(R.id.editText_SecondLangEntryExample);
                 EditText notes = findViewById(R.id.editText_Notes);
-                firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
+                CheckBox isPlural = findViewById(R.id.checkBox_IsPlural);
+                CheckBox onQuickList = findViewById(R.id.checkBox_IsOnQuickList);
+                CheckBox isArchived = findViewById(R.id.checkBox_IsArchived);
+                TextView percentageLearned = findViewById(R.id.textView_PercentLearned);
+                TextView dateLastModifiedLabel = findViewById(R.id.textView_DateModified_label);
+                TextView dateLastModified = findViewById(R.id.textView_DateModified);
+
+                //firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
+                firstLang.setText(mSelectedEntry.getFirstLanguage(), false);
                 firstLangEntry.setText(mSelectedEntry.getFirstLanguageEntry());
-                secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
+                firstLangEntryRomanization.setText(mSelectedEntry.getFirstLanguageEntryRomanized());
+                firstLangEntryExample.setText(mSelectedEntry.getFirstLanguageExample());
+                //secondLang.setSelection(adapter.getPosition(mSelectedEntry.getSecondLanguage()));
+                secondLang.setText(mSelectedEntry.getSecondLanguage(), false);
                 secondLangEntry.setText(mSelectedEntry.getSecondLanguageEntry());
-                entryType.setSelection(entryTypeAdapter.getPosition(mSelectedEntry.getEntryType()));
+                secondLangEntryRomanization.setText(mSelectedEntry.getSecondLanguageEntryRomanized());
+                secondLangEntryExample.setText(mSelectedEntry.getSecondLanguageExample());
+                entryType.setText(mSelectedEntry.getEntryType(), false);
+                tense.setText(mSelectedEntry.getTense(),false);
+                gender.setText(mSelectedEntry.getGender(), false);
                 notes.setText(mSelectedEntry.getNotes());
+                isPlural.setChecked(mSelectedEntry.getIsPlural());
+                onQuickList.setChecked(mSelectedEntry.getOnQuickList());
+                isArchived.setChecked(mSelectedEntry.getArchived());
+                percentageLearned.setText(Integer.toString(mSelectedEntry.getPercentLearned()));
+                dateLastModified.setText(mSelectedEntry.getModifiedDate().toString());
+                dateLastModifiedLabel.setVisibility(View.VISIBLE);
+                dateLastModified.setVisibility(View.VISIBLE);
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
@@ -110,11 +170,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
             // after the form has been filled out.
-            secondLang.setSelection(adapter.getPosition(defaultNewLanguage));
+            secondLang.setText(""); // Leave this blank so the dropdown title shows up before selection made
+            entryType.setText(""); // Leave this blank so the dropdown title shows up before selection made
+            tense.setText(""); // Leave this blank so the dropdown title shows up before selection made
             // New entry to true, so the proper db function can be ran.
             isNewEntry = true;
 
             // Hide delete button, as it's not needed for new records
+            archiveButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
 
         }
@@ -122,20 +185,41 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
     private TranslationModel getEntryFormValues() {
         // Get the fields
-        Spinner firstLang = findViewById(R.id.spinner_FirstLang);
+        //Spinner firstLang = findViewById(R.id.spinner_FirstLang);
+        AutoCompleteTextView firstLang = findViewById(R.id.firstLangDropdown);
         EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
-        Spinner secondLang = findViewById(R.id.spinner_SecondLang);
+        //Spinner secondLang = findViewById(R.id.spinner_SecondLang);
+        AutoCompleteTextView secondLang = findViewById(R.id.secondLangDropdown);
         EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
-        Spinner entryType = findViewById(R.id.spinner_EntryType);
+        //Spinner entryType = findViewById(R.id.spinner_EntryType);
+        AutoCompleteTextView entryType = findViewById(R.id.entryTypeDropdown);
+        AutoCompleteTextView tense = findViewById(R.id.tenseDropdown);
+        AutoCompleteTextView gender = findViewById(R.id.genderDropdown);
         EditText notes = findViewById(R.id.editText_Notes);
+        CheckBox isPlural = findViewById(R.id.checkBox_IsPlural);
+        CheckBox onQuickList = findViewById(R.id.checkBox_IsOnQuickList);
+        CheckBox isArchived = findViewById(R.id.checkBox_IsArchived);
+        TextView percentageLearned = findViewById(R.id.textView_PercentLearned);
+        TextView dateLastModified = findViewById(R.id.textView_DateModified);
 
         // Update the selected entry with the new values
-        mSelectedEntry.setFirstLanguage(firstLang.getSelectedItem().toString());
+        mSelectedEntry.setFirstLanguage(firstLang.getText().toString());
         mSelectedEntry.setFirstLanguageEntry(firstLangEntry.getText().toString());
-        mSelectedEntry.setSecondLanguage(secondLang.getSelectedItem().toString());
+        mSelectedEntry.setFirstLanguageEntryRomanized(firstLangEntry.getText().toString());
+        mSelectedEntry.setFirstLanguageExample(firstLangEntry.getText().toString());
+        mSelectedEntry.setSecondLanguage(secondLang.getText().toString());
         mSelectedEntry.setSecondLanguageEntry(secondLangEntry.getText().toString());
-        mSelectedEntry.setEntryType(entryType.getSelectedItem().toString());
+        mSelectedEntry.setSecondLanguageEntryRomanized(secondLangEntry.getText().toString());
+        mSelectedEntry.setSecondLanguageExample(secondLangEntry.getText().toString());
+        mSelectedEntry.setEntryType(entryType.getText().toString());
+        mSelectedEntry.setTense(tense.getText().toString());
+        mSelectedEntry.setGender(gender.getText().toString());
         mSelectedEntry.setNotes(notes.getText().toString());
+        mSelectedEntry.setIsPlural(isPlural.isChecked());
+        mSelectedEntry.setOnQuickList(onQuickList.isChecked());
+        mSelectedEntry.setArchived(isArchived.isChecked());
+        mSelectedEntry.setPercentLearned(Integer.parseInt(percentageLearned.getText().toString()));
+        mSelectedEntry.setModifiedDate(dateLastModified.getText().toString());
 
         // Return the updated/new selectedItem
         return mSelectedEntry;
@@ -155,6 +239,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         // Get updated values from the form
         mSelectedEntry = getEntryFormValues();
+        Boolean dbChangesMade = false;
 
         // Prepare the database
         DbHelper dbHelper = new DbHelper(EntryModifierActivity.this);
@@ -176,11 +261,28 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                                 EntryModifierActivity.this, "update");
                         adapter.notifyDataSetChanged();
                         dbResult = "Successfully Updated";
+                        dbChangesMade = true;
                     } catch (Exception ex) {
                         // Display error for the user to see
                         dbResult = "Failed Update";
                         // Print Error to Console
                         System.out.println("Error updating record: " + ex.getMessage());
+                    }
+                    break;
+                case R.id.btn_Archive:
+                    // Archive is to be used like a recycling bin
+                    try {
+                        // Run the Save to DB function in the Data Manager
+                        dbWorker.UpdateOrDeleteEntries(mSelectedEntry.getId(), mSelectedEntry,
+                                EntryModifierActivity.this, "update");
+                        adapter.notifyDataSetChanged();
+                        dbResult = "Successfully Archived";
+                        dbChangesMade = true;
+                    } catch (Exception ex) {
+                        // Display error for the user to see
+                        dbResult = "Archive Failed";
+                        // Print Error to Console
+                        System.out.println("Error archiving record: " + ex.getMessage());
                     }
                     break;
                 case R.id.btn_Delete:
@@ -191,6 +293,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                                 EntryModifierActivity.this, "delete");
 
                         dbResult = "Successfully Deleted";
+                        dbChangesMade = true;
                     } catch (Exception ex) {
                         // Display error for the user to see
                         dbResult = "Failed Deletion";
@@ -202,37 +305,94 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
         } else {
             // New Entry
-            // Verify if both fields are populated
-            if(!mSelectedEntry.getFirstLanguageEntry().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
-            && !mSelectedEntry.getEntryType().isEmpty()) {
-                // Both fields are populated, continue to insert entry
-                try {
-                    // If the entry is new, then use the insert the entry into the database
-                    dbWorker.insertTranslationModelEntry(mSelectedEntry);
+            // Find out which button was pressed, Save or Delete, then do the appropriate action
+            switch (view.getId()) {
+                // Update
+                case R.id.btn_Save:
+                    // Verify if both fields are populated
+                    if (!mSelectedEntry.getFirstLanguage().isEmpty() && !mSelectedEntry.getFirstLanguageEntry().isEmpty() &&
+                            !mSelectedEntry.getSecondLanguage().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
+                            && !mSelectedEntry.getEntryType().isEmpty()) {
+                        // Both fields are populated, continue to insert entry
+                        try {
+                            // If the entry is new, then use the insert the entry into the database
+                            dbWorker.insertTranslationModelEntry(mSelectedEntry);
 
-                    dbResult = "Successfully Added";
-                } catch (Exception ex) {
-                    dbResult = "Failed Adding New Entry";
-                    // Display Error
-                    System.out.println("Failed adding new entry. Error: " + ex.getMessage());
-                }
-            } else {
-                // One or both fields are empty
-                displayToast("All fields must be populated");
-                return;
+                            dbResult = "Successfully Added";
+                            dbChangesMade = true;
+                        } catch (Exception ex) {
+                            dbResult = "Failed Adding New Entry";
+                            // Display Error
+                            System.out.println("Failed adding new entry. Error: " + ex.getMessage());
+                        }
+                    } else {
+                        // One or both fields are empty
+                        displayToast("All fields must be populated");
+                        return;
+                    }
+                    break;
             }
         }
 
-        // Close the database
-        db.close();
+        // Find out which view button was pressed, Show/Hide view then do the appropriate action
+        switch (view.getId()) {
+            case R.id.btn_FirstLangDisplayRomanization:
+                EditText firstLangRandomize = findViewById(R.id.editText_FirstLangEntryRomanization);
+                if(firstLangRandomize.getVisibility() == View.GONE)
+                {
+                    firstLangRandomize.setVisibility(View.VISIBLE);
+                    firstLangRomanizeButton.setText(R.string.edit_hide_romanize);
+                } else {
+                    firstLangRandomize.setText("");
+                    firstLangRandomize.setVisibility(View.GONE);
+                    firstLangRomanizeButton.setText(R.string.edit_show_romanize);
+                }
+                break;
 
-        // Create intent to display result
-        Intent intent = new Intent();
-        intent.putExtra("Result", dbResult);
-        // Set the result so the the Category Activity can be updated
-        setResult(CategoryActivity.RESULT_OK, intent);
-        // Close the activity and go back
-        finish();
+            case R.id.btn_SecondLangDisplayRomanization:
+                EditText secondLangRandomize = findViewById(R.id.editText_SecondLangEntryRomanization);
+                if(secondLangRandomize.getVisibility() == View.GONE)
+                {
+                    secondLangRandomize.setVisibility(View.VISIBLE);
+                    secondLangRomanizeButton.setText(R.string.edit_hide_romanize);
+                } else {
+                    secondLangRandomize.setText("");
+                    secondLangRandomize.setVisibility(View.GONE);
+                    secondLangRomanizeButton.setText(R.string.edit_show_romanize);
+                }
+                break;
+
+            case R.id.btn_LangDisplayExample:
+                EditText firstLangExample = findViewById(R.id.editText_FirstLangEntryExample);
+                EditText secondLangExample = findViewById(R.id.editText_SecondLangEntryExample);
+                if(firstLangExample.getVisibility() == View.GONE || secondLangExample.getVisibility() == View.GONE)
+                {
+                    firstLangExample.setVisibility(View.VISIBLE);
+                    secondLangExample.setVisibility(View.VISIBLE);
+                    langExampleButton.setText(R.string.edit_hide_example);
+                } else {
+                    firstLangExample.setText("");
+                    secondLangExample.setText("");
+                    firstLangExample.setVisibility(View.GONE);
+                    secondLangExample.setVisibility(View.GONE);
+                    langExampleButton.setText(R.string.edit_show_example);
+                }
+                break;
+        }
+
+        if(dbChangesMade)
+        {
+            // Close the database
+            db.close();
+
+            // Create intent to display result
+            Intent intent = new Intent();
+            intent.putExtra("Result", dbResult);
+            // Set the result so the the Category Activity can be updated
+            setResult(CategoryActivity.RESULT_OK, intent);
+            // Close the activity and go back
+            finish();
+        }
     }
 
     @Override

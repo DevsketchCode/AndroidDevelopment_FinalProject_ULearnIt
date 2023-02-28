@@ -16,25 +16,33 @@ public class DbWorker {
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
     // Function to insertEntry from a list
-    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangExample, String secondLang, String secondLangEntry, String secondLangExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags, String modifiedDate) {
+    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String notes, String image, String audio, String userAudio, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         ContentValues values = new ContentValues();
         values.put(TranslationEntry.COLUMN_CATEGORY, category);
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, subCategory);
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE, firstLang);
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY, firstLangEntry);
+        values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY_ROMANIZED, firstLangEntryRomanized);
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_EXAMPLE, firstLangExample);
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE, secondLang);
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_ENTRY, secondLangEntry);
+        values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_ENTRY_ROMANIZED, secondLangEntryRomanized);
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE, secondLangExample);
         values.put(TranslationEntry.COLUMN_ENTRY_TYPE, entryType);
         values.put(TranslationEntry.COLUMN_TENSE, tense);
-        values.put(TranslationEntry.COLUMN_SINGULAR_OR_PLURAL, singularOrPlural);
-        values.put(TranslationEntry.COLUMN_MASCULINE_OR_FEMININE, masculineOrFeminine);
+        values.put(TranslationEntry.COLUMN_IS_PLURAL, isPlural);
+        values.put(TranslationEntry.COLUMN_GENDER, gender);
+        values.put(TranslationEntry.COLUMN_FORMALITY, formality);
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, percentLearned);
         values.put(TranslationEntry.COLUMN_NOTES, notes);
+        values.put(TranslationEntry.COLUMN_IMAGE, image);
+        values.put(TranslationEntry.COLUMN_AUDIO, audio);
+        values.put(TranslationEntry.COLUMN_USER_AUDIO, userAudio);
         values.put(TranslationEntry.COLUMN_FAVORITE, favorite);
         values.put(TranslationEntry.COLUMN_TAGS, tags);
         values.put(TranslationEntry.COLUMN_MODIFIED_DATE, modifiedDate);
+        values.put(TranslationEntry.COLUMN_ON_QUICKLIST, onQuickList);
+        values.put(TranslationEntry.COLUMN_ARCHIVED, archived);
 
         // Insert the translation into the database
         mDb.insert(TranslationEntry.TABLE_NAME, null, values);
@@ -48,19 +56,27 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, tm.getSubCategory());
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE, tm.getFirstLanguage());
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY, tm.getFirstLanguageEntry());
+        values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY_ROMANIZED, tm.getFirstLanguageEntryRomanized());
         values.put(TranslationEntry.COLUMN_FIRST_LANGUAGE_EXAMPLE, tm.getFirstLanguageExample());
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE, tm.getSecondLanguage());
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_ENTRY, tm.getSecondLanguageEntry());
+        values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_ENTRY_ROMANIZED, tm.getSecondLanguageEntryRomanized());
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE, tm.getSecondLanguageExample());
         values.put(TranslationEntry.COLUMN_ENTRY_TYPE, tm.getEntryType());
         values.put(TranslationEntry.COLUMN_TENSE, tm.getTense());
-        values.put(TranslationEntry.COLUMN_SINGULAR_OR_PLURAL, tm.getSingularOrPlural());
-        values.put(TranslationEntry.COLUMN_MASCULINE_OR_FEMININE, tm.getMasculineOrFeminine());
+        values.put(TranslationEntry.COLUMN_IS_PLURAL, tm.getIsPlural());
+        values.put(TranslationEntry.COLUMN_GENDER, tm.getGender());
+        values.put(TranslationEntry.COLUMN_FORMALITY, tm.getFormality());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, tm.getPercentLearned());
         values.put(TranslationEntry.COLUMN_NOTES, tm.getNotes());
+        values.put(TranslationEntry.COLUMN_IMAGE, tm.getImage());
+        values.put(TranslationEntry.COLUMN_AUDIO, tm.getAudio());
+        values.put(TranslationEntry.COLUMN_USER_AUDIO, tm.getUserAudio());
         values.put(TranslationEntry.COLUMN_FAVORITE, tm.getFavorite());
         values.put(TranslationEntry.COLUMN_TAGS, tm.getTags());
         values.put(TranslationEntry.COLUMN_MODIFIED_DATE, tm.getModifiedDate());
+        values.put(TranslationEntry.COLUMN_ON_QUICKLIST, tm.getOnQuickList());
+        values.put(TranslationEntry.COLUMN_ARCHIVED, tm.getArchived());
 
         // Insert the translation into the database
         mDb.insert(TranslationEntry.TABLE_NAME, null, values);
@@ -116,19 +132,27 @@ public class DbWorker {
                     m.getSubCategory(),
                     m.getFirstLanguage(),
                     m.getFirstLanguageEntry(),
+                    m.getFirstLanguageEntryRomanized(),
                     m.getFirstLanguageExample(),
                     m.getSecondLanguage(),
                     m.getSecondLanguageEntry(),
+                    m.getSecondLanguageEntryRomanized(),
                     m.getSecondLanguageExample(),
                     m.getEntryType(),
                     m.getTense(),
-                    m.getSingularOrPlural(),
-                    m.getMasculineOrFeminine(),
+                    m.getIsPlural(),
+                    m.getGender(),
+                    m.getFormality(),
                     m.getPercentLearned(),
                     m.getNotes(),
+                    m.getImage(),
+                    m.getAudio(),
+                    m.getUserAudio(),
                     m.getFavorite(),
                     m.getTags(),
-                    m.getModifiedDate());
+                    m.getModifiedDate(),
+                    m.getOnQuickList(),
+                    m.getArchived());
         }
     }
 

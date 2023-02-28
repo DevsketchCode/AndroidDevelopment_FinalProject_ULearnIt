@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.ULearnIt.AppBarOverlay">
+        android:theme="@style/Theme.ULearnIt.AppBarOverlay"
+        app:layout_constraintBottom_toTopOf="@id/main_scrollview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/main_constraintLayout">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -20,7 +27,282 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_main" />
+    <ScrollView
+        android:id="@+id/main_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_purple"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainAppBar"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexboxLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:flexWrap="wrap"
+            app:justifyContent="space_evenly">
+
+            <TextView
+                android:id="@+id/categories_TextView"
+                style="@style/header_message_text"
+                android:text="@string/title_categories" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/greetings_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <!-- Penguin Waving image resource link -->
+                <!-- https://publicdomainvectors.org/en/free-clipart/Waving-penguin/75280.html -->
+                <ImageButton
+                    android:id="@+id/greetings_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#3F51B5"
+                    android:contentDescription="@string/greetings_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_penguin_wave" />
+
+                <TextView
+                    android:id="@+id/greeting_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/greetings_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/greetings_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/numbers_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <!-- Snake Number One image resource link -->
+                <!-- https://publicdomainvectors.org/en/free-clipart/Snake-number-one-vector-clip-art/30666.html -->
+                <ImageButton
+                    android:id="@+id/numbers_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#673AB7"
+                    android:contentDescription="@string/numbers_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_numbers_foreground"
+                    tools:ignore="ImageContrastCheck" />
+
+                <TextView
+                    android:id="@+id/numbers_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/numbers_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/people_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <!-- Polar Bear image resource link -->
+                <!-- https://openclipart.org/detail/169961/cartoon-polar-bear -->
+                <ImageButton
+                    android:id="@+id/people_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#A43AB7"
+                    android:contentDescription="@string/people_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_people_owl_family" />
+
+                <TextView
+                    android:id="@+id/people_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/people_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/people_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/people_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/people_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relationship_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/relationship_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#EA418F"
+                    android:contentDescription="@string/relationship_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_favorites" />
+
+                <TextView
+                    android:id="@+id/relationship_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/relationship_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/relationship_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/relationship_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/relationship_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/food_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/food_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#3FB5AB"
+                    android:contentDescription="@string/food_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_bear_with_food" />
+
+                <TextView
+                    android:id="@+id/food_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/food_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/food_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/food_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/food_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/general_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/general_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#B5A9A3"
+                    android:contentDescription="@string/general_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_detective_penguin" />
+
+                <TextView
+                    android:id="@+id/general_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/general_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/general_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/general_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/general_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/theocratic_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/theocratic_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#52BBEF"
+                    android:contentDescription="@string/theocratic_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_correct" />
+
+                <TextView
+                    android:id="@+id/theocratic_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/theocratic_category_text"
+                    app:layout_constraintBottom_toBottomOf="@+id/theocratic_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@+id/theocratic_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@+id/theocratic_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
+
+    </ScrollView>
+
+
+    <!-- For this to show the Gradle:Module:app needs the Material Implementation 1.6.1+ version -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navigation"/>
 
     <!-- Hiding this button for now, as I will be implementing it at a later time -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -28,8 +310,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="731dp"
         android:backgroundTint="#3F51B5"
         android:contentDescription="@string/floating_button_content_desc"
         android:paddingStart="23dp"
@@ -40,7 +322,11 @@
         app:backgroundTint="#2C3981"
         app:icon="@drawable/ic_quiz"
         app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_test"
         app:tint="@color/white" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private final LayoutInflater mInflater;
     private final RecyclerViewInterface recyclerViewInterface;
     //private static final String TAG = "CategoryActivity";
-
+    private TranslationModel mSelectedElement;
     private int mPosition;
     public static boolean mItemClicked = false;
 
@@ -41,6 +42,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView firstLangTranslationItemView;
         public final TextView secondLangTranslationItemView;
         public final TextView entryTypeView;
+        public final TextView tenseView;
         public final TextView notesView;
         public final ImageView favoriteImageView;
         private final TranslationAdapter mAdapter;
@@ -50,6 +52,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
             entryTypeView = itemView.findViewById(R.id.langTranslationEntryType);
+            tenseView = itemView.findViewById(R.id.langTranslationTense);
             notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             this.mAdapter = adapter;
@@ -121,18 +124,18 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Get the position of the item that was clicked
             mPosition = getLayoutPosition();
             // Access the affected item in the list
-            TranslationModel element = mTranslationList.get(mPosition);
+            mSelectedElement = mTranslationList.get(mPosition);
 
             // Check to see if the heart favorite imageView is what was clicked
             if(view.getId() == R.id.favorite_imageView) {
                 // Get the current favorites value of that selected item
                 // Formatting of this setting can be found in the onBindViewHolder
-                if (element.getFavorite() == 1) {
+                if (mSelectedElement.getFavorite() == 1) {
                     // The previous value was 1, so un-favorite it by setting to 0
-                    element.setFavorite(0);
+                    mSelectedElement.setFavorite(0);
                 } else {
                     // The previous value was 0, so favorite the item by setting it to one
-                    element.setFavorite(1);
+                    mSelectedElement.setFavorite(1);
                 }
             }
 
@@ -162,6 +165,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageEntry());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
         holder.entryTypeView.setText(mCurrentEntry.getEntryType());
+        holder.tenseView.setText(mCurrentEntry.getTense());
         holder.notesView.setText(mCurrentEntry.getNotes());
 
 
@@ -182,6 +186,11 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
 
+            int tmpAdapterPosition = holder.getAdapterPosition();
+
+            String tmpToastString = "mPosition: " + mPosition + "; position: " + position + "; mCurrentEntry.getId() :" +
+                    tmpAdapterPosition + "; firstLangEntry: ";
+            Toast.makeText(holder.itemView.getContext(), tmpToastString , Toast.LENGTH_SHORT).show();
             // Set the Selected Item to the currently clicked item
             CategoryActivity.mSelectedItem = mCurrentEntry;
 
@@ -196,11 +205,12 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Show Notes only if there are notes populated for that entry
                 if(!mSelectedItem.getNotes().isEmpty()) {
                     mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.VISIBLE);
-                } else {
-                    mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.GONE);
                 }
+                //else {
+                 //   mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.GONE);
+                //}
             } else {
-                mEntryDetailsLayout.setVisibility(View.GONE);
+                //mEntryDetailsLayout.setVisibility(View.GONE);
             }
 
             // Only run when using the Category Activity and the category is NOT favorites

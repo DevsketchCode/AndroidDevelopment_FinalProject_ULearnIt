@@ -5,7 +5,7 @@
     android:id="@+id/activity_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abstract_background"
+    android:background="@drawable/gradient_purple"
     android:backgroundTint="#CCA7D2F6"
     android:backgroundTintMode="src_over"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -29,7 +29,7 @@
         app:backgroundTint="#2C3981"
         app:icon="@drawable/ic_quiz"
         app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
 
@@ -61,12 +61,20 @@
         android:scrollbars="vertical"
         android:verticalScrollbarPosition="defaultPosition"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@+id/fab"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/category_Heading_LinearLayout">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-
+    <!-- For this to show the Gradle:Module:app needs the Material Implementation 1.6.1+ version -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navigation"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

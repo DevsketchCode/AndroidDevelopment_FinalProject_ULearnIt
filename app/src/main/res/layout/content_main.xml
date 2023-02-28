@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/abstract_background">
+    android:background="@drawable/gradient_purple">
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexboxLayout"
@@ -259,4 +259,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.flexbox.FlexboxLayout>
+
 </ScrollView>

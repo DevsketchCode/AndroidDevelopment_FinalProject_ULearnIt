@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/categories_menuItem"
+        android:title="Categories"
+        android:icon="@drawable/ic_book"/>
+
+    <item
+        android:id="@+id/flashcards_menuItem"
+        android:title="Review"
+        android:icon="@drawable/ic_flashcards"/>
+
+    <item
+        android:id="@+id/quiz_menuItem"
+        android:title="Quiz"
+        android:icon="@drawable/ic_test"/>
+
+    <item
+        android:id="@+id/profile_menuItem"
+        android:title="Profile"
+        android:icon="@drawable/ic_penguin_wave"/>
+
+</menu>

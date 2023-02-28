@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.List;
@@ -50,6 +52,31 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
         // Set the content view
         setContentView(R.layout.activity_category);
+
+        // Initialize and assign variable
+        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+        // Set Home selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        // Perform item selected listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId())
+                {
+                    case R.id.activity_category:
+                        startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.quiz_menuItem:
+                        return true;
+                    case R.id.action_about:
+                        startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         // Instantiate variables
         mCategory = "";
@@ -84,6 +111,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         }
 
         // Set the Activity Title with the Category that was selected
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         setTitle(mCategory);
 
         // Create an extended floating action button, an icon with text

@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/editConstrainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/abstract_background"
+        android:background="@drawable/gradient_purple"
         android:backgroundTint="#CCA7D2F6"
         android:backgroundTintMode="src_over"
+        android:paddingBottom="20dp"
         app:layout_scrollEffect="compress"
         tools:context=".EntryModifierActivity">
 
@@ -28,170 +30,411 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView_FirstLang"
+            android:id="@+id/textView_DateModified_label"
             style="@style/style_entry_modifier_textview"
-            android:text="@string/entry_first_language_text"
-            app:layout_constraintBottom_toTopOf="@+id/spinner_FirstLang"
-            app:layout_constraintStart_toStartOf="@+id/spinner_FirstLang"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Date Last Modified: "
+            android:textFontWeight="500"
+            android:textSize="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/textView_DateModified"
             app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
 
-        <Spinner
-            android:id="@+id/spinner_FirstLang"
-            style="@style/style_entry_modifier_edittext"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:backgroundTint="@color/shaded_grey"
-            android:backgroundTintMode="src_over"
-            android:enabled="true"
-            android:focusable="auto"
-            android:focusableInTouchMode="true"
-            android:hint="@string/entry_first_language_edit_hint"
-            android:singleLine="true"
-            android:spinnerMode="dropdown"
-            android:text="@string/entry_first_language_edittext"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_FirstLang" />
-
         <TextView
-            android:id="@+id/textView_FirstLangEntry"
+            android:id="@+id/textView_DateModified"
             style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="25dp"
-            android:text="@string/entry_word_or_phrase_text"
-            app:layout_constraintStart_toStartOf="@+id/spinner_FirstLang"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_FirstLang" />
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:textFontWeight="500"
+            android:textSize="16dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/btn_LangDisplayExample"
+            app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstLangDropdownLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_first_language_edittext"
+            android:minWidth="190dp"
+            app:boxBackgroundColor="#B3EEEEEE"
+            app:layout_constraintEnd_toStartOf="@+id/btn_FirstLangDisplayRomanization"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout">
+
+            <AutoCompleteTextView
+                android:id="@+id/firstLangDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="none">
+            </AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_FirstLangDisplayRomanization"
+            style="@style/style_entry_modifier_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/edit_show_romanize"
+            android:textSize="11sp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/editText_FirstLangEntry"
+            app:layout_constraintEnd_toStartOf="@+id/btn_LangDisplayExample" />
+
+        <Button
+            android:id="@+id/btn_LangDisplayExample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_show_example"
+            android:textSize="11sp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/editText_FirstLangEntry"
+            app:layout_constraintEnd_toEndOf="@+id/editText_FirstLangEntry" />
 
         <EditText
             android:id="@+id/editText_FirstLangEntry"
             style="@style/style_entry_modifier_edittext"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
             android:hint="@string/entry_word_or_phrase_edit_hint"
             android:importantForAutofill="no"
+            android:maxLength="100"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@id/spinner_FirstLang"
-            app:layout_constraintStart_toStartOf="@id/spinner_FirstLang"
-            app:layout_constraintTop_toBottomOf="@+id/textView_FirstLangEntry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/firstLangDropdownLayout"
+            app:layout_constraintTop_toBottomOf="@+id/firstLangDropdownLayout"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/textView_SecondLang"
-            style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="25dp"
-            android:text="@string/entry_second_language_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_FirstLangEntry"
-            app:layout_constraintTop_toBottomOf="@id/editText_FirstLangEntry" />
-
-        <Spinner
-            android:id="@+id/spinner_SecondLang"
+        <EditText
+            android:id="@+id/editText_FirstLangEntryRomanization"
             style="@style/style_entry_modifier_edittext"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/shaded_grey"
-            android:backgroundTintMode="src_over"
-            android:enabled="true"
-            android:focusable="auto"
-            android:focusableInTouchMode="true"
-            android:hint="@string/entry_second_language_edit_hint"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_romanization_edit_hint"
             android:importantForAutofill="no"
-            android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
+            android:maxLength="100"
             android:singleLine="true"
-            android:spinnerMode="dropdown"
-            android:text="@string/entry_second_language_edittext"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/editText_FirstLangEntry"
-            app:layout_constraintStart_toStartOf="@+id/editText_FirstLangEntry"
-            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLang" />
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/editText_FirstLangEntry"
+            app:layout_constraintTop_toBottomOf="@+id/editText_FirstLangEntry"
+            tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/textView_SecondLangEntry"
-            style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="25dp"
-            android:text="@string/entry_translated_word_or_phrase_text"
-            app:layout_constraintStart_toStartOf="@+id/spinner_SecondLang"
-            app:layout_constraintTop_toBottomOf="@id/spinner_SecondLang" />
+        <EditText
+            android:id="@+id/editText_FirstLangEntryExample"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_example_edit_hint"
+            android:importantForAutofill="no"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/editText_FirstLangEntry"
+            app:layout_constraintTop_toBottomOf="@+id/editText_FirstLangEntryRomanization"
+            tools:ignore="TextContrastCheck" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/secondLangDropdownLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_second_language_edittext"
+            android:minWidth="190dp"
+            app:boxBackgroundColor="#B3EEEEEE"
+            app:layout_constraintStart_toStartOf="@+id/editText_FirstLangEntry"
+            app:layout_constraintEnd_toStartOf="@+id/btn_SecondLangDisplayRomanization"
+            app:layout_constraintTop_toBottomOf="@+id/editText_FirstLangEntryExample">
+
+            <AutoCompleteTextView
+                android:id="@+id/secondLangDropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="none">
+            </AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_SecondLangDisplayRomanization"
+            style="@style/style_entry_modifier_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:text="@string/edit_show_romanize"
+            android:textSize="11sp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:paddingStart="7dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/editText_SecondLangEntry"
+            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangEntry" />
 
         <EditText
             android:id="@+id/editText_SecondLangEntry"
             style="@style/style_entry_modifier_edittext"
-            android:layout_marginTop="10dp"
+            android:layout_width="0dp"
+            android:layout_marginEnd="24dp"
             android:hint="@string/entry_translated_word_or_phrase_edittext"
             android:importantForAutofill="no"
+            android:maxLength="100"
             android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_SecondLang"
-            app:layout_constraintStart_toStartOf="@+id/spinner_SecondLang"
-            app:layout_constraintTop_toBottomOf="@+id/textView_SecondLangEntry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/secondLangDropdownLayout"
+            app:layout_constraintTop_toBottomOf="@+id/secondLangDropdownLayout"
             tools:ignore="TextContrastCheck" />
 
-        <TextView
-            android:id="@+id/textView_Entry"
-            style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="25dp"
-            android:text="@string/entry_type_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntry"
-            app:layout_constraintTop_toBottomOf="@id/editText_SecondLangEntry" />
-
-        <Spinner
-            android:id="@+id/spinner_EntryType"
+        <EditText
+            android:id="@+id/editText_SecondLangEntryRomanization"
             style="@style/style_entry_modifier_edittext"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="@color/shaded_grey"
-            android:backgroundTintMode="src_over"
-            android:enabled="true"
-            android:focusable="auto"
-            android:focusableInTouchMode="true"
-            android:hint="@string/entry_type_edit_hint"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_romanization_edit_hint"
             android:importantForAutofill="no"
-            android:inputType="textShortMessage|textAutoCorrect|text|textCapSentences"
+            android:maxLength="100"
             android:singleLine="true"
-            android:spinnerMode="dropdown"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangEntry"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntry"
-            app:layout_constraintTop_toBottomOf="@+id/textView_Entry" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntry"
+            tools:ignore="TextContrastCheck" />
 
+        <EditText
+            android:id="@+id/editText_SecondLangEntryExample"
+            style="@style/style_entry_modifier_edittext"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/entry_example_edit_hint"
+            android:importantForAutofill="no"
+            android:maxLength="100"
+            android:singleLine="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntry"
+            app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryRomanization"
+            tools:ignore="TextContrastCheck" />
+
+        <LinearLayout
+            android:id="@+id/entry_dropdowns_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample"
+            app:layout_constraintBottom_toTopOf="@+id/editText_Notes">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/entryTypeDropdownLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/entry_type_edit_hint"
+                android:minWidth="165dp"
+                app:boxBackgroundColor="#B3EEEEEE"
+                app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntryExample"
+                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
+
+                <AutoCompleteTextView
+                    android:id="@+id/entryTypeDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tenseDropdownLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/tense_edit_hint"
+                android:minWidth="135dp"
+                app:boxBackgroundColor="#B3EEEEEE"
+                app:layout_constraintEnd_toStartOf="@+id/genderDropdownLayout"
+                app:layout_constraintStart_toEndOf="@+id/entryTypeDropdownLayout"
+                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tenseDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/genderDropdownLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:hint="@string/gender_edit_hint"
+                android:minWidth="130dp"
+                app:boxBackgroundColor="#B3EEEEEE"
+                app:layout_constraintStart_toEndOf="@+id/tenseDropdownLayout"
+                app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangEntryExample"
+                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
+
+                <AutoCompleteTextView
+                    android:id="@+id/genderDropdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
         <TextView
             android:id="@+id/textView_Notes"
             style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="10dp"
             android:text="@string/notes_text"
-            app:layout_constraintStart_toStartOf="@+id/spinner_EntryType"
-            app:layout_constraintTop_toBottomOf="@id/spinner_EntryType" />
+            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntryExample"
+            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns_LinearLayout" />
 
         <EditText
             android:id="@+id/editText_Notes"
             style="@style/style_entry_modifier_edittext"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="4dp"
             android:hint="@string/notes_edittext"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:singleLine="false"
-            app:layout_constraintEnd_toEndOf="@+id/spinner_EntryType"
-            app:layout_constraintStart_toStartOf="@+id/spinner_EntryType"
-            app:layout_constraintTop_toBottomOf="@+id/textView_Notes"
+            android:lines="4"
+            android:gravity="top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns_LinearLayout"
             tools:ignore="TextContrastCheck" />
+
+        <LinearLayout
+            android:id="@+id/entry_checkbox_LinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/editText_Notes"
+            app:layout_constraintEnd_toEndOf="@+id/editText_Notes"
+            app:layout_constraintTop_toBottomOf="@+id/editText_Notes">
+            <CheckBox
+                android:id="@+id/checkBox_IsPlural"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:textSize="18sp"
+                android:text="Plural" />
+
+            <CheckBox
+                android:id="@+id/checkBox_IsOnQuickList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:visibility="invisible"
+                android:text="On QuickList"
+                android:textSize="18sp" />
+
+            <CheckBox
+                android:id="@+id/checkBox_IsArchived"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Archived"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/entry_details_LinearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/editText_Notes"
+            app:layout_constraintEnd_toEndOf="@+id/editText_Notes"
+            app:layout_constraintTop_toBottomOf="@+id/entry_checkbox_LinearLayout">
+
+            <TextView
+                android:id="@+id/textView_PercentLearned_label"
+                style="@style/style_entry_modifier_textview"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:hint="Percent Learned: "/>
+            <TextView
+                android:id="@+id/textView_PercentLearned"
+                style="@style/style_entry_modifier_textview"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="0"/>
+            <TextView
+                android:id="@+id/textView_PercentSign"
+                style="@style/style_entry_modifier_textview"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:hint="%"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_ResetLearned"
+            style="@style/style_entry_modifier_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#FB827A"
+            android:text="Reset % Learned"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_details_LinearLayout" />
 
         <Button
             android:id="@+id/btn_Save"
             style="@style/style_entry_modifier_button"
-            android:layout_width="130dp"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
             android:text="@string/btn_save_text"
+            app:layout_constraintBottom_toBottomOf="@+id/editConstrainContainer"
             app:layout_constraintEnd_toEndOf="@+id/editText_Notes"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Notes" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_ResetLearned" />
+
+        <Button
+            android:id="@+id/btn_Archive"
+            style="@style/style_entry_modifier_button"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FB827A"
+            android:text="@string/btn_archive_text"
+            app:layout_constraintStart_toEndOf="@+id/btn_Delete"
+            app:layout_constraintEnd_toStartOf="@+id/btn_Save"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_Save" />
 
         <Button
             android:id="@+id/btn_Delete"
             style="@style/style_entry_modifier_button"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
             android:backgroundTint="#B12218"
             android:text="@string/btn_delete_text"
+            app:layout_constraintBottom_toBottomOf="@+id/editConstrainContainer"
             app:layout_constraintStart_toStartOf="@+id/editText_Notes"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Notes" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_ResetLearned" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

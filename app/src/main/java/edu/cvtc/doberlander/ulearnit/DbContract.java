@@ -18,19 +18,27 @@ public class DbContract {
         public static final String COLUMN_SUBCATEGORY = "sub_category";
         public static final String COLUMN_FIRST_LANGUAGE = "first_language";
         public static final String COLUMN_FIRST_LANGUAGE_ENTRY = "first_language_entry";
+        public static final String COLUMN_FIRST_LANGUAGE_ENTRY_ROMANIZED = "first_language_entry_romanized";
         public static final String COLUMN_FIRST_LANGUAGE_EXAMPLE = "first_language_example";
         public static final String COLUMN_SECOND_LANGUAGE = "second_language";
         public static final String COLUMN_SECOND_LANGUAGE_ENTRY = "second_language_entry";
+        public static final String COLUMN_SECOND_LANGUAGE_ENTRY_ROMANIZED = "second_language_entry_romanized";
         public static final String COLUMN_SECOND_LANGUAGE_EXAMPLE = "second_language_example";
         public static final String COLUMN_ENTRY_TYPE = "entry_type"; // sentence, question, phrase, or word classifications (noun, verb, particle, etc)
         public static final String COLUMN_TENSE = "tense"; // Past Present Future or NA (Not Applicable)
-        public static final String COLUMN_SINGULAR_OR_PLURAL = "singular_or_plural"; // Singular Plural or NA (Not Applicable)
-        public static final String COLUMN_MASCULINE_OR_FEMININE = "masculine_or_feminine"; // Masculine, Feminine or NA (Not Applicable)
+        public static final String COLUMN_IS_PLURAL = "is_plural"; // Singular Plural or NA (Not Applicable)
+        public static final String COLUMN_GENDER = "gender"; // Masculine, Feminine or NA (Not Applicable)
+        public static final String COLUMN_FORMALITY = "formality"; // Casual, Formal, Informal, Polite
         public static final String COLUMN_PERCENT_LEARNED = "percent_learned"; // lowest is well learned, higher is needing to learn better
         public static final String COLUMN_NOTES = "notes";
+        public static final String COLUMN_IMAGE = "image";
+        public static final String COLUMN_AUDIO = "audio";
+        public static final String COLUMN_USER_AUDIO = "user_audio";
         public static final String COLUMN_FAVORITE = "favorite";
         public static final String COLUMN_TAGS = "tags";
-        public static final String COLUMN_MODIFIED_DATE = "modifiedDate";
+        public static final String COLUMN_MODIFIED_DATE = "modified_Date";
+        public static final String COLUMN_ON_QUICKLIST = "on_quicklist";
+        public static final String COLUMN_ARCHIVED = "archived";
 
 
 
@@ -47,19 +55,27 @@ public class DbContract {
                         COLUMN_SUBCATEGORY + " TEXT NOT NULL, " +
                         COLUMN_FIRST_LANGUAGE + " TEXT NOT NULL, " +
                         COLUMN_FIRST_LANGUAGE_ENTRY + " TEXT NOT NULL, " +
+                        COLUMN_FIRST_LANGUAGE_ENTRY_ROMANIZED + " TEXT NOT NULL, " +
                         COLUMN_FIRST_LANGUAGE_EXAMPLE + " TEXT NOT NULL, " +
                         COLUMN_SECOND_LANGUAGE + " TEXT NOT NULL, " +
                         COLUMN_SECOND_LANGUAGE_ENTRY + " TEXT NOT NULL, " +
+                        COLUMN_SECOND_LANGUAGE_ENTRY_ROMANIZED + " TEXT NOT NULL, " +
                         COLUMN_SECOND_LANGUAGE_EXAMPLE + " TEXT NOT NULL, " +
                         COLUMN_ENTRY_TYPE + " TEXT NOT NULL, " +
                         COLUMN_TENSE + " TEXT NOT NULL, " +
-                        COLUMN_SINGULAR_OR_PLURAL + " TEXT NOT NULL, " +
-                        COLUMN_MASCULINE_OR_FEMININE + " TEXT NOT NULL, " +
+                        COLUMN_IS_PLURAL + " BOOLEAN NOT NULL, " +
+                        COLUMN_GENDER + " TEXT NOT NULL, " +
+                        COLUMN_FORMALITY + " TEXT NOT NULL, " +
                         COLUMN_PERCENT_LEARNED + " INTEGER NOT NULL, " +
                         COLUMN_NOTES + " TEXT NOT NULL, " +
+                        COLUMN_IMAGE + " TEXT NOT NULL, " +
+                        COLUMN_AUDIO + " TEXT NOT NULL, " +
+                        COLUMN_USER_AUDIO + " TEXT NOT NULL, " +
                         COLUMN_FAVORITE + " INTEGER NOT NULL, " +
                         COLUMN_TAGS + " TEXT NOT NULL, " +
-                        COLUMN_MODIFIED_DATE + " TEXT NOT NULL)";
+                        COLUMN_MODIFIED_DATE + " TEXT NOT NULL, " +
+                        COLUMN_ON_QUICKLIST + " BOOLEAN NOT NULL, " +
+                        COLUMN_ARCHIVED + " BOOLEAN NOT NULL)";
     }
 
 }

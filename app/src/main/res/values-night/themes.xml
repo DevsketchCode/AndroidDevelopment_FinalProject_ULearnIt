@@ -1,17 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ULearnIt" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.ULearnIt" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/purple_200</item>
-        <item name="colorSecondaryVariant">@color/purple_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/purple_500</item>
+        <item name="colorSecondaryVariant">@color/purple_500</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle" parent="@style/Widget.AppCompat.ActionBar">@style/ActionBar</item>
     </style>
 
     <style name="Theme.ULearnIt.NoActionBar">
@@ -19,7 +20,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.ULearnIt.AppBarOverlay" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+    <style name="Theme.ULearnIt.Header_Linear_Layout" parent="Theme.ULearnIt">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:alpha">0.8</item>
+        <item name="android:background">@color/purple_500</item>
+        <item name="android:color">@color/white</item>
+        <item name="android:elevation">3dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="Theme.ULearnIt.AppBarOverlay">
+        <item name="backgroundTint">@color/purple_700</item>
+    </style>
+
+    <style name="Theme.ULearnIt.AppBarOverlay.Text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/white</item>
+    </style>
 
     <style name="Theme.ULearnIt.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
+
+    <style name="ActionBar">
+        <item name="background">@color/purple_200</item>
+    </style>
 </resources>

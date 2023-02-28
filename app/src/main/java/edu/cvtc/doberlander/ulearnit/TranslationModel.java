@@ -17,19 +17,27 @@ public class TranslationModel implements Parcelable {
     private String mSubCategory;
     private String mFirstLanguage;
     private String mFirstLanguageEntry;
+    private String mFirstLanguageEntryRomanized;
     private String mFirstLanguageExample;
     private String mSecondLanguage;
     private String mSecondLanguageEntry;
+    private String mSecondLanguageEntryRomanized;
     private String mSecondLanguageExample;
     private String mEntryType;
     private String mTense;
-    private String mSingularOrPlural;
-    private String mMasculineOrFeminine;
+    private Boolean mIsPlural;
+    private String mGender;
+    private String mFormality;
     private int mPercentLearned;
     private String mNotes;
+    private String mImage;
+    private String mAudio;
+    private String mUserAudio;
     private int mFavorite;
     private String mTags;
     private String mModifiedDate;
+    private Boolean mOnQuickList;
+    private Boolean mArchived;
 
     // Default constructor
     public TranslationModel() {
@@ -41,42 +49,58 @@ public class TranslationModel implements Parcelable {
         this.mSubCategory = "";
         this.mFirstLanguage = "";
         this.mFirstLanguageEntry = "";
+        this.mFirstLanguageEntryRomanized = "";
         this.mFirstLanguageExample = "";
         this.mSecondLanguage = "";
         this.mSecondLanguageEntry = "";
+        this.mSecondLanguageEntryRomanized = "";
         this.mSecondLanguageExample = "";
         this.mEntryType = "";
-        this.mTense = "";
-        this.mSingularOrPlural = "";
-        this.mMasculineOrFeminine = "";
+        this.mTense = "N/A"; // N/A, Base, Past, Present, or Future
+        this.mIsPlural = false; // False for NA or Singular, True for Plural
+        this.mGender = "N/A"; //N/A, Masculine, Feminine
+        this.mFormality = "N/A"; // N/A, Casual, Formal, Informal, Polite, Slang
         this.mPercentLearned = 0;
         this.mNotes = "";
+        this.mImage = "";
+        this.mAudio = "";
+        this.mUserAudio = "";
         this.mFavorite = favorite;
         this.mTags = "";
         SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
         this.mModifiedDate = sdf.format(new Date());
+        this.mOnQuickList = false;
+        this.mArchived = false;
     }
 
     // Overloaded Constructor to create entire object, including Id
-    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String secondLanguageExample, String entryType, String tense, String singularOrPlural, String masculineOrFeminine, int percentLearned, String notes, int favorite, String tags, String modifiedDate) {
+    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String notes, String image, String audio, String userAudio, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         this.mId = id;
         this.mCategory = category;
         this.mSubCategory = subCategory;
         this.mFirstLanguage = firstLanguage;
         this.mFirstLanguageEntry = firstLanguageEntry;
+        this.mFirstLanguageEntryRomanized = mFirstLanguageEntryRomanized;
         this.mFirstLanguageExample = firstLanguageExample;
         this.mSecondLanguage = secondLanguage;
         this.mSecondLanguageEntry = secondLanguageEntry;
+        this.mSecondLanguageEntryRomanized = mSecondLanguageEntryRomanized;
         this.mSecondLanguageExample = secondLanguageExample;
         this.mEntryType = entryType;
         this.mTense = tense;
-        this.mSingularOrPlural = singularOrPlural;
-        this.mMasculineOrFeminine = masculineOrFeminine;
+        this.mIsPlural = isPlural;
+        this.mGender = gender;
+        this.mFormality = formality;
         this.mPercentLearned = percentLearned;
         this.mNotes = notes;
+        this.mImage = image;
+        this.mAudio = audio;
+        this.mUserAudio = userAudio;
         this.mFavorite = favorite;
         this.mTags = tags;
         this.mModifiedDate = modifiedDate;
+        this.mOnQuickList = onQuickList;
+        this.mArchived = archived;
     }
 
 
@@ -109,6 +133,12 @@ public class TranslationModel implements Parcelable {
         this.mFirstLanguageEntry = firstLanguageEntry;
     }
 
+    public String getFirstLanguageEntryRomanized() { return mFirstLanguageEntryRomanized; }
+
+    public void setFirstLanguageEntryRomanized(String firstLanguageEntryRomanized) {
+        this.mFirstLanguageEntryRomanized = firstLanguageEntryRomanized;
+    }
+
     public String getFirstLanguageExample() { return mFirstLanguageExample; }
 
     public void setFirstLanguageExample(String firstLanguageExample) {
@@ -131,6 +161,12 @@ public class TranslationModel implements Parcelable {
         this.mSecondLanguageEntry = secondLanguageEntry;
     }
 
+    public String getSecondLanguageEntryRomanized() { return mSecondLanguageEntryRomanized; }
+
+    public void setSecondLanguageEntryRomanized(String secondLanguageEntryRomanized) {
+        this.mSecondLanguageEntryRomanized = secondLanguageEntryRomanized;
+    }
+
     public String getSecondLanguageExample() { return mSecondLanguageExample; }
 
     public void setSecondLanguageExample(String secondLanguageExample) {
@@ -145,12 +181,16 @@ public class TranslationModel implements Parcelable {
 
     public void setTense(String tense) { this.mTense = tense; }
 
-    public String getSingularOrPlural() { return mSingularOrPlural; }
-    public void setSingularOrPlural(String singularOrPlural) { this.mSingularOrPlural = singularOrPlural; }
+    public Boolean getIsPlural() { return mIsPlural; }
+    public void setIsPlural(Boolean isPlural) { this.mIsPlural = isPlural; }
 
-    public String getMasculineOrFeminine() { return mMasculineOrFeminine; }
+    public String getGender() { return mGender; }
 
-    public void setMasculineOrFeminine(String masculineOrFeminine) { this.mMasculineOrFeminine = masculineOrFeminine; }
+    public void setGender(String gender) { this.mGender = gender; }
+
+    public String getFormality() { return mFormality; }
+
+    public void setFormality(String formality) { this.mFormality = formality; }
 
     public int getPercentLearned() { return mPercentLearned; }
 
@@ -164,6 +204,18 @@ public class TranslationModel implements Parcelable {
     public void setNotes(String notes) {
         this.mNotes = String.valueOf(Html.toHtml(new SpannableString(notes), Html.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE));
     }
+
+    public String getImage() { return mImage; }
+
+    public void setImage(String image) { this.mImage = image; }
+
+    public String getAudio() { return mAudio; }
+
+    public void setAudio(String audio) { this.mAudio = audio; }
+
+    public String getUserAudio() { return mUserAudio; }
+
+    public void setUserAudio(String userAudio) { this.mUserAudio = userAudio; }
 
     public int getFavorite() {
         return mFavorite;
@@ -188,6 +240,14 @@ public class TranslationModel implements Parcelable {
         this.mModifiedDate = newDate;
     }
 
+    public Boolean getOnQuickList() { return mOnQuickList; }
+
+    public void setOnQuickList(Boolean onQuickList) { this.mOnQuickList = onQuickList; }
+
+    public Boolean getArchived() { return mArchived; }
+
+    public void setArchived(Boolean archived) { this.mArchived = archived; }
+
     // Compare key that concatenates the firstLangEntry and secondLangEntry
     private String getCompareKey() { return mFirstLanguageEntry + "|" + mSecondLanguageEntry; }
 
@@ -209,19 +269,27 @@ public class TranslationModel implements Parcelable {
         setSubCategory(parcel.readString());
         setFirstLanguage(parcel.readString());
         setFirstLanguageEntry(parcel.readString());
+        setFirstLanguageEntryRomanized(parcel.readString());
         setFirstLanguageExample(parcel.readString());
         setSecondLanguage(parcel.readString());
         setSecondLanguageEntry(parcel.readString());
+        setSecondLanguageEntryRomanized(parcel.readString());
         setSecondLanguageExample(parcel.readString());
         setEntryType(parcel.readString());
         setTense(parcel.readString());
-        setSingularOrPlural(parcel.readString());
-        setMasculineOrFeminine(parcel.readString());
+        setIsPlural(parcel.readBoolean());
+        setGender(parcel.readString());
+        setFormality(parcel.readString());
         setPercentLearned(parcel.readInt());
         setNotes(parcel.readString());
+        setImage(parcel.readString());
+        setAudio(parcel.readString());
+        setUserAudio(parcel.readString());
         setFavorite(parcel.readInt());
         setTags(parcel.readString());
         setModifiedDate(parcel.readString());
+        setOnQuickList(parcel.readBoolean());
+        setArchived(parcel.readBoolean());
     }
 
     // Override the hashCode and toString to pull out rows for comparison.
@@ -234,19 +302,27 @@ public class TranslationModel implements Parcelable {
         parcel.writeString(mSubCategory);
         parcel.writeString(mFirstLanguage);
         parcel.writeString(mFirstLanguageEntry);
+        parcel.writeString(mFirstLanguageEntryRomanized);
         parcel.writeString(mFirstLanguageExample);
         parcel.writeString(mSecondLanguage);
         parcel.writeString(mSecondLanguageEntry);
+        parcel.writeString(mSecondLanguageEntryRomanized);
         parcel.writeString(mSecondLanguageExample);
         parcel.writeString(mEntryType);
         parcel.writeString(mTense);
-        parcel.writeString(mSingularOrPlural);
-        parcel.writeString(mMasculineOrFeminine);
+        parcel.writeBoolean(mIsPlural);
+        parcel.writeString(mGender);
+        parcel.writeString(mFormality);
         parcel.writeInt(mPercentLearned);
         parcel.writeString(mNotes);
+        parcel.writeString(mImage);
+        parcel.writeString(mAudio);
+        parcel.writeString(mUserAudio);
         parcel.writeInt(mFavorite);
         parcel.writeString(mTags);
         parcel.writeString(mModifiedDate);
+        parcel.writeBoolean(mOnQuickList);
+        parcel.writeBoolean(mArchived);
     }
 
     @Override

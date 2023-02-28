@@ -212,20 +212,28 @@ public class TranslationList {
             translation.setSubCategory("");
             translation.setFirstLanguage(firstLang);
             translation.setFirstLanguageEntry(firstLangEntries[i]);
+            translation.setFirstLanguageEntryRomanized("");
             translation.setFirstLanguageExample("");
             translation.setSecondLanguage(secondLang);
             translation.setSecondLanguageEntry(secondLangEntries[i]);
+            translation.setSecondLanguageEntryRomanized("");
             translation.setSecondLanguageExample("");
             translation.setEntryType(entryTypes[i]);
             translation.setTense("");
-            translation.setSingularOrPlural("");
-            translation.setMasculineOrFeminine("");
+            translation.setIsPlural(false);
+            translation.setGender("N/A");
+            translation.setFormality("");
             translation.setPercentLearned(0);
             translation.setNotes("");
+            translation.setImage("");
+            translation.setAudio("");
+            translation.setUserAudio("");
             translation.setFavorite(0);
             translation.setTags("");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
             translation.setModifiedDate(sdf.format(new Date()));
+            translation.setOnQuickList(false);
+            translation.setArchived(false);
 
             // add the translation to the greetings list
             translationList.add(translation);
