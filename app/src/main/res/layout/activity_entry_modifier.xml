@@ -233,47 +233,27 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:orientation="horizontal"
+            android:weightSum="3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample"
-            app:layout_constraintBottom_toTopOf="@+id/editText_Notes">
+            app:layout_constraintBottom_toTopOf="@+id/entry_dropdowns2_LinearLayout">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/entryTypeDropdownLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
                 android:hint="@string/entry_type_edit_hint"
                 android:minWidth="165dp"
-                app:boxBackgroundColor="#B3EEEEEE"
-                app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntryExample"
-                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
+                app:boxBackgroundColor="#B3EEEEEE">
 
                 <AutoCompleteTextView
                     android:id="@+id/entryTypeDropdown"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="none">
-                </AutoCompleteTextView>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tenseDropdownLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:hint="@string/tense_edit_hint"
-                android:minWidth="135dp"
-                app:boxBackgroundColor="#B3EEEEEE"
-                app:layout_constraintEnd_toStartOf="@+id/genderDropdownLayout"
-                app:layout_constraintStart_toEndOf="@+id/entryTypeDropdownLayout"
-                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
-
-                <AutoCompleteTextView
-                    android:id="@+id/tenseDropdown"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none">
                 </AutoCompleteTextView>
@@ -282,38 +262,81 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/genderDropdownLayout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_marginTop="4dp"
                 android:hint="@string/gender_edit_hint"
                 android:minWidth="130dp"
-                app:boxBackgroundColor="#B3EEEEEE"
-                app:layout_constraintStart_toEndOf="@+id/tenseDropdownLayout"
-                app:layout_constraintEnd_toEndOf="@+id/editText_SecondLangEntryExample"
-                app:layout_constraintTop_toBottomOf="@+id/editText_SecondLangEntryExample">
+                app:boxBackgroundColor="#B3EEEEEE">
 
                 <AutoCompleteTextView
                     android:id="@+id/genderDropdown"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none">
                 </AutoCompleteTextView>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/textView_Notes"
-            style="@style/style_entry_modifier_textview"
-            android:layout_marginTop="10dp"
-            android:text="@string/notes_text"
-            app:layout_constraintStart_toStartOf="@+id/editText_SecondLangEntryExample"
-            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns_LinearLayout" />
+        <LinearLayout
+            android:id="@+id/entry_dropdowns2_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns_LinearLayout"
+            app:layout_constraintBottom_toTopOf="@+id/editText_Notes">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tenseDropdownLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="4dp"
+                android:hint="@string/tense_edit_hint"
+                android:minWidth="135dp"
+                app:boxBackgroundColor="#B3EEEEEE">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tenseDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/formalityDropdownLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:layout_marginTop="4dp"
+                android:hint="@string/formality_edit_hint"
+                android:minWidth="130dp"
+                app:boxBackgroundColor="#B3EEEEEE">
+
+                <AutoCompleteTextView
+                    android:id="@+id/formalityDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+                </AutoCompleteTextView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/editText_Notes"
             style="@style/style_entry_modifier_edittext"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="10dp"
             android:hint="@string/notes_edittext"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
@@ -322,7 +345,7 @@
             android:gravity="top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns_LinearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/entry_dropdowns2_LinearLayout"
             tools:ignore="TextContrastCheck" />
 
         <LinearLayout

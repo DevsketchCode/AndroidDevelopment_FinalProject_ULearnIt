@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,21 +58,21 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.flashcards_menuItem);
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId())
                 {
-                    case R.id.activity_category:
-                        startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
+                    case R.id.categories_menuItem:
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.quiz_menuItem:
                         return true;
-                    case R.id.action_about:
-                        startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+                    case R.id.profile_menuItem:
+                        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }
@@ -94,6 +96,13 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
             // Retrieve each piece of information
             mCategory = bundle.getString("category");
             categoryMessage = bundle.getString("category_message");
+
+            // Retrieve Preferences
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
+                categoryMessage = categoryMessage + " " + prefs.getString("FirstLanguage", "") + " -> " +
+                        prefs.getString("SecondLanguage", "");
+            }
 
             // Set category header TextView
             TextView textView = findViewById(R.id.categoryHeaderText);
@@ -201,8 +210,15 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     }
 
     private void initializeDisplayContent() {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Preferences preferences = new Preferences();
+        preferences.setFirstLanguage(prefs.getString("FirstLanguage", ""));
+        preferences.setSecondLanguage(prefs.getString("SecondLanguage", ""));
+        preferences.setCategory(mCategory);
+
         // Retrieve the information from the database
-        DataManager.loadFromDatabase(mDbHelper, mCategory);
+        DataManager.loadFromDatabase(mDbHelper, preferences);
 
         // Set a reference to the translations of the items layout
         mRecyclerItems = findViewById(R.id.categoryRecyclerView);

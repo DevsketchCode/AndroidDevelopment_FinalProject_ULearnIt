@@ -1,8 +1,11 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
@@ -102,7 +105,7 @@ public class DataManager {
         cursor.close();
     }
 
-    public static void loadFromDatabase(DbHelper dbHelper, String category) {
+    public static void loadFromDatabase(DbHelper dbHelper, Preferences preferences) {
         // Declare SQL Statement variables
         String entryWhere;
         String[] entryWhereArgs;
@@ -143,12 +146,28 @@ public class DataManager {
         // Create an order by field for sorting
         String entryOrderBy = TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY;
         // Where statement
-        if(category.equals("Favorites")) {
+        if(preferences.getCategory().equals("Favorites")) {
             entryWhere = "favorite = ?";
             entryWhereArgs = new String[]{String.valueOf(1)};
         } else {
-            entryWhere = "category = ?";
-            entryWhereArgs = new String[]{category};
+            // Check Saved Preferences
+            String prefWhereColumns = "";
+            if (!preferences.getFirstLanguage().equals("")) {
+                prefWhereColumns = "first_language = ? AND ";
+            } else {
+                // Set Default Native Language
+                preferences.setFirstLanguage("English");
+                prefWhereColumns = "first_language = ? AND ";
+            }
+            if (!preferences.getSecondLanguage().equals("")) {
+                prefWhereColumns = prefWhereColumns + "second_language = ? AND ";
+            } else {
+                // Show all, there should always be a second language
+                prefWhereColumns = prefWhereColumns + "second_language != ? AND ";
+            }
+            //TODO: This is where you could also get a SharedPref to show/hide Deleted or Archived Rows
+            entryWhere = prefWhereColumns +  "category = ?";
+            entryWhereArgs = new String[]{preferences.getFirstLanguage(), preferences.getSecondLanguage(), preferences.getCategory()};
         }
 
         // Populate the cursor with results from the query

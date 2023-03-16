@@ -1,33 +1,50 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static androidx.core.content.ContextCompat.startActivity;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.text.Layout;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Objects;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
 
     private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
     private final RecyclerViewInterface recyclerViewInterface;
+
     //private static final String TAG = "CategoryActivity";
     private TranslationModel mSelectedElement;
+    private ConstraintLayout mainCategoryActivity;
+    private ConstraintLayout entryDetailsContainer;
+    private Button closeDetailsButton;
     private int mPosition;
+    private int clickedViewId;
     public static boolean mItemClicked = false;
 
     // Constructor initializes the translation list from the data
@@ -35,6 +52,10 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
         this.recyclerViewInterface = recyclerViewInterface;
+        mainCategoryActivity = ((CategoryActivity)context).findViewById(R.id.activity_category);
+        entryDetailsContainer = ((CategoryActivity)context).findViewById(R.id.cardDetailsPopupContainer);
+        closeDetailsButton = ((CategoryActivity)context).findViewById(R.id.btn_closeDetailsPopup);
+
     }
 
     // Create the View Holder
@@ -45,6 +66,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView tenseView;
         public final TextView notesView;
         public final ImageView favoriteImageView;
+        public final CardView moreDetailsView;
         private final TranslationAdapter mAdapter;
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
@@ -55,11 +77,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             tenseView = itemView.findViewById(R.id.langTranslationTense);
             notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
+            moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
             // https://developer.android.com/training/gestures/detector
+            itemView.findViewById(R.id.translationEntryCardLayout).setOnClickListener(this);
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
+            itemView.findViewById(R.id.translationEntryCardMore).setOnClickListener(this);
+            closeDetailsButton.setOnClickListener(this);
 
             // Create the long click listener to show the languages of the selected item
             itemView.setOnLongClickListener(new View.OnLongClickListener(){
@@ -128,6 +154,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
             // Check to see if the heart favorite imageView is what was clicked
             if(view.getId() == R.id.favorite_imageView) {
+                // Set the view id that is clicked so it can be referenced easier later
+                clickedViewId = view.getId();
                 // Get the current favorites value of that selected item
                 // Formatting of this setting can be found in the onBindViewHolder
                 if (mSelectedElement.getFavorite() == 1) {
@@ -137,6 +165,12 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     // The previous value was 0, so favorite the item by setting it to one
                     mSelectedElement.setFavorite(1);
                 }
+            } else if (view.getId() == R.id.translationEntryCardMore) {
+                clickedViewId = view.getId();
+            } else if (view.getId() == R.id.btn_closeDetailsPopup) {
+                clickedViewId = view.getId();
+            } else if (view.getId() == R.id.translationEntryCardLayout) {
+                clickedViewId = view.getId();
             }
 
             // Set itemClicked Global variable to true
@@ -166,11 +200,11 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
         holder.entryTypeView.setText(mCurrentEntry.getEntryType());
         holder.tenseView.setText(mCurrentEntry.getTense());
-        holder.notesView.setText(mCurrentEntry.getNotes());
+        holder.notesView.setText(mCurrentEntry.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
 
 
         // Check to see if the item clicked is the Favorite Heart imageView
-        if(holder.favoriteImageView.getId() == R.id.favorite_imageView) {
+        if(clickedViewId == R.id.favorite_imageView) {
             // If the favorite heart is clicked, check the value of it
             if (mCurrentEntry.getFavorite() == 1) {
                 // Display the filled in heart
@@ -179,39 +213,45 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Display the outlined heart
                 holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
             }
+        } else if (clickedViewId == R.id.translationEntryCardMore && entryDetailsContainer.getVisibility() == View.GONE) {
+            // Show details container that exists outside of the recyclerview
+            //mainCategoryActivity.invalidate();
+            entryDetailsContainer.setVisibility(View.VISIBLE);
+
+        } else if (clickedViewId == R.id.btn_closeDetailsPopup) {
+            // Hide details container that exists outside of the recyclerview
+            entryDetailsContainer.setVisibility(View.GONE);
+        }
+
+        // Highlight favorite upon recyclerview loading if it is checked in the database
+        if(mCurrentEntry.getFavorite() == 1) {
+            holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
         }
 
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
-            holder.itemView.setBackgroundColor(Color.parseColor("#00FF00"));
+            if((clickedViewId == R.id.translationEntryCardLayout ||
+                    clickedViewId == R.id.favorite_imageView || clickedViewId == R.id.translationEntryCardMore)) {
+                CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
+                entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
+            }
 
-            int tmpAdapterPosition = holder.getAdapterPosition();
+            //mainCategoryActivity.invalidate();
+            if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
+                Toast.makeText(holder.itemView.getContext(), "Test: " + mCurrentEntry.getFirstLanguageEntry(), Toast.LENGTH_SHORT).show();
+                populateDetailsPopup(mCurrentEntry);
+                //TextView tmpTextView = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1Entry);
+                //tmpTextView.setText(mSelectedElement.getFirstLanguageEntry());
+            }
 
-            String tmpToastString = "mPosition: " + mPosition + "; position: " + position + "; mCurrentEntry.getId() :" +
-                    tmpAdapterPosition + "; firstLangEntry: ";
-            Toast.makeText(holder.itemView.getContext(), tmpToastString , Toast.LENGTH_SHORT).show();
+            //Toast.makeText(holder.itemView.getContext(), tmpToastString , Toast.LENGTH_SHORT).show();
+
             // Set the Selected Item to the currently clicked item
             CategoryActivity.mSelectedItem = mCurrentEntry;
 
             // Update the selected ID with the database ID for this record
             mSelectedItemID = mCurrentEntry.getId();
-
-            //TODO: This needs to be adjusted, if it's clicked multiple times, the previous one shows instead.
-            View mEntryDetailsLayout = holder.itemView.findViewById(R.id.layout_TranslationEntryDetails);
-            // Show the Entry Details
-            if(mEntryDetailsLayout.getVisibility() == View.GONE) {
-                mEntryDetailsLayout.setVisibility(View.VISIBLE);
-                // Show Notes only if there are notes populated for that entry
-                if(!mSelectedItem.getNotes().isEmpty()) {
-                    mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.VISIBLE);
-                }
-                //else {
-                 //   mEntryDetailsLayout.findViewById(R.id.translationNotesCardDetails).setVisibility(View.GONE);
-                //}
-            } else {
-                //mEntryDetailsLayout.setVisibility(View.GONE);
-            }
 
             // Only run when using the Category Activity and the category is NOT favorites
             if(!mCurrentEntry.getCategory().equals("Favorites")) {
@@ -228,8 +268,12 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Reset Item Clicked variable
             mItemClicked = false;
         } else {
-            // Set all the entries to a default background color
-            holder.itemView.setBackgroundColor(16777215);
+            if(clickedViewId != R.id.btn_closeDetailsPopup) {
+                // Set all the entries to a default background color
+                CardView card = holder.itemView.findViewById(R.id.translationEntryCardLayout);
+                card.setCardBackgroundColor(Color.WHITE);
+            }
+
         }
     }
 
@@ -237,5 +281,61 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     @Override
     public int getItemCount() {
         return mTranslationList.size();
+    }
+
+    private void populateDetailsPopup(TranslationModel tm) {
+        TextView tmpFirstLang = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1);
+        TextView tmpFirstLangEntry = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1Entry);
+        TextView tmpFirstLangEntryRomanized = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1EntryRomanized);
+        TextView tmpSecondLang = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2);
+        TextView tmpSecondLangEntry = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2Entry);
+        TextView tmpSecondLangEntryRomanized = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2EntryRomanized);
+        TextView tmpEntryType = entryDetailsContainer.findViewById(R.id.textView_Details_EntryType);
+        TextView tmpGender = entryDetailsContainer.findViewById(R.id.textView_Details_Gender);
+        TextView tmpTense = entryDetailsContainer.findViewById(R.id.textView_Details_Tense);
+        TextView tmpFormality = entryDetailsContainer.findViewById(R.id.textView_Details_Formality);
+        TextView tmpIsPlural = entryDetailsContainer.findViewById(R.id.textView_Details_IsPlural);
+        TextView tmpPercentLearned = entryDetailsContainer.findViewById(R.id.textView_Details_PercentLearned);
+        TextView tmpNotes = entryDetailsContainer.findViewById(R.id.textView_Details_Notes);
+        TextView tmpLang1Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1EntryExample);
+        TextView tmpLang2Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2EntryExample);
+
+        String tmpPercentLearnedString = "";
+        tmpFirstLang.setText(tm.getFirstLanguage());
+        tmpFirstLangEntry.setText(tm.getFirstLanguageEntry());
+        tmpFirstLangEntryRomanized.setText(tm.getFirstLanguageEntryRomanized());
+        if (tmpFirstLangEntryRomanized.getText().equals("")) {
+            tmpFirstLangEntryRomanized.setHeight(0);
+        }
+        tmpSecondLang.setText(tm.getSecondLanguage());
+        tmpSecondLangEntry.setText(tm.getSecondLanguageEntry());
+        tmpSecondLangEntryRomanized.setText(tm.getSecondLanguageEntryRomanized());
+
+        if (tmpSecondLangEntryRomanized.getText().equals("")) {
+            //tmpSecondLangEntryRomanized.setVisibility(View.GONE);
+        }
+
+        tmpEntryType.setText(tm.getEntryType());
+        tmpGender.setText(tm.getGender());
+        tmpTense.setText(tm.getTense());
+        tmpFormality.setText(tm.getFormality());
+        if((tm.getEntryType().equals("Noun") || tm.getEntryType().equals("Verb") )) {
+            if(tm.getIsPlural()) {
+                tmpIsPlural.setText("Plural");
+            } else {
+                tmpIsPlural.setText("Singular");
+            }
+        } else {
+            tmpIsPlural.setText("N/A");
+        }
+
+
+        tmpPercentLearnedString = "Learned: " + tm.getPercentLearned() + "%";
+        tmpPercentLearned.setText(tmpPercentLearnedString);
+
+        tmpNotes.setText(tm.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
+        tmpLang1Example.setText(tm.getFirstLanguageExample());
+        tmpLang2Example.setText(tm.getSecondLanguageExample());
+
     }
 }

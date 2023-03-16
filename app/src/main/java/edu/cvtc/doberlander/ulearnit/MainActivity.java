@@ -1,10 +1,13 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,20 +47,30 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId())
                 {
-                    case R.id.activity_category:
-                        startActivity(new Intent(getApplicationContext(),CategoryActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+                    case R.id.categories_menuItem:
+                        //Intent categoryIntent = new Intent(getApplicationContext(), MainActivity.class);
+                        //startActivity(categoryIntent);
+                        //overridePendingTransition(0,0);
+                        return false;
                     case R.id.quiz_menuItem:
                         return true;
-                    case R.id.action_about:
-                        startActivity(new Intent(getApplicationContext(),AboutActivity.class));
+                    case R.id.profile_menuItem:
+                        Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(profileIntent);
                         overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
         });
+
+        // Retrieve Preferences
+        TextView categoriesHeader = findViewById(R.id.categories_TextView);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
+            categoriesHeader.setText(prefs.getString("FirstLanguage", "") + " -> " +
+                    prefs.getString("SecondLanguage", "") + "\nChoose Your Category");
+        }
 
 
         // Establish the database
@@ -75,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeDisplayContent() {
         // Retrieve information from the database
-        DataManager.loadFromDatabase(mDbHelper,mCategory);
+        Preferences preferences = new Preferences();
+        preferences.setCategory(mCategory);
+        DataManager.loadFromDatabase(mDbHelper,preferences);
     }
 
     @Override

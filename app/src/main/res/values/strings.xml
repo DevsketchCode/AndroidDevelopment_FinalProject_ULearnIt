@@ -90,6 +90,7 @@
     <string name="notes_edittext">Place any notes here</string>
     <string name="btn_archive_text">ARCHIVE</string>
     <string name="tense_edit_hint">Tense</string>
+    <string name="formality_edit_hint">Formality</string>
     <string name="gender_edit_hint">Gender</string>
     <string name="tense_text">Tense</string>
     <string name="gender_text">Gender</string>

@@ -2,6 +2,7 @@ package edu.cvtc.doberlander.ulearnit;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,14 +19,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.lang.reflect.Array;
+import java.util.Objects;
 
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayAdapter<CharSequence> adapter = null;
     private ArrayAdapter<CharSequence> entryTypeAdapter = null;
-    private ArrayAdapter<CharSequence> tenseAdapter = null;
     private ArrayAdapter<CharSequence> genderAdapter = null;
+    private ArrayAdapter<CharSequence> tenseAdapter = null;
+    private ArrayAdapter<CharSequence> formalityAdapter = null;
     private Button firstLangRomanizeButton = null;
     private Button secondLangRomanizeButton = null;
     private Button langExampleButton = null;
@@ -33,7 +38,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
     private TranslationModel mSelectedEntry;
     private boolean isNewEntry = false;
     private String dbResult = "Failed";
-    private String defaultNewLanguage = "Korean";
+    private String defaultFirstLanguage = "English";
+    private String defaultSecondLanguage = "Korean";
     private String defaultEntryType = "Noun";
     private String defaultTense = "N/A";
 
@@ -48,6 +54,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         try {
             if (actionBar != null) {
                 actionBar.setDisplayHomeAsUpEnabled(true);
+                // Set the Activity Title with instruction how to cancel
+                actionBar.setDisplayShowTitleEnabled(true);
             }
         } catch (NullPointerException ex) {
             System.out.println("Error showing back button on Action Bar. Error: " + ex.getMessage());
@@ -72,9 +80,11 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         AutoCompleteTextView firstLang = findViewById(R.id.firstLangDropdown);
         firstLang.setAdapter(adapter);
+        TextInputLayout firstLangTextInputLayout = findViewById(R.id.firstLangDropdownLayout);
 
         AutoCompleteTextView secondLang = findViewById(R.id.secondLangDropdown);
         secondLang.setAdapter(adapter);
+        TextInputLayout secondLangTextInputLayout = findViewById(R.id.secondLangDropdownLayout);
         //Spinner firstLang=findViewById(R.id.spinner_FirstLang);
         //firstLang.setAdapter(adapter);
         //Spinner secondLang=findViewById(R.id.spinner_SecondLang);
@@ -86,15 +96,22 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         entryTypeAdapter= ArrayAdapter.createFromResource(this, R.array.entryTypeOptions, R.layout.dropdown_item);
         AutoCompleteTextView entryType=findViewById(R.id.entryTypeDropdown);
         entryType.setAdapter(entryTypeAdapter);
-
-        tenseAdapter= ArrayAdapter.createFromResource(this, R.array.tenseOptions, R.layout.dropdown_item);
-        AutoCompleteTextView tense=findViewById(R.id.tenseDropdown);
-        tense.setAdapter(tenseAdapter);
+        TextInputLayout entryTypeTextInputLayout = findViewById(R.id.entryTypeDropdownLayout);
 
         genderAdapter= ArrayAdapter.createFromResource(this, R.array.genderOptions, R.layout.dropdown_item);
         AutoCompleteTextView gender=findViewById(R.id.genderDropdown);
         gender.setAdapter(genderAdapter);
+        TextInputLayout genderTextInputLayout = findViewById(R.id.genderDropdownLayout);
 
+        tenseAdapter= ArrayAdapter.createFromResource(this, R.array.tenseOptions, R.layout.dropdown_item);
+        AutoCompleteTextView tense=findViewById(R.id.tenseDropdown);
+        tense.setAdapter(tenseAdapter);
+        TextInputLayout tenseTextInputLayout = findViewById(R.id.tenseDropdownLayout);
+
+        formalityAdapter = ArrayAdapter.createFromResource(this, R.array.formalityOptions, R.layout.dropdown_item);
+        AutoCompleteTextView formality=findViewById(R.id.formalityDropdown);
+        formality.setAdapter(formalityAdapter);
+        TextInputLayout formalityTextInputLayout = findViewById(R.id.formalityDropdownLayout);
 
         // Get the previous activities category
         String category = getIntent().getExtras().getString("category");
@@ -135,6 +152,21 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 TextView dateLastModifiedLabel = findViewById(R.id.textView_DateModified_label);
                 TextView dateLastModified = findViewById(R.id.textView_DateModified);
 
+                // Make Romanization or Example visible if has a value
+                if(!mSelectedEntry.getFirstLanguageEntryRomanized().isEmpty()) {
+                    firstLangEntryRomanization.setVisibility(View.VISIBLE);
+                }
+                if(!mSelectedEntry.getFirstLanguageExample().isEmpty()) {
+                    firstLangEntryExample.setVisibility(View.VISIBLE);
+                }
+                if(!mSelectedEntry.getSecondLanguageEntryRomanized().isEmpty()) {
+                    secondLangEntryRomanization.setVisibility(View.VISIBLE);
+                }
+                if(!mSelectedEntry.getSecondLanguageExample().isEmpty()) {
+                    secondLangEntryExample.setVisibility(View.VISIBLE);
+                }
+
+
                 //firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
                 firstLang.setText(mSelectedEntry.getFirstLanguage(), false);
                 firstLangEntry.setText(mSelectedEntry.getFirstLanguageEntry());
@@ -146,9 +178,10 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 secondLangEntryRomanization.setText(mSelectedEntry.getSecondLanguageEntryRomanized());
                 secondLangEntryExample.setText(mSelectedEntry.getSecondLanguageExample());
                 entryType.setText(mSelectedEntry.getEntryType(), false);
-                tense.setText(mSelectedEntry.getTense(),false);
                 gender.setText(mSelectedEntry.getGender(), false);
-                notes.setText(mSelectedEntry.getNotes());
+                tense.setText(mSelectedEntry.getTense(),false);
+                formality.setText(mSelectedEntry.getFormality(), false);
+                notes.setText(mSelectedEntry.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
                 isPlural.setChecked(mSelectedEntry.getIsPlural());
                 onQuickList.setChecked(mSelectedEntry.getOnQuickList());
                 isArchived.setChecked(mSelectedEntry.getArchived());
@@ -156,6 +189,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 dateLastModified.setText(mSelectedEntry.getModifiedDate().toString());
                 dateLastModifiedLabel.setVisibility(View.VISIBLE);
                 dateLastModified.setVisibility(View.VISIBLE);
+
+                //Adjust color for empty dropdowns
+                CheckDropdownSelection(firstLangTextInputLayout, firstLang);
+                CheckDropdownSelection(secondLangTextInputLayout, secondLang);
+                CheckDropdownSelection(entryTypeTextInputLayout, entryType);
+                CheckDropdownSelection(genderTextInputLayout, gender);
+                CheckDropdownSelection(tenseTextInputLayout, tense);
+                CheckDropdownSelection(formalityTextInputLayout, formality);
 
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
@@ -170,7 +211,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
             // after the form has been filled out.
-            secondLang.setText(""); // Leave this blank so the dropdown title shows up before selection made
+            firstLang.setText(defaultFirstLanguage, false);
+            secondLang.setText(defaultSecondLanguage, false); // Leave this blank so the dropdown title shows up before selection made
             entryType.setText(""); // Leave this blank so the dropdown title shows up before selection made
             tense.setText(""); // Leave this blank so the dropdown title shows up before selection made
             // New entry to true, so the proper db function can be ran.
@@ -188,13 +230,18 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         //Spinner firstLang = findViewById(R.id.spinner_FirstLang);
         AutoCompleteTextView firstLang = findViewById(R.id.firstLangDropdown);
         EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
-        //Spinner secondLang = findViewById(R.id.spinner_SecondLang);
+        EditText firstLangEntryRomanized = findViewById(R.id.editText_FirstLangEntryRomanization);
+        EditText firstLangEntryExample = findViewById(R.id.editText_FirstLangEntryExample);
+
         AutoCompleteTextView secondLang = findViewById(R.id.secondLangDropdown);
         EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
-        //Spinner entryType = findViewById(R.id.spinner_EntryType);
+        EditText secondLangEntryRomanized = findViewById(R.id.editText_FirstLangEntryRomanization);
+        EditText secondLangEntryExample = findViewById(R.id.editText_SecondLangEntryExample);
+
         AutoCompleteTextView entryType = findViewById(R.id.entryTypeDropdown);
-        AutoCompleteTextView tense = findViewById(R.id.tenseDropdown);
         AutoCompleteTextView gender = findViewById(R.id.genderDropdown);
+        AutoCompleteTextView tense = findViewById(R.id.tenseDropdown);
+        AutoCompleteTextView formality = findViewById(R.id.formalityDropdown);
         EditText notes = findViewById(R.id.editText_Notes);
         CheckBox isPlural = findViewById(R.id.checkBox_IsPlural);
         CheckBox onQuickList = findViewById(R.id.checkBox_IsOnQuickList);
@@ -205,16 +252,17 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         // Update the selected entry with the new values
         mSelectedEntry.setFirstLanguage(firstLang.getText().toString());
         mSelectedEntry.setFirstLanguageEntry(firstLangEntry.getText().toString());
-        mSelectedEntry.setFirstLanguageEntryRomanized(firstLangEntry.getText().toString());
-        mSelectedEntry.setFirstLanguageExample(firstLangEntry.getText().toString());
+        mSelectedEntry.setFirstLanguageEntryRomanized(firstLangEntryRomanized.getText().toString());
+        mSelectedEntry.setFirstLanguageExample(firstLangEntryExample.getText().toString());
         mSelectedEntry.setSecondLanguage(secondLang.getText().toString());
         mSelectedEntry.setSecondLanguageEntry(secondLangEntry.getText().toString());
-        mSelectedEntry.setSecondLanguageEntryRomanized(secondLangEntry.getText().toString());
-        mSelectedEntry.setSecondLanguageExample(secondLangEntry.getText().toString());
+        mSelectedEntry.setSecondLanguageEntryRomanized(secondLangEntryRomanized.getText().toString());
+        mSelectedEntry.setSecondLanguageExample(secondLangEntryExample.getText().toString());
         mSelectedEntry.setEntryType(entryType.getText().toString());
-        mSelectedEntry.setTense(tense.getText().toString());
         mSelectedEntry.setGender(gender.getText().toString());
-        mSelectedEntry.setNotes(notes.getText().toString());
+        mSelectedEntry.setTense(tense.getText().toString());
+        mSelectedEntry.setFormality(formality.getText().toString());
+        mSelectedEntry.setNotes(notes.getText().toString().replace(Objects.requireNonNull(System.getProperty("line.separator")), "\\n"));
         mSelectedEntry.setIsPlural(isPlural.isChecked());
         mSelectedEntry.setOnQuickList(onQuickList.isChecked());
         mSelectedEntry.setArchived(isArchived.isChecked());
@@ -403,5 +451,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void CheckDropdownSelection(TextInputLayout textInputLayout, AutoCompleteTextView autoCompleteTextView) {
+        if(autoCompleteTextView.getText().toString().isEmpty() || autoCompleteTextView.getText().toString().equals(""))
+        {
+            textInputLayout.setBoxBackgroundColor(Color.parseColor("#FFFBE86C"));
+        } else {
+            textInputLayout.setBoxBackgroundColor(Color.parseColor("#B3EEEEEE"));
+        }
     }
 }
