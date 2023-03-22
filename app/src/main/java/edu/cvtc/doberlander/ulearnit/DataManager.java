@@ -51,10 +51,13 @@ public class DataManager {
         int listGenderPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_GENDER);
         int listFormalityPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FORMALITY);
         int listPercentLearnedPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_PERCENT_LEARNED);
+        int listPercentLearnedModifiedDatePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE);
+        int listMemorizedPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_MEMORIZED);
         int listNotesPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_NOTES);
         int listImagePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_IMAGE);
         int listAudioPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_AUDIO);
         int listUserAudioPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_USER_AUDIO);
+        int listUserAudioModifiedDatePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_USER_AUDIO_MODIFIED_DATE);
         int listFavoritePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FAVORITE);
         int listTagsPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_TAGS);
         int listModifiedDatePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_MODIFIED_DATE);
@@ -85,10 +88,13 @@ public class DataManager {
             String listGender = cursor.getString(listGenderPosition);
             String listFormality = cursor.getString(listFormalityPosition);
             int listPercentLearned = cursor.getInt(listPercentLearnedPosition);
+            String listPercentLearnedModifiedDate = cursor.getString(listPercentLearnedModifiedDatePosition);
+            Boolean listMemorized = cursor.getInt(listMemorizedPosition) != 0;
             String listNotes = cursor.getString(listNotesPosition);
             String listImage = cursor.getString(listImagePosition);
             String listAudio = cursor.getString(listAudioPosition);
             String listUserAudio = cursor.getString(listUserAudioPosition);
+            String listUserAudioModifiedDate = cursor.getString(listUserAudioModifiedDatePosition);
             int listFavorite = cursor.getInt(listFavoritePosition);
             String listTags = cursor.getString(listTagsPosition);
             String listModifiedDate = cursor.getString(listModifiedDatePosition);
@@ -96,7 +102,7 @@ public class DataManager {
             Boolean listArchived = cursor.getInt(listArchivedPosition) != 0;
 
             TranslationModel list = new TranslationModel(id, listCategory, listSubCategory, listFirstLang,
-                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listIsPlural, listGender, listFormality, listPercentLearned, listNotes, listImage, listAudio, listUserAudio, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
+                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listIsPlural, listGender, listFormality, listPercentLearned, listPercentLearnedModifiedDate, listMemorized, listNotes, listImage, listAudio, listUserAudio, listUserAudioModifiedDate, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
 
             dm.mTranslations.add(list);
         }
@@ -132,10 +138,13 @@ public class DataManager {
           TranslationEntry.COLUMN_GENDER,
           TranslationEntry.COLUMN_FORMALITY,
           TranslationEntry.COLUMN_PERCENT_LEARNED,
+          TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE,
+          TranslationEntry.COLUMN_MEMORIZED,
           TranslationEntry.COLUMN_NOTES,
           TranslationEntry.COLUMN_IMAGE,
           TranslationEntry.COLUMN_AUDIO,
           TranslationEntry.COLUMN_USER_AUDIO,
+          TranslationEntry.COLUMN_USER_AUDIO_MODIFIED_DATE,
           TranslationEntry.COLUMN_FAVORITE,
           TranslationEntry.COLUMN_TAGS,
           TranslationEntry.COLUMN_MODIFIED_DATE,
@@ -200,10 +209,13 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_GENDER, tEntry.getGender());
         values.put(TranslationEntry.COLUMN_FORMALITY, tEntry.getFormality());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, tEntry.getPercentLearned());
+        values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, tEntry.getPercentLearnedModifiedDate());
+        values.put(TranslationEntry.COLUMN_MEMORIZED, tEntry.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tEntry.getNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tEntry.getImage());
         values.put(TranslationEntry.COLUMN_AUDIO, tEntry.getAudio());
         values.put(TranslationEntry.COLUMN_USER_AUDIO, tEntry.getUserAudio());
+        values.put(TranslationEntry.COLUMN_USER_AUDIO_MODIFIED_DATE, tEntry.getUserAudioModifiedDate());
         values.put(TranslationEntry.COLUMN_FAVORITE, tEntry.getFavorite());
         values.put(TranslationEntry.COLUMN_TAGS, tEntry.getTags());
         values.put(TranslationEntry.COLUMN_MODIFIED_DATE, tEntry.getModifiedDate());

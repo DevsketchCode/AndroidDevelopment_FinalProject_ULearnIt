@@ -235,7 +235,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
         AutoCompleteTextView secondLang = findViewById(R.id.secondLangDropdown);
         EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
-        EditText secondLangEntryRomanized = findViewById(R.id.editText_FirstLangEntryRomanization);
+        EditText secondLangEntryRomanized = findViewById(R.id.editText_SecondLangEntryRomanization);
         EditText secondLangEntryExample = findViewById(R.id.editText_SecondLangEntryExample);
 
         AutoCompleteTextView entryType = findViewById(R.id.entryTypeDropdown);

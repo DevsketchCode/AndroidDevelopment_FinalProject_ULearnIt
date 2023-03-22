@@ -3,6 +3,7 @@ package edu.cvtc.doberlander.ulearnit;
 import static androidx.core.content.ContextCompat.startActivity;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
+import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemPosition;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +45,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private ConstraintLayout entryDetailsContainer;
     private Button closeDetailsButton;
     private int mPosition;
+    private int selectedItemPosition;
     private int clickedViewId;
     public static boolean mItemClicked = false;
 
@@ -78,6 +80,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
+            selectedItemPosition = -1;
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
@@ -167,6 +170,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 }
             } else if (view.getId() == R.id.translationEntryCardMore) {
                 clickedViewId = view.getId();
+                //mSelectedItemPosition = mPosition;
             } else if (view.getId() == R.id.btn_closeDetailsPopup) {
                 clickedViewId = view.getId();
             } else if (view.getId() == R.id.translationEntryCardLayout) {
@@ -235,11 +239,14 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     clickedViewId == R.id.favorite_imageView || clickedViewId == R.id.translationEntryCardMore)) {
                 CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
                 entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
+                entryCard.setSelected(true);
+                //selectedItemPosition = mPosition;
+                //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
             }
 
             //mainCategoryActivity.invalidate();
             if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
-                Toast.makeText(holder.itemView.getContext(), "Test: " + mCurrentEntry.getFirstLanguageEntry(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(holder.itemView.getContext(), "Test: " + mCurrentEntry.getFirstLanguageEntry(), Toast.LENGTH_SHORT).show();
                 populateDetailsPopup(mCurrentEntry);
                 //TextView tmpTextView = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1Entry);
                 //tmpTextView.setText(mSelectedElement.getFirstLanguageEntry());
@@ -271,7 +278,13 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             if(clickedViewId != R.id.btn_closeDetailsPopup) {
                 // Set all the entries to a default background color
                 CardView card = holder.itemView.findViewById(R.id.translationEntryCardLayout);
-                card.setCardBackgroundColor(Color.WHITE);
+                if (position != mPosition) {
+                    card.setCardBackgroundColor(Color.WHITE);
+                    card.setSelected(false);
+                    //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
+                } else {
+                    //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
+                }
             }
 
         }
@@ -287,9 +300,11 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         TextView tmpFirstLang = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1);
         TextView tmpFirstLangEntry = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1Entry);
         TextView tmpFirstLangEntryRomanized = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1EntryRomanized);
+        TextView tmpFirstLangEntryRomanizedLabel = entryDetailsContainer.findViewById(R.id.textView_Label_1stLangRomanized);
         TextView tmpSecondLang = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2);
         TextView tmpSecondLangEntry = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2Entry);
         TextView tmpSecondLangEntryRomanized = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2EntryRomanized);
+        TextView tmpSecondLangEntryRomanizedLabel = entryDetailsContainer.findViewById(R.id.textView_Label_2ndLangRomanized);
         TextView tmpEntryType = entryDetailsContainer.findViewById(R.id.textView_Details_EntryType);
         TextView tmpGender = entryDetailsContainer.findViewById(R.id.textView_Details_Gender);
         TextView tmpTense = entryDetailsContainer.findViewById(R.id.textView_Details_Tense);
@@ -305,14 +320,24 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         tmpFirstLangEntry.setText(tm.getFirstLanguageEntry());
         tmpFirstLangEntryRomanized.setText(tm.getFirstLanguageEntryRomanized());
         if (tmpFirstLangEntryRomanized.getText().equals("")) {
-            tmpFirstLangEntryRomanized.setHeight(0);
+            tmpFirstLangEntryRomanizedLabel.setVisibility(View.INVISIBLE);
+            //tmpFirstLangEntryRomanized.setHeight(0);
+            tmpFirstLangEntryRomanized.setVisibility(View.INVISIBLE);
+        } else {
+            tmpFirstLangEntryRomanizedLabel.setVisibility(View.VISIBLE);
+            tmpFirstLangEntryRomanized.setVisibility(View.VISIBLE);
         }
         tmpSecondLang.setText(tm.getSecondLanguage());
         tmpSecondLangEntry.setText(tm.getSecondLanguageEntry());
         tmpSecondLangEntryRomanized.setText(tm.getSecondLanguageEntryRomanized());
 
         if (tmpSecondLangEntryRomanized.getText().equals("")) {
-            //tmpSecondLangEntryRomanized.setVisibility(View.GONE);
+            tmpSecondLangEntryRomanizedLabel.setVisibility(View.INVISIBLE);
+            tmpSecondLangEntryRomanized.setVisibility(View.INVISIBLE);
+        } else
+        {
+            tmpSecondLangEntryRomanizedLabel.setVisibility(View.VISIBLE);
+            tmpSecondLangEntryRomanized.setVisibility(View.VISIBLE);
         }
 
         tmpEntryType.setText(tm.getEntryType());

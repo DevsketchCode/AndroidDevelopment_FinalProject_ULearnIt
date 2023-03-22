@@ -207,6 +207,7 @@ public class TranslationList {
         for (int i = 0; i < firstLangEntries.length; i++) {
             // Create translation entry object
             TranslationModel translation = new TranslationModel();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
             // Populate the translation object
             translation.setCategory(category);
             translation.setSubCategory("");
@@ -224,13 +225,15 @@ public class TranslationList {
             translation.setGender("N/A");
             translation.setFormality("");
             translation.setPercentLearned(0);
+            translation.setPercentLearnedModifiedDate(sdf.format(new Date()));
+            translation.setMemorized(false);
             translation.setNotes("");
             translation.setImage("");
             translation.setAudio("");
             translation.setUserAudio("");
+            translation.setUserAudioModifiedDate(sdf.format(new Date()));
             translation.setFavorite(0);
             translation.setTags("");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
             translation.setModifiedDate(sdf.format(new Date()));
             translation.setOnQuickList(false);
             translation.setArchived(false);

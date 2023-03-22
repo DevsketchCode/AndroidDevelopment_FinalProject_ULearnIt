@@ -108,11 +108,16 @@
         <item>Adjective</item>
         <item>Adverb</item>
         <item>Particle</item>
+        <item>Postposition</item>
         <item>Preposition</item>
         <item>Pronoun</item>
         <item>Phrase</item>
+        <item>Marker</item>
         <item>Noun</item>
+        <item>Number (Native)</item>
+        <item>Number (Other)</item>
         <item>Sentence</item>
+        <item>Question</item>
         <item>Verb</item>
     </string-array>
     <string-array name="tenseOptions">

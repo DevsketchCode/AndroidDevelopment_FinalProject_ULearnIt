@@ -29,10 +29,13 @@ public class TranslationModel implements Parcelable {
     private String mGender;
     private String mFormality;
     private int mPercentLearned;
+    private String mPercentLearnedModifiedDate;
+    private Boolean mMemorized;
     private String mNotes;
     private String mImage;
     private String mAudio;
     private String mUserAudio;
+    private String mUserAudioModifiedDate;
     private int mFavorite;
     private String mTags;
     private String mModifiedDate;
@@ -45,6 +48,7 @@ public class TranslationModel implements Parcelable {
 
     // Empty Overloaded Constructor with predefined category and favorites set
     public TranslationModel(String category, int favorite) {
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
         this.mCategory = category;
         this.mSubCategory = "";
         this.mFirstLanguage = "";
@@ -61,20 +65,22 @@ public class TranslationModel implements Parcelable {
         this.mGender = "N/A"; //N/A, Masculine, Feminine
         this.mFormality = "N/A"; // N/A, Casual, Formal, Informal, Polite, Slang
         this.mPercentLearned = 0;
+        this.mPercentLearnedModifiedDate = sdf.format(new Date());
+        this.mMemorized = false;
         this.mNotes = "";
         this.mImage = "";
         this.mAudio = "";
         this.mUserAudio = "";
+        this.mUserAudioModifiedDate = sdf.format(new Date());
         this.mFavorite = favorite;
         this.mTags = "";
-        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
         this.mModifiedDate = sdf.format(new Date());
         this.mOnQuickList = false;
         this.mArchived = false;
     }
 
     // Overloaded Constructor to create entire object, including Id
-    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String notes, String image, String audio, String userAudio, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         this.mId = id;
         this.mCategory = category;
         this.mSubCategory = subCategory;
@@ -92,10 +98,13 @@ public class TranslationModel implements Parcelable {
         this.mGender = gender;
         this.mFormality = formality;
         this.mPercentLearned = percentLearned;
+        this.mPercentLearnedModifiedDate = percentLearnedModifiedDate;
+        this.mMemorized = memorized;
         this.mNotes = notes;
         this.mImage = image;
         this.mAudio = audio;
         this.mUserAudio = userAudio;
+        this.mUserAudioModifiedDate = userAudioModifiedDate;
         this.mFavorite = favorite;
         this.mTags = tags;
         this.mModifiedDate = modifiedDate;
@@ -196,6 +205,25 @@ public class TranslationModel implements Parcelable {
 
     public void setPercentLearned(int percentLearned) { this.mPercentLearned = percentLearned; }
 
+    public String getPercentLearnedModifiedDate() {
+        return mPercentLearnedModifiedDate;
+    }
+
+    public void setPercentLearnedModifiedDate(String newDate) {
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+        // Always set a new date and time to become the modified date/time stamp
+        newDate = sdf.format(new Date());
+        this.mPercentLearnedModifiedDate = newDate;
+    }
+
+    public Boolean getMemorized() {
+        return mMemorized;
+    }
+
+    public void setMemorized(Boolean memorized) {
+        this.mMemorized = memorized;
+    }
+
     public String getNotes() {
         mNotes = String.valueOf(Html.fromHtml(mNotes, Html.FROM_HTML_MODE_COMPACT));
         return mNotes;
@@ -216,6 +244,17 @@ public class TranslationModel implements Parcelable {
     public String getUserAudio() { return mUserAudio; }
 
     public void setUserAudio(String userAudio) { this.mUserAudio = userAudio; }
+
+    public String getUserAudioModifiedDate() {
+        return mUserAudioModifiedDate;
+    }
+
+    public void setUserAudioModifiedDate(String newDate) {
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+        // Always set a new date and time to become the modified date/time stamp
+        newDate = sdf.format(new Date());
+        this.mUserAudioModifiedDate = newDate;
+    }
 
     public int getFavorite() {
         return mFavorite;
@@ -281,10 +320,13 @@ public class TranslationModel implements Parcelable {
         setGender(parcel.readString());
         setFormality(parcel.readString());
         setPercentLearned(parcel.readInt());
+        setPercentLearnedModifiedDate(parcel.readString());
+        setMemorized(parcel.readBoolean());
         setNotes(parcel.readString());
         setImage(parcel.readString());
         setAudio(parcel.readString());
         setUserAudio(parcel.readString());
+        setUserAudioModifiedDate(parcel.readString());
         setFavorite(parcel.readInt());
         setTags(parcel.readString());
         setModifiedDate(parcel.readString());
@@ -314,10 +356,13 @@ public class TranslationModel implements Parcelable {
         parcel.writeString(mGender);
         parcel.writeString(mFormality);
         parcel.writeInt(mPercentLearned);
+        parcel.writeString(mPercentLearnedModifiedDate);
+        parcel.writeBoolean(mMemorized);
         parcel.writeString(mNotes);
         parcel.writeString(mImage);
         parcel.writeString(mAudio);
         parcel.writeString(mUserAudio);
+        parcel.writeString(mUserAudioModifiedDate);
         parcel.writeInt(mFavorite);
         parcel.writeString(mTags);
         parcel.writeString(mModifiedDate);

@@ -44,6 +44,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     public static Menu mModifyMenu;
     public static TranslationModel mSelectedItem = null;
     public static int mSelectedItemID = 0;
+    public static int mSelectedItemPosition = 0;
 
     // Member variable for translations
     public static List<TranslationModel> mTranslations;
@@ -100,8 +101,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
             // Retrieve Preferences
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
-                categoryMessage = categoryMessage + " " + prefs.getString("FirstLanguage", "") + " -> " +
-                        prefs.getString("SecondLanguage", "");
+                categoryMessage = prefs.getString("FirstLanguage", "") + " -> " +
+                        prefs.getString("SecondLanguage", "") + "\n" + categoryMessage;
             }
 
             // Set category header TextView
@@ -262,6 +263,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     @Override
     public void onItemClick(int position) {
         //mSelectedItem = mTranslations.get(position);
+        mSelectedItemPosition = position;
     }
 
     @Override

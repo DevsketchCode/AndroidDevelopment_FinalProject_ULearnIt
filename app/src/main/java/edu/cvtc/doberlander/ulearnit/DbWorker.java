@@ -16,7 +16,7 @@ public class DbWorker {
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
     // Function to insertEntry from a list
-    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String notes, String image, String audio, String userAudio, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         ContentValues values = new ContentValues();
         values.put(TranslationEntry.COLUMN_CATEGORY, category);
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, subCategory);
@@ -34,10 +34,13 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_GENDER, gender);
         values.put(TranslationEntry.COLUMN_FORMALITY, formality);
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, percentLearned);
+        values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, percentLearnedModifiedDate);
+        values.put(TranslationEntry.COLUMN_MEMORIZED, memorized);
         values.put(TranslationEntry.COLUMN_NOTES, notes);
         values.put(TranslationEntry.COLUMN_IMAGE, image);
         values.put(TranslationEntry.COLUMN_AUDIO, audio);
         values.put(TranslationEntry.COLUMN_USER_AUDIO, userAudio);
+        values.put(TranslationEntry.COLUMN_USER_AUDIO_MODIFIED_DATE, userAudioModifiedDate);
         values.put(TranslationEntry.COLUMN_FAVORITE, favorite);
         values.put(TranslationEntry.COLUMN_TAGS, tags);
         values.put(TranslationEntry.COLUMN_MODIFIED_DATE, modifiedDate);
@@ -68,10 +71,13 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_GENDER, tm.getGender());
         values.put(TranslationEntry.COLUMN_FORMALITY, tm.getFormality());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, tm.getPercentLearned());
+        values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, tm.getPercentLearnedModifiedDate());
+        values.put(TranslationEntry.COLUMN_MEMORIZED, tm.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tm.getNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tm.getImage());
         values.put(TranslationEntry.COLUMN_AUDIO, tm.getAudio());
         values.put(TranslationEntry.COLUMN_USER_AUDIO, tm.getUserAudio());
+        values.put(TranslationEntry.COLUMN_USER_AUDIO_MODIFIED_DATE, tm.getUserAudioModifiedDate());
         values.put(TranslationEntry.COLUMN_FAVORITE, tm.getFavorite());
         values.put(TranslationEntry.COLUMN_TAGS, tm.getTags());
         values.put(TranslationEntry.COLUMN_MODIFIED_DATE, tm.getModifiedDate());
@@ -144,10 +150,13 @@ public class DbWorker {
                     m.getGender(),
                     m.getFormality(),
                     m.getPercentLearned(),
+                    m.getPercentLearnedModifiedDate(),
+                    m.getMemorized(),
                     m.getNotes(),
                     m.getImage(),
                     m.getAudio(),
                     m.getUserAudio(),
+                    m.getUserAudioModifiedDate(),
                     m.getFavorite(),
                     m.getTags(),
                     m.getModifiedDate(),
