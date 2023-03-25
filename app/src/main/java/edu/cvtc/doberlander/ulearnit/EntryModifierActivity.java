@@ -27,6 +27,7 @@ import java.util.Objects;
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayAdapter<CharSequence> adapter = null;
+    private ArrayAdapter<CharSequence> categoryAdapter = null;
     private ArrayAdapter<CharSequence> entryTypeAdapter = null;
     private ArrayAdapter<CharSequence> genderAdapter = null;
     private ArrayAdapter<CharSequence> tenseAdapter = null;
@@ -89,6 +90,11 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         //firstLang.setAdapter(adapter);
         //Spinner secondLang=findViewById(R.id.spinner_SecondLang);
         //secondLang.setAdapter(adapter);
+
+        categoryAdapter = ArrayAdapter.createFromResource(this, R.array.categoryOptions, R.layout.dropdown_item);
+        AutoCompleteTextView categoryAutoCompleteTextView =findViewById(R.id.categoryDropdown);
+        categoryAutoCompleteTextView.setAdapter(categoryAdapter);
+        TextInputLayout categoryTextInputLayout = findViewById(R.id.categoryDropdownLayout);
 
         //entryTypeAdapter=ArrayAdapter.createFromResource(this, R.array.entryTypeOptions, android.R.layout.simple_spinner_item);
         //Spinner entryType=findViewById(R.id.spinner_EntryType);
@@ -168,6 +174,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
 
                 //firstLang.setSelection(adapter.getPosition(mSelectedEntry.getFirstLanguage()));
+                categoryAutoCompleteTextView.setText(mSelectedEntry.getCategory(), false);
                 firstLang.setText(mSelectedEntry.getFirstLanguage(), false);
                 firstLangEntry.setText(mSelectedEntry.getFirstLanguageEntry());
                 firstLangEntryRomanization.setText(mSelectedEntry.getFirstLanguageEntryRomanized());
@@ -211,6 +218,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
             // after the form has been filled out.
+            // Set Dropdown to the current category for new entries
+            categoryAutoCompleteTextView.setText(category, false);
             firstLang.setText(defaultFirstLanguage, false);
             secondLang.setText(defaultSecondLanguage, false); // Leave this blank so the dropdown title shows up before selection made
             entryType.setText(""); // Leave this blank so the dropdown title shows up before selection made
@@ -228,6 +237,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
     private TranslationModel getEntryFormValues() {
         // Get the fields
         //Spinner firstLang = findViewById(R.id.spinner_FirstLang);
+        AutoCompleteTextView categoryAutoComplete = findViewById(R.id.categoryDropdown);
         AutoCompleteTextView firstLang = findViewById(R.id.firstLangDropdown);
         EditText firstLangEntry = findViewById(R.id.editText_FirstLangEntry);
         EditText firstLangEntryRomanized = findViewById(R.id.editText_FirstLangEntryRomanization);
@@ -250,6 +260,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         TextView dateLastModified = findViewById(R.id.textView_DateModified);
 
         // Update the selected entry with the new values
+        mSelectedEntry.setCategory(categoryAutoComplete.getText().toString());
         mSelectedEntry.setFirstLanguage(firstLang.getText().toString());
         mSelectedEntry.setFirstLanguageEntry(firstLangEntry.getText().toString());
         mSelectedEntry.setFirstLanguageEntryRomanized(firstLangEntryRomanized.getText().toString());

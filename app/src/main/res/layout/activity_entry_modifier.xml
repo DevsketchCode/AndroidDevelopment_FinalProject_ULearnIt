@@ -53,11 +53,34 @@
             app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/firstLangDropdownLayout"
+            android:id="@+id/categoryDropdownLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:hint="@string/category_text"
+            android:minWidth="190dp"
+            app:boxBackgroundColor="#B3EEEEEE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout">
+
+            <AutoCompleteTextView
+                android:id="@+id/categoryDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none">
+            </AutoCompleteTextView>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstLangDropdownLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:hint="@string/entry_first_language_edittext"
@@ -65,7 +88,7 @@
             app:boxBackgroundColor="#B3EEEEEE"
             app:layout_constraintEnd_toStartOf="@+id/btn_FirstLangDisplayRomanization"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/entryModifier_Heading_LinearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/categoryDropdownLayout">
 
             <AutoCompleteTextView
                 android:id="@+id/firstLangDropdown"

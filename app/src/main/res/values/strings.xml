@@ -28,6 +28,7 @@
     <string name="default_category_text">Please Go Back and Select a Category</string>
 
     <string name="fab_quiz">Take the Quiz</string>
+    <string name="category_text">Category</string>
     <string name="entry_first_language_text">First Language:</string>
     <string name="entry_first_language_edit_hint">Place the first language here</string>
     <string name="entry_first_language_edittext">1st Language</string>
@@ -104,14 +105,29 @@
         <item>Korean</item>
         <item>Tagalog</item>
     </string-array>
+    <string-array name="categoryOptions">
+        <item>Food</item>
+        <item>General</item>
+        <item>Greetings</item>
+        <item>Numbers</item>
+        <item>People</item>
+        <item>Relationship</item>
+        <item>Theocratic</item>
+        <!--
+        <item>Grammatic</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        -->
+    </string-array>
     <string-array name="entryTypeOptions">
         <item>Adjective</item>
         <item>Adverb</item>
         <item>Particle</item>
+        <item>Phrase</item>
         <item>Postposition</item>
         <item>Preposition</item>
         <item>Pronoun</item>
-        <item>Phrase</item>
         <item>Marker</item>
         <item>Noun</item>
         <item>Number (Native)</item>
