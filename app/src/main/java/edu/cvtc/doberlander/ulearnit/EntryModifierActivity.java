@@ -69,6 +69,8 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         archiveButton.setOnClickListener(this);
         Button deleteButton = findViewById(R.id.btn_Delete);
         deleteButton.setOnClickListener(this);
+        Button resetLearnedPercentage = findViewById(R.id.btn_ResetLearned);
+        resetLearnedPercentage.setOnClickListener(this);
         firstLangRomanizeButton = findViewById(R.id.btn_FirstLangDisplayRomanization);
         firstLangRomanizeButton.setOnClickListener(this);
         langExampleButton = findViewById(R.id.btn_LangDisplayExample);
@@ -359,6 +361,12 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                         // Print Error to Console
                         System.out.println("Error deleting record: " + ex.getMessage());
                     }
+                    break;
+                case R.id.btn_ResetLearned:
+                    mSelectedEntry.setPercentLearned(0);
+                    mSelectedEntry.setFailedAttempts(0);
+                    TextView percentageLearned = findViewById(R.id.textView_PercentLearned);
+                    percentageLearned.setText("0");
                     break;
             }
 

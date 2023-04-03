@@ -16,7 +16,7 @@ public class DbWorker {
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
     // Function to insertEntry from a list
-    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         ContentValues values = new ContentValues();
         values.put(TranslationEntry.COLUMN_CATEGORY, category);
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, subCategory);
@@ -35,6 +35,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_FORMALITY, formality);
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, percentLearned);
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, percentLearnedModifiedDate);
+        values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, failedAttempts);
         values.put(TranslationEntry.COLUMN_MEMORIZED, memorized);
         values.put(TranslationEntry.COLUMN_NOTES, notes);
         values.put(TranslationEntry.COLUMN_IMAGE, image);
@@ -72,6 +73,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_FORMALITY, tm.getFormality());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, tm.getPercentLearned());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, tm.getPercentLearnedModifiedDate());
+        values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, tm.getFailedAttempts());
         values.put(TranslationEntry.COLUMN_MEMORIZED, tm.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tm.getNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tm.getImage());
@@ -151,6 +153,7 @@ public class DbWorker {
                     m.getFormality(),
                     m.getPercentLearned(),
                     m.getPercentLearnedModifiedDate(),
+                    m.getFailedAttempts(),
                     m.getMemorized(),
                     m.getNotes(),
                     m.getImage(),

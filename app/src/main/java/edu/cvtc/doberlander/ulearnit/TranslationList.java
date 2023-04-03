@@ -226,6 +226,7 @@ public class TranslationList {
             translation.setFormality("");
             translation.setPercentLearned(0);
             translation.setPercentLearnedModifiedDate(sdf.format(new Date()));
+            translation.setFailedAttempts(0);
             translation.setMemorized(false);
             translation.setNotes("");
             translation.setImage("");

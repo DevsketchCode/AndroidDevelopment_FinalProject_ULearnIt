@@ -45,7 +45,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private ConstraintLayout entryDetailsContainer;
     private Button closeDetailsButton;
     private int mPosition;
-    private int selectedItemPosition;
+    private int mPreviousPosition = -1;
     private int clickedViewId;
     public static boolean mItemClicked = false;
 
@@ -57,7 +57,6 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         mainCategoryActivity = ((CategoryActivity)context).findViewById(R.id.activity_category);
         entryDetailsContainer = ((CategoryActivity)context).findViewById(R.id.cardDetailsPopupContainer);
         closeDetailsButton = ((CategoryActivity)context).findViewById(R.id.btn_closeDetailsPopup);
-
     }
 
     // Create the View Holder
@@ -69,6 +68,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView notesView;
         public final ImageView favoriteImageView;
         public final CardView moreDetailsView;
+        public final ImageView moreDetailsImageView;
         private final TranslationAdapter mAdapter;
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
@@ -80,7 +80,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
-            selectedItemPosition = -1;
+            moreDetailsImageView = itemView.findViewById(R.id.more_imageView);
             this.mAdapter = adapter;
 
             // Connect the onClickListener to the view
@@ -88,6 +88,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             itemView.findViewById(R.id.translationEntryCardLayout).setOnClickListener(this);
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
             itemView.findViewById(R.id.translationEntryCardMore).setOnClickListener(this);
+
             closeDetailsButton.setOnClickListener(this);
 
             // Create the long click listener to show the languages of the selected item
@@ -150,8 +151,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Use this onClick method for selecting an entry to be added or removed from favorites
         @Override
         public void onClick(View view) {
+            clickedViewId = -1;
             // Get the position of the item that was clicked
-            mPosition = getLayoutPosition();
+            mPosition = getAdapterPosition();
             // Access the affected item in the list
             mSelectedElement = mTranslationList.get(mPosition);
 
@@ -169,8 +171,14 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     mSelectedElement.setFavorite(1);
                 }
             } else if (view.getId() == R.id.translationEntryCardMore) {
+                // toggle visibility of entryDetailsContainer
+                if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
+                    entryDetailsContainer.setVisibility(View.GONE);
+                } else {
+                    entryDetailsContainer.setVisibility(View.VISIBLE);
+                }
                 clickedViewId = view.getId();
-                //mSelectedItemPosition = mPosition;
+                mPreviousPosition = mPosition;
             } else if (view.getId() == R.id.btn_closeDetailsPopup) {
                 clickedViewId = view.getId();
             } else if (view.getId() == R.id.translationEntryCardLayout) {
@@ -206,7 +214,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         holder.tenseView.setText(mCurrentEntry.getTense());
         holder.notesView.setText(mCurrentEntry.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
 
-
+        View detailsContainer = holder.itemView.findViewById(R.id.cardDetailsPopupContainer);
         // Check to see if the item clicked is the Favorite Heart imageView
         if(clickedViewId == R.id.favorite_imageView) {
             // If the favorite heart is clicked, check the value of it
@@ -217,9 +225,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Display the outlined heart
                 holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
             }
-        } else if (clickedViewId == R.id.translationEntryCardMore && entryDetailsContainer.getVisibility() == View.GONE) {
+        } else if (clickedViewId == R.id.translationEntryCardMore) {
             // Show details container that exists outside of the recyclerview
-            //mainCategoryActivity.invalidate();
             entryDetailsContainer.setVisibility(View.VISIBLE);
 
         } else if (clickedViewId == R.id.btn_closeDetailsPopup) {
@@ -230,29 +237,25 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Highlight favorite upon recyclerview loading if it is checked in the database
         if(mCurrentEntry.getFavorite() == 1) {
             holder.favoriteImageView.setImageResource(R.drawable.ic_favorites);
+        } else {
+            holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
         }
+
+        if(clickedViewId == R.id.btn_closeDetailsPopup) {
+            mPosition = mPreviousPosition;
+        }
+
+        // Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//position: " + position, Toast.LENGTH_SHORT).show();
 
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
-            if((clickedViewId == R.id.translationEntryCardLayout ||
-                    clickedViewId == R.id.favorite_imageView || clickedViewId == R.id.translationEntryCardMore)) {
-                CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
-                entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
-                entryCard.setSelected(true);
-                //selectedItemPosition = mPosition;
-                //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
-            }
+            holder.itemView.setBackgroundColor(Color.parseColor("#F1D1F6"));
 
-            //mainCategoryActivity.invalidate();
+            // Display Popup
             if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
-                //Toast.makeText(holder.itemView.getContext(), "Test: " + mCurrentEntry.getFirstLanguageEntry(), Toast.LENGTH_SHORT).show();
                 populateDetailsPopup(mCurrentEntry);
-                //TextView tmpTextView = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1Entry);
-                //tmpTextView.setText(mSelectedElement.getFirstLanguageEntry());
             }
-
-            //Toast.makeText(holder.itemView.getContext(), tmpToastString , Toast.LENGTH_SHORT).show();
 
             // Set the Selected Item to the currently clicked item
             CategoryActivity.mSelectedItem = mCurrentEntry;
@@ -275,18 +278,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Reset Item Clicked variable
             mItemClicked = false;
         } else {
-            if(clickedViewId != R.id.btn_closeDetailsPopup) {
-                // Set all the entries to a default background color
-                CardView card = holder.itemView.findViewById(R.id.translationEntryCardLayout);
-                if (position != mPosition) {
-                    card.setCardBackgroundColor(Color.WHITE);
-                    card.setSelected(false);
-                    //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
-                } else {
-                    //Toast.makeText(holder.itemView.getContext(), "mPosition: " + mPosition + "//selectedItemPosition: " + selectedItemPosition, Toast.LENGTH_SHORT).show();
-                }
-            }
-
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
     }
 

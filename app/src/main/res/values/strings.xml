@@ -100,6 +100,8 @@
     <string name="edit_show_example">+ Example</string>
     <string name="edit_hide_example">- Example</string>
     <string-array name="languages">
+        <item>Chinese</item>
+        <item>Japanese</item>
         <item>English</item>
         <item>Ilocano</item>
         <item>Korean</item>
@@ -121,8 +123,10 @@
         -->
     </string-array>
     <string-array name="entryTypeOptions">
+        <item>Abbreviation</item>
         <item>Adjective</item>
         <item>Adverb</item>
+        <item>Determiner</item>
         <item>Particle</item>
         <item>Phrase</item>
         <item>Postposition</item>

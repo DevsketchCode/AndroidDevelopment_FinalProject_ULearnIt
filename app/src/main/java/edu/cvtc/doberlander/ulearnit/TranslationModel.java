@@ -30,6 +30,7 @@ public class TranslationModel implements Parcelable {
     private String mFormality;
     private int mPercentLearned;
     private String mPercentLearnedModifiedDate;
+    private int mFailedAttempts;
     private Boolean mMemorized;
     private String mNotes;
     private String mImage;
@@ -66,6 +67,7 @@ public class TranslationModel implements Parcelable {
         this.mFormality = "N/A"; // N/A, Casual, Formal, Informal, Polite, Slang
         this.mPercentLearned = 0;
         this.mPercentLearnedModifiedDate = sdf.format(new Date());
+        this.mFailedAttempts = 0;
         this.mMemorized = false;
         this.mNotes = "";
         this.mImage = "";
@@ -80,7 +82,7 @@ public class TranslationModel implements Parcelable {
     }
 
     // Overloaded Constructor to create entire object, including Id
-    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         this.mId = id;
         this.mCategory = category;
         this.mSubCategory = subCategory;
@@ -99,6 +101,7 @@ public class TranslationModel implements Parcelable {
         this.mFormality = formality;
         this.mPercentLearned = percentLearned;
         this.mPercentLearnedModifiedDate = percentLearnedModifiedDate;
+        this.mFailedAttempts = failedAttempts;
         this.mMemorized = memorized;
         this.mNotes = notes;
         this.mImage = image;
@@ -216,6 +219,12 @@ public class TranslationModel implements Parcelable {
         this.mPercentLearnedModifiedDate = newDate;
     }
 
+    public int getFailedAttempts() { return mFailedAttempts; }
+
+    public void setFailedAttempts(int failedAttempts) {
+        this.mFailedAttempts = failedAttempts;
+    }
+
     public Boolean getMemorized() {
         return mMemorized;
     }
@@ -321,6 +330,7 @@ public class TranslationModel implements Parcelable {
         setFormality(parcel.readString());
         setPercentLearned(parcel.readInt());
         setPercentLearnedModifiedDate(parcel.readString());
+        setFailedAttempts(parcel.readInt());
         setMemorized(parcel.readBoolean());
         setNotes(parcel.readString());
         setImage(parcel.readString());
@@ -357,6 +367,7 @@ public class TranslationModel implements Parcelable {
         parcel.writeString(mFormality);
         parcel.writeInt(mPercentLearned);
         parcel.writeString(mPercentLearnedModifiedDate);
+        parcel.writeInt(mFailedAttempts);
         parcel.writeBoolean(mMemorized);
         parcel.writeString(mNotes);
         parcel.writeString(mImage);

@@ -31,6 +31,7 @@ public class DbContract {
         public static final String COLUMN_FORMALITY = "formality"; // Casual, Formal, Informal, Polite
         public static final String COLUMN_PERCENT_LEARNED = "percent_learned"; // lowest is well learned, higher is needing to learn better
         public static final String COLUMN_PERCENT_LEARNED_MODIFIED_DATE = "percent_learned_modified_date";
+        public static final String COLUMN_FAILED_ATTEMPTS = "failed_attempts"; // keep track of more challenging entries
         public static final String COLUMN_MEMORIZED = "memorized";
         public static final String COLUMN_NOTES = "notes";
         public static final String COLUMN_IMAGE = "image";
@@ -71,6 +72,7 @@ public class DbContract {
                         COLUMN_FORMALITY + " TEXT NOT NULL, " +
                         COLUMN_PERCENT_LEARNED + " INTEGER NOT NULL, " +
                         COLUMN_PERCENT_LEARNED_MODIFIED_DATE + " TEXT NOT NULL, " +
+                        COLUMN_FAILED_ATTEMPTS + " TEXT NOT NULL, " +
                         COLUMN_MEMORIZED + " BOOLEAN NOT NULL, " +
                         COLUMN_NOTES + " TEXT NOT NULL, " +
                         COLUMN_IMAGE + " TEXT NOT NULL, " +

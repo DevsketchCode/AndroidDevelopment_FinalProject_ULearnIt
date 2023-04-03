@@ -52,6 +52,7 @@ public class DataManager {
         int listFormalityPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FORMALITY);
         int listPercentLearnedPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_PERCENT_LEARNED);
         int listPercentLearnedModifiedDatePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE);
+        int listFailedAttemptsPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FAILED_ATTEMPTS);
         int listMemorizedPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_MEMORIZED);
         int listNotesPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_NOTES);
         int listImagePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_IMAGE);
@@ -89,6 +90,7 @@ public class DataManager {
             String listFormality = cursor.getString(listFormalityPosition);
             int listPercentLearned = cursor.getInt(listPercentLearnedPosition);
             String listPercentLearnedModifiedDate = cursor.getString(listPercentLearnedModifiedDatePosition);
+            int listFailedAttempts = cursor.getInt(listFailedAttemptsPosition);
             Boolean listMemorized = cursor.getInt(listMemorizedPosition) != 0;
             String listNotes = cursor.getString(listNotesPosition);
             String listImage = cursor.getString(listImagePosition);
@@ -102,7 +104,7 @@ public class DataManager {
             Boolean listArchived = cursor.getInt(listArchivedPosition) != 0;
 
             TranslationModel list = new TranslationModel(id, listCategory, listSubCategory, listFirstLang,
-                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listIsPlural, listGender, listFormality, listPercentLearned, listPercentLearnedModifiedDate, listMemorized, listNotes, listImage, listAudio, listUserAudio, listUserAudioModifiedDate, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
+                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listIsPlural, listGender, listFormality, listPercentLearned, listPercentLearnedModifiedDate, listFailedAttempts, listMemorized, listNotes, listImage, listAudio, listUserAudio, listUserAudioModifiedDate, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
 
             dm.mTranslations.add(list);
         }
@@ -139,6 +141,7 @@ public class DataManager {
           TranslationEntry.COLUMN_FORMALITY,
           TranslationEntry.COLUMN_PERCENT_LEARNED,
           TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE,
+          TranslationEntry.COLUMN_FAILED_ATTEMPTS,
           TranslationEntry.COLUMN_MEMORIZED,
           TranslationEntry.COLUMN_NOTES,
           TranslationEntry.COLUMN_IMAGE,
@@ -210,6 +213,7 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_FORMALITY, tEntry.getFormality());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED, tEntry.getPercentLearned());
         values.put(TranslationEntry.COLUMN_PERCENT_LEARNED_MODIFIED_DATE, tEntry.getPercentLearnedModifiedDate());
+        values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, tEntry.getFailedAttempts());
         values.put(TranslationEntry.COLUMN_MEMORIZED, tEntry.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tEntry.getNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tEntry.getImage());
