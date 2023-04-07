@@ -1,10 +1,13 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static androidx.core.content.ContextCompat.getSystemService;
 import static androidx.core.content.ContextCompat.startActivity;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemID;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItemPosition;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -43,6 +46,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private TranslationModel mSelectedElement;
     private ConstraintLayout mainCategoryActivity;
     private ConstraintLayout entryDetailsContainer;
+
+    private Context adapterContext;
     private Button closeDetailsButton;
     private int mPosition;
     private int mPreviousPosition = -1;
@@ -82,6 +87,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
             moreDetailsImageView = itemView.findViewById(R.id.more_imageView);
             this.mAdapter = adapter;
+            adapterContext = itemView.getContext();
 
             // Connect the onClickListener to the view
             // https://developer.android.com/training/gestures/detector
@@ -92,7 +98,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             closeDetailsButton.setOnClickListener(this);
 
             // Create the long click listener to show the languages of the selected item
-            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            itemView.findViewById(R.id.translationEntryCardLayout).setOnLongClickListener(new View.OnLongClickListener(){
                 @Override
                 public boolean onLongClick(View view) {
                     if(recyclerViewInterface != null) {
@@ -108,7 +114,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             });
 
             // Create an onTouch listener to handle some touch gestures
-            itemView.setOnTouchListener(new View.OnTouchListener(){
+            itemView.findViewById(R.id.translationEntryCardLayout).setOnTouchListener(new View.OnTouchListener(){
                 // Create the GestureDetector to be able to capture a double tap and long press
                 GestureDetector gestureDetector = new GestureDetector(itemView.getContext(), new GestureDetector.SimpleOnGestureListener(){
                     // This is the confirm the click, in order for the web activity to activate
@@ -171,7 +177,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     mSelectedElement.setFavorite(1);
                 }
             } else if (view.getId() == R.id.translationEntryCardMore) {
-                // toggle visibility of entryDetailsContainer
+                // toggle visibility of entryDetailsContainer (this is ultimately what fixed this issue to show on the first click)
                 if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
                     entryDetailsContainer.setVisibility(View.GONE);
                 } else {
@@ -307,6 +313,21 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         TextView tmpLang1Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1EntryExample);
         TextView tmpLang2Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2EntryExample);
 
+        // Set OnClick Listener to copy text
+        tmpFirstLangEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyText(tmpFirstLang.getText().toString(), tmpFirstLangEntry.getText().toString());
+            }
+        });
+
+        tmpSecondLangEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                copyText(tmpSecondLang.getText().toString(), tmpSecondLangEntry.getText().toString());
+            }
+        });
+
         String tmpPercentLearnedString = "";
         tmpFirstLang.setText(tm.getFirstLanguage());
         tmpFirstLangEntry.setText(tm.getFirstLanguageEntry());
@@ -354,5 +375,12 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         tmpLang1Example.setText(tm.getFirstLanguageExample());
         tmpLang2Example.setText(tm.getSecondLanguageExample());
 
+    }
+
+    private void copyText(String lang, String txt) {
+        ClipboardManager clipboard = (ClipboardManager) adapterContext.getSystemService(adapterContext.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("Copy Entry", txt);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(adapterContext, lang + " Entry Copied", Toast.LENGTH_SHORT).show();
     }
 }

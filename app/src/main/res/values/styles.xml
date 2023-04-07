@@ -142,4 +142,61 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+
+    <style name="details_container_style_lang">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="details_container_style_entry">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="details_container_style_romanized">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="details_container_style_general_text">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:minHeight">25dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="details_container_style_example">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:minHeight">25dp</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="detail_container_style_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">-10dp</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

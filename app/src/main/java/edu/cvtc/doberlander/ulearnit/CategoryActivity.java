@@ -26,8 +26,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 
 import java.util.List;
 
-import edu.cvtc.doberlander.ulearnit.databinding.ActivityMainBinding;
-
 public class CategoryActivity extends AppCompatActivity implements RecyclerViewInterface{
 
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";

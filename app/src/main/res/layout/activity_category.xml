@@ -78,8 +78,8 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:elevation="0dp"
             app:cardBackgroundColor="#EDFFFFFF"
             app:cardCornerRadius="10dp"
@@ -107,293 +107,180 @@
 
                         <TextView
                             android:id="@+id/textView_Details_Lang1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            style="@style/details_container_style_lang"
                             app:layout_constraintEnd_toStartOf="@+id/btn_closeDetailsPopup"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang1Entry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="25sp"
+                            style="@style/details_container_style_entry"
                             app:layout_constraintEnd_toStartOf="@+id/btn_closeDetailsPopup"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang1EntryRomanized"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="20sp"
-                            android:textStyle="italic"
+                            style="@style/details_container_style_romanized"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1Entry" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
+                            style="@style/details_container_style_lang"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1EntryRomanized" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang2Entry"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="25sp"
+                            style="@style/details_container_style_entry"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang2EntryRomanized"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="20sp"
-                            android:textStyle="italic"
+                            style="@style/details_container_style_romanized"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2Entry" />
 
                         <TextView
                             android:id="@+id/textView_Details_EntryType"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toStartOf="@+id/textView_Details_Gender"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang2EntryRomanized"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2EntryRomanized" />
 
                         <TextView
                             android:id="@+id/textView_Details_Gender"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toEndOf="@+id/textView_Details_Lang2EntryRomanized"
                             app:layout_constraintStart_toEndOf="@+id/textView_Details_EntryType"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2EntryRomanized" />
 
                         <TextView
                             android:id="@+id/textView_Details_Tense"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toStartOf="@+id/textView_Details_Formality"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_EntryType"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_EntryType" />
 
                         <TextView
                             android:id="@+id/textView_Details_Formality"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toEndOf="@+id/textView_Details_Gender"
                             app:layout_constraintStart_toEndOf="@+id/textView_Details_Tense"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Gender" />
 
                         <TextView
                             android:id="@+id/textView_Details_IsPlural"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toStartOf="@+id/textView_Details_PercentLearned"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Tense"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Tense" />
 
                         <TextView
                             android:id="@+id/textView_Details_PercentLearned"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-                            android:textSize="23sp"
+                            style="@style/details_container_style_general_text"
                             app:layout_constraintEnd_toEndOf="@+id/textView_Details_Formality"
                             app:layout_constraintStart_toEndOf="@+id/textView_Details_IsPlural"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Formality" />
 
                         <TextView
                             android:id="@+id/textView_Details_Notes"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            style="@style/details_container_style_general_text"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
                             android:layout_marginEnd="20dp"
                             android:inputType="textMultiLine"
-                            android:textSize="22sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_IsPlural" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang1EntryExample"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="22sp"
-                            android:textStyle="italic"
+                            style="@style/details_container_style_example"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Notes" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang2EntryExample"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="20dp"
-                            android:textSize="24sp"
-                            android:textStyle="italic"
+                            style="@style/details_container_style_example"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1EntryExample" />
 
                         <TextView
                             android:id="@+id/textView_Label_1stLangRomanized"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Romanized"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Lang1EntryRomanized"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang1EntryRomanized"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang1EntryRomanized" />
 
                         <TextView
                             android:id="@+id/textView_Label_2ndLangRomanized"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Romanized"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Lang2EntryRomanized"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang2EntryRomanized"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang2EntryRomanized" />
 
                         <TextView
                             android:id="@+id/textView_Label_EntryType"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Entry Type"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_EntryType"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_EntryType"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_EntryType" />
 
                         <TextView
                             android:id="@+id/textView_Label_Gender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Gender"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Gender"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Gender"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Gender" />
 
                         <TextView
                             android:id="@+id/textView_Label_Tense"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Tense"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Tense"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Tense"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Tense" />
 
                         <TextView
                             android:id="@+id/textView_Label_Formality"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Formality"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Formality"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Formality"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Formality" />
 
                         <TextView
                             android:id="@+id/textView_Label_IsPlural"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Singular/Plural?"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_IsPlural"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_IsPlural"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_IsPlural" />
 
                         <TextView
                             android:id="@+id/textView_Label_PercentLearned"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Percent Learned"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_PercentLearned"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_PercentLearned"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_PercentLearned" />
 
                         <TextView
                             android:id="@+id/textView_Label_Notes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Notes"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Notes"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Notes"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Notes" />
 
                         <TextView
                             android:id="@+id/textView_Label_Lang1Example"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="-10dp"
-                            android:textStyle="italic"
+                            style="@style/detail_container_style_label"
                             android:text="Example"
-                            android:textSize="11sp"
-                            app:layout_constraintBottom_toTopOf="@+id/textView_Details_Lang1EntryExample"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang1EntryExample"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang1EntryExample" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
