@@ -269,6 +269,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         // Pass the selected item to the CategoryActivity, so it can be used to pass to the
         // Modifier Activity
         CategoryActivity.mSelectedItem = mTranslations.get(position);
+        // Toast.makeText(this, "DoubleTapped", Toast.LENGTH_SHORT).show();
 
         // Open the WebActivity Intent
         Intent webActivityIntent = new Intent(this, WebTranslateActivity.class);
@@ -288,5 +289,18 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
             displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage() + ".\nEntry Type: " + mSelectedItem.getEntryType() +
                     "\n Last Modified: " + mSelectedItem.getModifiedDate());
         }
+        // Doubletap isn't working yet, so using it her in LongTap
+        CategoryActivity.mSelectedItem = mTranslations.get(position);
+        // Toast.makeText(this, "DoubleTapped", Toast.LENGTH_SHORT).show();
+
+        // Open the WebActivity Intent
+        Intent webActivityIntent = new Intent(this, WebTranslateActivity.class);
+        Bundle webActivityBundle = new Bundle();
+        // Put the parcelable selected item object in the bundle
+        webActivityBundle.putParcelable("SelectedItem", mSelectedItem);
+        // Put the bundle in the Intent
+        webActivityIntent.putExtras(webActivityBundle);
+        // Pass the selected item
+        startActivity(webActivityIntent);
     }
 }

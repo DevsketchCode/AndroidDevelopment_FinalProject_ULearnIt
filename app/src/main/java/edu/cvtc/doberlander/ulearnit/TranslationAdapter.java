@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Layout;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -121,21 +122,20 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     @Override
                     public boolean onSingleTapConfirmed(MotionEvent e) {
                         // Get the position of the item that was clicked
-                         mPosition = getLayoutPosition();
+                         // mPosition = getLayoutPosition();
 
                         // Set itemClicked Global variable to true
                         mItemClicked = true;
 
                         // Notify the adapter that data has changed and update the RecyclerView
-                        mAdapter.notifyDataSetChanged();
+                        // mAdapter.notifyDataSetChanged();
                         return super.onSingleTapConfirmed(e);
                     }
                     // Double tap to open up the translation in the WebActivity
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-
                         if(recyclerViewInterface != null) {
-                            int position = getAdapterPosition();
+                            int position = getLayoutPosition();
                                 // Only do the onLongClick action if there is a position and it equals the one that is highlighted.
                                 if (position != RecyclerView.NO_POSITION && mPosition == position) {
                                     // Run the actions in the CategoryActivity
@@ -179,7 +179,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             } else if (view.getId() == R.id.translationEntryCardMore) {
                 // toggle visibility of entryDetailsContainer (this is ultimately what fixed this issue to show on the first click)
                 if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
-                    entryDetailsContainer.setVisibility(View.GONE);
+                    entryDetailsContainer.setVisibility(View.INVISIBLE);
                 } else {
                     entryDetailsContainer.setVisibility(View.VISIBLE);
                 }
@@ -237,7 +237,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
 
         } else if (clickedViewId == R.id.btn_closeDetailsPopup) {
             // Hide details container that exists outside of the recyclerview
-            entryDetailsContainer.setVisibility(View.GONE);
+            entryDetailsContainer.setVisibility(View.INVISIBLE);
         }
 
         // Highlight favorite upon recyclerview loading if it is checked in the database
@@ -257,6 +257,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#F1D1F6"));
+            // CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
+            // entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
 
             // Display Popup
             if(entryDetailsContainer.getVisibility() == View.VISIBLE) {

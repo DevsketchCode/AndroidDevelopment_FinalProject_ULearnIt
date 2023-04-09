@@ -74,7 +74,7 @@
         android:layout_height="match_parent"
         android:background="#CC533A66"
         android:elevation="20dp"
-        android:visibility="gone">
+        android:visibility="invisible">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                         <Button
                             android:id="@+id/btn_closeDetailsPopup"
@@ -191,10 +191,17 @@
 
                         <TextView
                             android:id="@+id/textView_Details_Notes"
-                            style="@style/details_container_style_general_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
-                            android:inputType="textMultiLine"
+                            android:singleLine="false"
+                            android:maxLines="999"
+                            android:ellipsize="none"
+                            android:minHeight="25dp"
+                            android:textSize="20sp"
+                            android:scrollbars="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_IsPlural" />

@@ -45,6 +45,7 @@
         <item name="android:layout_marginEnd">2dp</item>
         <item name="android:layout_marginBottom">2dp</item>
         <item name="android:gravity">center</item>
+        <item name="android:minWidth">25dp</item>
     </style>
 
     <style name="style_Heading_LinearLayout">
@@ -188,8 +189,12 @@
         <item name="android:layout_marginTop">25dp</item>
         <item name="android:layout_marginEnd">20dp</item>
         <item name="android:minHeight">25dp</item>
+        <item name="android:maxLines">999</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:ellipsize">none</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textStyle">italic</item>
+        <item name="android:singleLine">false</item>
     </style>
 
     <style name="detail_container_style_label">
