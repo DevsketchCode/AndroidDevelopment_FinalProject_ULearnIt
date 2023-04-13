@@ -1,6 +1,7 @@
 package edu.cvtc.doberlander.ulearnit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -97,7 +98,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
             categoryMessage = bundle.getString("category_message");
 
             // Retrieve Preferences
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
             if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
                 categoryMessage = prefs.getString("FirstLanguage", "") + " -> " +
                         prefs.getString("SecondLanguage", "") + "\n" + categoryMessage;
@@ -210,7 +212,8 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
     private void initializeDisplayContent() {
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
         Preferences preferences = new Preferences();
         preferences.setFirstLanguage(prefs.getString("FirstLanguage", ""));
         preferences.setSecondLanguage(prefs.getString("SecondLanguage", ""));

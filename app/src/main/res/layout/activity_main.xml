@@ -41,6 +41,7 @@
             android:id="@+id/flexboxLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="60dp"
             app:flexWrap="wrap"
             app:justifyContent="space_evenly">
 
@@ -49,6 +50,488 @@
                 style="@style/header_message_text"
                 android:text="@string/title_categories" />
 
+
+            <!-- ANATOMY -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/anatomy_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/anatomy_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#92BCD2"
+                    android:contentDescription="@string/anatomy_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_body" />
+
+                <TextView
+                    android:id="@+id/anatomy_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/anatomy_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/anatomy_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/anatomy_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/anatomy_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/anatomyCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/anatomy_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/anatomy_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ANIMALS -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/animals_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/animals_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="30dp"
+                    android:backgroundTint="#AD8766"
+                    android:contentDescription="@string/animals_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_pet" />
+
+                <TextView
+                    android:id="@+id/animals_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/animals_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/animals_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/animals_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/animals_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/animalsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/animals_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/animals_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- BEVERAGES -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/beverages_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/beverages_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="30dp"
+                    android:backgroundTint="#D2BDAB"
+                    android:contentDescription="@string/beverages_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_coffee" />
+
+                <TextView
+                    android:id="@+id/beverages_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/beverages_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/beverages_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/beverages_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/beverages_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/beveragesCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/beverages_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/beverages_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Buildings -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/buildings_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/buildings_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#8A9092"
+                    android:contentDescription="@string/buildings_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_building" />
+
+                <TextView
+                    android:id="@+id/buildings_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/buildings_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/buildings_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/buildings_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/buildings_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/buildingsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/buildings_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/buildings_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Colors -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/colors_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/colors_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#949EF1"
+                    android:contentDescription="@string/colors_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_palette" />
+
+                <TextView
+                    android:id="@+id/colors_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/colors_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/colors_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/colors_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/colors_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/colorsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/colors_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/colors_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Conversation -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/conversation_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/conversation_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#DBA881"
+                    android:contentDescription="@string/conversation_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_conversation" />
+
+                <TextView
+                    android:id="@+id/conversation_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/conversation_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/conversation_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/conversation_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/conversation_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/conversationCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/conversation_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/conversation_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Countries -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/countries_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/countries_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="25dp"
+                    android:backgroundTint="#42B451"
+                    android:contentDescription="@string/countries_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_south_america" />
+
+                <TextView
+                    android:id="@+id/countries_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/countries_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/countries_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/countries_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/countries_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/countriesCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/countries_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/countries_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- EMOTIONS -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emotions_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/emotions_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="25dp"
+                    android:backgroundTint="#ABA798"
+                    android:contentDescription="@string/emotions_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_smiley_filled" />
+
+                <TextView
+                    android:id="@+id/emotions_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/emotions_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/emotions_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/emotions_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/emotions_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/emotionsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/emotions_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/emotions_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- FOOD -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/food_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/food_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#3FB5AB"
+                    android:contentDescription="@string/food_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_bear_with_food" />
+
+                <TextView
+                    android:id="@+id/food_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/food_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/food_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/food_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/food_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/foodCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/food_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/food_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- GENERAL -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/general_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/general_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#B5A9A3"
+                    android:contentDescription="@string/general_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_detective_penguin" />
+
+                <TextView
+                    android:id="@+id/general_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/general_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/general_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/general_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/general_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/generalCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/general_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/general_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Grammatical -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/grammatical_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/grammatical_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="30dp"
+                    android:backgroundTint="#6BA1BB"
+                    android:contentDescription="@string/grammatical_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_a_check" />
+
+                <TextView
+                    android:id="@+id/grammatical_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/grammatical_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/grammatical_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/grammatical_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/grammatical_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/grammaticalCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/grammatical_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/grammatical_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- GREETINGS -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/greetings_CardView"
                 android:layout_width="wrap_content"
@@ -75,15 +558,68 @@
                     app:srcCompat="@drawable/ic_penguin_wave" />
 
                 <TextView
-                    android:id="@+id/greeting_TextView"
+                    android:id="@+id/greetings_TextView"
                     style="@style/category_button_text"
                     android:text="@string/greetings_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/greetings_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/greetings_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/greetings_ImageBtn" />
+                    app:layout_constraintBottom_toBottomOf="@id/greetings_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/greetings_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/greetings_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/greetingsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/greetings_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/greetings_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Medical -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/medical_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/medical_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="30dp"
+                    android:backgroundTint="#F6C8C8"
+                    android:contentDescription="@string/medical_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_heart_monitor" />
+
+                <TextView
+                    android:id="@+id/medical_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/medical_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/medical_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/medical_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/medical_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/medicalCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/medical_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/medical_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- NUMBERS -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/numbers_CardView"
                 android:layout_width="wrap_content"
@@ -114,13 +650,21 @@
                     android:id="@+id/numbers_TextView"
                     style="@style/category_button_text"
                     android:text="@string/numbers_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/numbers_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/numbers_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/numbers_ImageBtn" />
+                    app:layout_constraintBottom_toBottomOf="@id/numbers_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/numbers_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/numbers_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/numbersCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/numbers_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/numbers_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            <!-- PEOPLE -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/people_CardView"
                 android:layout_width="wrap_content"
@@ -150,12 +694,65 @@
                     android:id="@+id/people_TextView"
                     style="@style/category_button_text"
                     android:text="@string/people_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/people_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/people_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/people_ImageBtn" />
+                    app:layout_constraintBottom_toBottomOf="@id/people_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/people_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/people_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/peopleCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/people_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/people_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Plants -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/plants_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/plants_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="5dp"
+                    android:backgroundTint="#FFA7E6"
+                    android:contentDescription="@string/plants_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_flower" />
+
+                <TextView
+                    android:id="@+id/plants_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/plants_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/plants_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/plants_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/plants_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/plantsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/plants_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/plants_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- RELATIONSHIP -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/relationship_CardView"
                 android:layout_width="wrap_content"
@@ -183,80 +780,23 @@
                     android:id="@+id/relationship_TextView"
                     style="@style/category_button_text"
                     android:text="@string/relationship_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/relationship_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/relationship_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/relationship_ImageBtn" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/food_CardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardMaxElevation="8dp"
-                app:contentPadding="4dp"
-                app:layout_flexGrow="1">
-
-                <ImageButton
-                    android:id="@+id/food_ImageBtn"
-                    style="@style/category_button_image"
-                    android:backgroundTint="#3FB5AB"
-                    android:contentDescription="@string/food_category_image"
-                    android:onClick="launchCategoryActivity"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_bear_with_food" />
+                    app:layout_constraintBottom_toBottomOf="@id/relationship_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/relationship_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/relationship_ImageBtn" />
 
                 <TextView
-                    android:id="@+id/food_TextView"
-                    style="@style/category_button_text"
-                    android:text="@string/food_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/food_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/food_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/food_ImageBtn" />
+                    android:id="@+id/relationshipCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/relationship_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/relationship_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- SHOPPING -->
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/general_CardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight=".5"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardMaxElevation="8dp"
-                app:contentPadding="4dp"
-                app:layout_flexGrow="1">
-
-                <ImageButton
-                    android:id="@+id/general_ImageBtn"
-                    style="@style/category_button_image"
-                    android:backgroundTint="#B5A9A3"
-                    android:contentDescription="@string/general_category_image"
-                    android:onClick="launchCategoryActivity"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_detective_penguin" />
-
-                <TextView
-                    android:id="@+id/general_TextView"
-                    style="@style/category_button_text"
-                    android:text="@string/general_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/general_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/general_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/general_ImageBtn" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/theocratic_CardView"
+                android:id="@+id/shopping_CardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -268,24 +808,298 @@
                 app:layout_flexGrow="1">
 
                 <ImageButton
-                    android:id="@+id/theocratic_ImageBtn"
+                    android:id="@+id/shopping_ImageBtn"
                     style="@style/category_button_image"
-                    android:backgroundTint="#52BBEF"
-                    android:contentDescription="@string/theocratic_category_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#C581FF"
+                    android:contentDescription="@string/shopping_category_image"
                     android:onClick="launchCategoryActivity"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_correct" />
+                    app:srcCompat="@drawable/ic_shopping_cart" />
 
+                <TextView
+                    android:id="@+id/shopping_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/shopping_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/shopping_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/shopping_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/shopping_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/shoppingCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/shopping_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/shopping_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- THEOCRATIC -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/theocratic_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/theocratic_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="30dp"
+                    android:backgroundTint="#9B50DB"
+                    android:contentDescription="@string/theocratic_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toTopOf="@id/theocratic_TextView"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_open_book" />
+                <!-- image color: 333232, 60% opacity -->
                 <TextView
                     android:id="@+id/theocratic_TextView"
                     style="@style/category_button_text"
                     android:text="@string/theocratic_category_text"
-                    app:layout_constraintBottom_toBottomOf="@+id/theocratic_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@+id/theocratic_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@+id/theocratic_ImageBtn" />
+                    app:layout_constraintBottom_toBottomOf="@id/theocratic_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/theocratic_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/theocratic_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/theocraticCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/theocratic_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/theocratic_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- TIME -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/time_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/time_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#9EADC2"
+                    android:contentDescription="@string/time_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_clock_filled" />
+
+                <TextView
+                    android:id="@+id/time_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/time_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/time_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/time_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/time_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/timeCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/time_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/time_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- TRANSPORTATION -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/transportation_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/transportation_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="10dp"
+                    android:backgroundTint="#7081B6"
+                    android:contentDescription="@string/transportation_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_commute" />
+
+                <TextView
+                    android:id="@+id/transportation_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/transportation_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/transportation_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/transportation_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/transportation_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/transportationCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/transportation_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/transportation_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- TRAVEL -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/travel_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/travel_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="20dp"
+                    android:backgroundTint="#72D6FD"
+                    android:contentDescription="@string/travel_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_luggage" />
+
+                <TextView
+                    android:id="@+id/travel_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/travel_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/travel_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/travel_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/travel_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/travelCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/travel_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/travel_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Verbs -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/verbs_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/verbs_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="5dp"
+                    android:backgroundTint="#03BD0C"
+                    android:contentDescription="@string/verbs_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_person_running" />
+
+                <TextView
+                    android:id="@+id/verbs_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/verbs_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/verbs_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/verbs_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/verbs_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/verbsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/verbs_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/verbs_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- WEATHER -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/weather_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/weather_ImageBtn"
+                    style="@style/category_button_image"
+                    android:paddingBottom="10dp"
+                    android:backgroundTint="#FFDD00"
+                    android:contentDescription="@string/weather_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_sun" />
+
+                <TextView
+                    android:id="@+id/weather_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/weather_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/weather_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/weather_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/weather_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/weatherCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintTop_toTopOf="@id/weather_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/weather_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

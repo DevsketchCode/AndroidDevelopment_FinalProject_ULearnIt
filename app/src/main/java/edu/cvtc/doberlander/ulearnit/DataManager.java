@@ -1,17 +1,22 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.Tag;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import edu.cvtc.doberlander.ulearnit.DbContract.TranslationEntry;
@@ -177,6 +182,7 @@ public class DataManager {
                 // Show all, there should always be a second language
                 prefWhereColumns = prefWhereColumns + "second_language != ? AND ";
             }
+
             //TODO: This is where you could also get a SharedPref to show/hide Deleted or Archived Rows
             entryWhere = prefWhereColumns +  "category = ?";
             entryWhereArgs = new String[]{preferences.getFirstLanguage(), preferences.getSecondLanguage(), preferences.getCategory()};
@@ -227,6 +233,80 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_ARCHIVED, tEntry.getArchived());
 
         return values;
+    }
+
+    public static int getEntryCountFromDatabase(DbHelper dbHelper, SharedPreferences sharedPrefs,
+                                                String filterColumnName1, String filterColumnValue1,
+                                                String filterColumnName2, String filterColumnValue2,
+                                                String filterColumnName3, String filterColumnValue3) {
+        // Declare SQL Statement variables
+        String entryWhere;
+        String[] entryWhereArgs;
+        int returnValue = 0;
+        Boolean filterColumnsAdded = false;
+
+        // Open your database in read mode.
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        // Where statement
+        // Check Saved Preferences
+        String prefWhereColumns = "";
+        String firstLanguage = "";
+        String secondLanguage = "";
+        if (!sharedPrefs.getString("FirstLanguage", "").equals("")) {
+            firstLanguage = sharedPrefs.getString("FirstLanguage", "");
+            prefWhereColumns = "first_language = ? AND ";
+        } else {
+            // Set Default Native Language
+            SharedPreferences.Editor prefs_editor = sharedPrefs.edit();
+            prefs_editor.putString("FirstLanguage", "English");
+            prefs_editor.apply();
+            firstLanguage = sharedPrefs.getString("FirstLanguage", "");
+            prefWhereColumns = "first_language = ? AND ";
+        }
+        if (!sharedPrefs.getString("SecondLanguage", "").equals("")) {
+            secondLanguage = sharedPrefs.getString("SecondLanguage", "");
+            prefWhereColumns = prefWhereColumns + "second_language = ? AND ";
+        } else {
+            // Show all, there should always be a second language
+            secondLanguage = sharedPrefs.getString("SecondLanguage", "");
+            prefWhereColumns = prefWhereColumns + "second_language != ? AND ";
+        }
+
+        entryWhere = prefWhereColumns;
+
+        if (!filterColumnName1.equals("") && filterColumnName2.equals("") && filterColumnName3.equals("")) {
+            entryWhere = prefWhereColumns + filterColumnName1 + " = ?";
+            entryWhereArgs = new String[]{firstLanguage, secondLanguage, filterColumnValue1};
+            filterColumnsAdded = true;
+        } else if (!filterColumnName1.equals("") && !filterColumnName2.equals("") && filterColumnName3.equals("")) {
+            entryWhere = prefWhereColumns + filterColumnName1 + " = ? AND " + filterColumnName2 + " = ?";
+            entryWhereArgs = new String[]{firstLanguage, secondLanguage, filterColumnValue1, filterColumnValue2};
+            filterColumnsAdded = true;
+        } else if (!filterColumnName1.equals("") && !filterColumnName2.equals("") && !filterColumnName3.equals("")) {
+            entryWhere = prefWhereColumns + filterColumnName1 + " = ? AND " + filterColumnName2 + " = ? AND " + filterColumnName2 + " = ?";
+            entryWhereArgs = new String[]{firstLanguage, secondLanguage, filterColumnValue1, filterColumnValue2, filterColumnValue3};
+            filterColumnsAdded = true;
+        } else {
+            entryWhereArgs = new String[]{firstLanguage, secondLanguage};
+        }
+        // Log.d(TAG, "DataManager - Second Language: " + secondLanguage);
+        // Log.d(TAG, "DataManager - Where: " + Arrays.toString(entryWhereArgs));
+
+        if (filterColumnsAdded) {
+            // Populate the cursor with results from the query
+            final Cursor entryCursor = db.rawQuery("SELECT COUNT(*) FROM " + TranslationEntry.TABLE_NAME + " WHERE " + entryWhere, entryWhereArgs);
+
+            // Get the count from the cursor
+            if (entryCursor.moveToFirst()) {
+                returnValue = entryCursor.getInt(0);
+            }
+
+            // Close the cursor to avoid memory leak
+            entryCursor.close();
+        }
+
+        return returnValue;
     }
 
     // Save the item to favorites from the Translation Adapter that passes a LayoutInflater

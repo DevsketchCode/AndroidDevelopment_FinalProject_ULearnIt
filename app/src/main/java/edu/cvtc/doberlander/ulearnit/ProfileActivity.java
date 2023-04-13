@@ -3,6 +3,7 @@ package edu.cvtc.doberlander.ulearnit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -70,7 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         // Retrieve Preferences
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
         firstLangAutoComplete.setText(prefs.getString("FirstLanguage", ""), false);
         secondLangAutoComplete.setText(prefs.getString("SecondLanguage", ""), false);
 
@@ -81,7 +83,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Save Preferences
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+                //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ProfileActivity.this);
+                SharedPreferences prefs = ProfileActivity.this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor prefs_editor = prefs.edit();
                 prefs_editor.putString("FirstLanguage", firstLangAutoComplete.getText().toString());
                 prefs_editor.putString("SecondLanguage", secondLangAutoComplete.getText().toString());

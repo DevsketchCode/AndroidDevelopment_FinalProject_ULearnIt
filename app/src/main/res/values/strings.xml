@@ -3,20 +3,54 @@
     <string name="first_language_text">English</string>
     <string name="second_language_text">Tagalog</string>
     <string name="title_categories">Choose Your Category</string>
-    <string name="greetings_category_image">Greetings Image - Penguin Waving</string>
-    <string name="greetings_category_text">Greetings</string>
-    <string name="numbers_category_image">Numbers Category - Snake in shape of Number 1</string>
-    <string name="numbers_category_text">Numbers</string>
+    <string name="anatomy_category_image">Anatomy Image</string>
+    <string name="anatomy_category_text">Anatomy</string>
+    <string name="animals_category_image">Animals Image</string>
+    <string name="animals_category_text">Animals</string>
+    <string name="beverages_category_image">Beverages Image</string>
+    <string name="beverages_category_text">Beverages</string>
+    <string name="buildings_category_image">Buildings Image</string>
+    <string name="buildings_category_text">Buildings</string>
+    <string name="colors_category_image">Colors Image</string>
+    <string name="colors_category_text">Colors</string>
+    <string name="conversation_category_image">Conversation Image</string>
+    <string name="conversation_category_text">Conversation</string>
+    <string name="countries_category_image">Countries Image</string>
+    <string name="countries_category_text">Countries</string>
     <string name="food_category_image">Food Image - Polar Bear with Fish</string>
     <string name="food_category_text">Food</string>
-    <string name="people_category_image">People Image - Owl Family</string>
-    <string name="people_category_text">People</string>
-    <string name="relationship_category_image">Relationship Image - Owl Family</string>
-    <string name="relationship_category_text">Relationship</string>
     <string name="general_category_image">General Image - Detective Penguin</string>
     <string name="general_category_text">General</string>
-    <string name="theocratic_category_image">Theocratic Image - Owl Family</string>
+    <string name="greetings_category_image">Greetings Image - Penguin Waving</string>
+    <string name="greetings_category_text">Greetings</string>
+    <string name="grammatical_category_image">Grammatical Image</string>
+    <string name="grammatical_category_text">Grammatical</string>
+    <string name="emotions_category_image">Emotions Image</string>
+    <string name="emotions_category_text">Emotions</string>
+    <string name="medical_category_image">Medical Image</string>
+    <string name="medical_category_text">Medical</string>
+    <string name="numbers_category_image">Numbers Category - Snake in shape of Number 1</string>
+    <string name="numbers_category_text">Numbers</string>
+    <string name="people_category_image">People Image - Owl Family</string>
+    <string name="people_category_text">People</string>
+    <string name="plants_category_image">Plants Image</string>
+    <string name="plants_category_text">Plants</string>
+    <string name="relationship_category_image">Relationship Image - Owl Family</string>
+    <string name="relationship_category_text">Relationship</string>
+    <string name="shopping_category_image">Shopping Image</string>
+    <string name="shopping_category_text">Shopping</string>
+    <string name="theocratic_category_image">Theocratic Image</string>
     <string name="theocratic_category_text">Theocratic</string>
+    <string name="time_category_image">Time Image</string>
+    <string name="time_category_text">Time</string>
+    <string name="transportation_category_image">Transportation Image</string>
+    <string name="transportation_category_text">Transportation</string>
+    <string name="travel_category_image">Travel Image</string>
+    <string name="travel_category_text">Travel</string>
+    <string name="verbs_category_image">Verbs Image</string>
+    <string name="verbs_category_text">Verbs</string>
+    <string name="weather_category_image">Weather Image</string>
+    <string name="weather_category_text">Weather</string>
 
     <!-- Menu Options -->
     <string name="action_about">About</string>
@@ -100,27 +134,39 @@
     <string name="edit_show_example">+ Example</string>
     <string name="edit_hide_example">- Example</string>
     <string-array name="languages">
-        <item>Chinese</item>
-        <item>Japanese</item>
+        <item>Chinese_Simplified</item>
         <item>English</item>
+        <item>Hmong</item>
         <item>Ilocano</item>
+        <item>Japanese</item>
         <item>Korean</item>
         <item>Tagalog</item>
     </string-array>
     <string-array name="categoryOptions">
+        <item>Anatomy</item>
+        <item>Animals</item>
+        <item>Beverages</item>
+        <item>Buildings</item>
+        <item>Colors</item>
+        <item>Conversation</item>
+        <item>Countries</item>
+        <item>Emotions</item>
         <item>Food</item>
         <item>General</item>
+        <item>Grammatical</item>
         <item>Greetings</item>
+        <item>Medical</item>
         <item>Numbers</item>
         <item>People</item>
+        <item>Plants</item>
         <item>Relationship</item>
+        <item>Shopping</item>
         <item>Theocratic</item>
-        <!--
-        <item>Grammatic</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        -->
+        <item>Time</item>
+        <item>Transportation</item>
+        <item>Travel</item>
+        <item>Verbs</item>
+        <item>Weather</item>
     </string-array>
     <string-array name="entryTypeOptions">
         <item>Abbreviation</item>

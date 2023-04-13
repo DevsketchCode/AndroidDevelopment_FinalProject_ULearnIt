@@ -1,5 +1,6 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static android.content.ContentValues.TAG;
 import static androidx.core.content.ContextCompat.getSystemService;
 import static androidx.core.content.ContextCompat.startActivity;
 import static edu.cvtc.doberlander.ulearnit.CategoryActivity.mSelectedItem;
@@ -12,6 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.text.Layout;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -74,6 +78,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView notesView;
         public final ImageView favoriteImageView;
         public final CardView moreDetailsView;
+        public final CardView audioTTSView;
         public final ImageView moreDetailsImageView;
         private final TranslationAdapter mAdapter;
 
@@ -86,6 +91,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             notesView = itemView.findViewById(R.id.langTranslationNotes);
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
+            audioTTSView = itemView.findViewById(R.id.translationEntryCardTTS);
             moreDetailsImageView = itemView.findViewById(R.id.more_imageView);
             this.mAdapter = adapter;
             adapterContext = itemView.getContext();
@@ -95,6 +101,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             itemView.findViewById(R.id.translationEntryCardLayout).setOnClickListener(this);
             itemView.findViewById(R.id.favorite_imageView).setOnClickListener(this);
             itemView.findViewById(R.id.translationEntryCardMore).setOnClickListener(this);
+            itemView.findViewById(R.id.translationEntryCardTTS).setOnClickListener(this);
 
             closeDetailsButton.setOnClickListener(this);
 
@@ -189,6 +196,8 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 clickedViewId = view.getId();
             } else if (view.getId() == R.id.translationEntryCardLayout) {
                 clickedViewId = view.getId();
+            } else if (view.getId() == R.id.translationEntryCardTTS) {
+                clickedViewId = view.getId();
             }
 
             // Set itemClicked Global variable to true
@@ -259,6 +268,63 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             holder.itemView.setBackgroundColor(Color.parseColor("#F1D1F6"));
             // CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
             // entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
+
+            if(clickedViewId == R.id.translationEntryCardTTS) {
+                // Play TextToSpeech Audio
+                // Create an instance of the AudioManager class
+                AudioManager audioManager = new AudioManager();
+
+                String firstLanguage = mCurrentEntry.getFirstLanguage().toString();
+                String firstLanguageEntry = mCurrentEntry.getFirstLanguageEntry().toString();
+                String secondLanguage = mCurrentEntry.getSecondLanguage().toString();
+                String secondLanguageEntry = mCurrentEntry.getSecondLanguageEntry().toString();
+
+                // Prepare the second language to play
+                UtteranceProgressListener secondLanguageListener = new UtteranceProgressListener() {
+                    @Override
+                    public void onStart(String utteranceId) {
+                        audioManager.isSpeakingFlag();
+                    }
+
+                    @Override
+                    public void onDone(String utteranceId) {
+                        Log.d(TAG, "TranslationAdapter: TTS is done: SecondLanguage");
+                        // Speech synthesis has completed
+                        audioManager.resetSpeakingFlag();
+                    }
+                    @Override
+                    public void onError(String utteranceId) {
+                        Log.d(TAG, "TranslationAdapter: TTS had an error: SecondLanguage");
+                        // There was an error in speech synthesis
+                        audioManager.resetSpeakingFlag();
+                    }
+                };
+
+                // Prepare the first language to play
+                UtteranceProgressListener firstLanguageListener = new UtteranceProgressListener() {
+                    @Override
+                    public void onStart(String utteranceId) {
+                        audioManager.isSpeakingFlag();
+                    }
+
+                    @Override
+                    public void onDone(String utteranceId) {
+                        // If there is a second language and text to speak, play it immediately after the first one
+                        if (!secondLanguage.isEmpty() && !secondLanguageEntry.isEmpty()) {
+                            Log.d(TAG, "TranslationAdapter: TTS is done: FirstLanguage");
+                            // Get the first string to play in the first language
+                            audioManager.textToSpeech(holder.itemView.getContext(), secondLanguage, secondLanguageEntry, secondLanguageListener);
+                        }
+                    }
+                    @Override
+                    public void onError(String utteranceId) {
+                        Log.d(TAG, "TranslationAdapter: TTS had an error: FirstLanguage");
+                    }
+                };
+
+                // Get the first string to play in the first language
+                audioManager.textToSpeech(holder.itemView.getContext(), firstLanguage, firstLanguageEntry + "... ", firstLanguageListener);
+            }
 
             // Display Popup
             if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
