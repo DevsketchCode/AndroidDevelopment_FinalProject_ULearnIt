@@ -61,7 +61,7 @@ public class AudioManager {
                             result = tts.setLanguage(new Locale("hmn", "LAO"));
                             break;
                         case "ILOCANO":
-                            result = tts.setLanguage(new Locale("ilo", "PH"));
+                            result = tts.setLanguage(new Locale("fil", "PH"));
                             break;
                         case "JAPANESE":
                             result = tts.setLanguage(Locale.JAPANESE);
@@ -73,7 +73,7 @@ public class AudioManager {
                             result = tts.setLanguage(new Locale("es", "ES"));
                             break;
                         case "TAGALOG":
-                            result = tts.setLanguage(new Locale("tl", "PH"));
+                            result = tts.setLanguage(new Locale("fil", "PH"));
                             break;
 
                         default:
