@@ -52,6 +52,10 @@ public class DataManager {
         int listSecondLangExamplePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE);
         int listEntryTypePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_ENTRY_TYPE);
         int listTensePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_TENSE);
+        int listLinkEntryIdTenseBasePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_BASE);
+        int listLinkEntryIdTensePastPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PAST);
+        int listLinkEntryIdTensePresentPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PRESENT);
+        int listLinkEntryIdTenseFuturePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_FUTURE);
         int listIsPluralPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_IS_PLURAL);
         int listGenderPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_GENDER);
         int listFormalityPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FORMALITY);
@@ -60,6 +64,7 @@ public class DataManager {
         int listFailedAttemptsPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_FAILED_ATTEMPTS);
         int listMemorizedPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_MEMORIZED);
         int listNotesPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_NOTES);
+        int listSummaryNotesPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_SUMMARY_NOTES);
         int listImagePosition = cursor.getColumnIndex(TranslationEntry.COLUMN_IMAGE);
         int listAudioPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_AUDIO);
         int listUserAudioPosition = cursor.getColumnIndex(TranslationEntry.COLUMN_USER_AUDIO);
@@ -90,6 +95,10 @@ public class DataManager {
             String listSecondLangExample = cursor.getString(listSecondLangExamplePosition);
             String listEntryType = cursor.getString(listEntryTypePosition);
             String listTense = cursor.getString(listTensePosition);
+            int listLinkEntryIdTenseBase = cursor.getInt(listLinkEntryIdTenseBasePosition);
+            int listLinkEntryIdTensePast = cursor.getInt(listLinkEntryIdTensePastPosition);
+            int listLinkEntryIdTensePresent = cursor.getInt(listLinkEntryIdTensePresentPosition);
+            int listLinkEntryIdTenseFuture = cursor.getInt(listLinkEntryIdTenseFuturePosition);
             Boolean listIsPlural = cursor.getInt(listIsPluralPosition) != 0;
             String listGender = cursor.getString(listGenderPosition);
             String listFormality = cursor.getString(listFormalityPosition);
@@ -98,6 +107,7 @@ public class DataManager {
             int listFailedAttempts = cursor.getInt(listFailedAttemptsPosition);
             Boolean listMemorized = cursor.getInt(listMemorizedPosition) != 0;
             String listNotes = cursor.getString(listNotesPosition);
+            String listSummaryNotes = cursor.getString(listSummaryNotesPosition);
             String listImage = cursor.getString(listImagePosition);
             String listAudio = cursor.getString(listAudioPosition);
             String listUserAudio = cursor.getString(listUserAudioPosition);
@@ -109,7 +119,7 @@ public class DataManager {
             Boolean listArchived = cursor.getInt(listArchivedPosition) != 0;
 
             TranslationModel list = new TranslationModel(id, listCategory, listSubCategory, listFirstLang,
-                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listIsPlural, listGender, listFormality, listPercentLearned, listPercentLearnedModifiedDate, listFailedAttempts, listMemorized, listNotes, listImage, listAudio, listUserAudio, listUserAudioModifiedDate, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
+                    listFirstLangEntry, listFirstLangEntryRomanized, listFirstLangExample, listSecondLang, listSecondLangEntry, listSecondLangEntryRomanized, listSecondLangExample, listEntryType, listTense, listLinkEntryIdTenseBase, listLinkEntryIdTensePast, listLinkEntryIdTensePresent, listLinkEntryIdTenseFuture, listIsPlural, listGender, listFormality, listPercentLearned, listPercentLearnedModifiedDate, listFailedAttempts, listMemorized, listNotes, listSummaryNotes, listImage, listAudio, listUserAudio, listUserAudioModifiedDate, listFavorite, listTags, listModifiedDate, listOnQuickList, listArchived);
 
             dm.mTranslations.add(list);
         }
@@ -141,6 +151,10 @@ public class DataManager {
           TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE,
           TranslationEntry.COLUMN_ENTRY_TYPE,
           TranslationEntry.COLUMN_TENSE,
+          TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_BASE,
+          TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PAST,
+          TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PRESENT,
+          TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_FUTURE,
           TranslationEntry.COLUMN_IS_PLURAL,
           TranslationEntry.COLUMN_GENDER,
           TranslationEntry.COLUMN_FORMALITY,
@@ -149,6 +163,7 @@ public class DataManager {
           TranslationEntry.COLUMN_FAILED_ATTEMPTS,
           TranslationEntry.COLUMN_MEMORIZED,
           TranslationEntry.COLUMN_NOTES,
+          TranslationEntry.COLUMN_SUMMARY_NOTES,
           TranslationEntry.COLUMN_IMAGE,
           TranslationEntry.COLUMN_AUDIO,
           TranslationEntry.COLUMN_USER_AUDIO,
@@ -214,6 +229,10 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE, tEntry.getSecondLanguageExample());
         values.put(TranslationEntry.COLUMN_ENTRY_TYPE, tEntry.getEntryType());
         values.put(TranslationEntry.COLUMN_TENSE, tEntry.getTense());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_BASE, tEntry.getLinkEntryIdTenseBase());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PAST, tEntry.getLinkEntryIdTensePast());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PRESENT, tEntry.getLinkEntryIdTensePresent());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_FUTURE, tEntry.getLinkEntryIdTenseFuture());
         values.put(TranslationEntry.COLUMN_IS_PLURAL, tEntry.getIsPlural());
         values.put(TranslationEntry.COLUMN_GENDER, tEntry.getGender());
         values.put(TranslationEntry.COLUMN_FORMALITY, tEntry.getFormality());
@@ -222,6 +241,7 @@ public class DataManager {
         values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, tEntry.getFailedAttempts());
         values.put(TranslationEntry.COLUMN_MEMORIZED, tEntry.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tEntry.getNotes());
+        values.put(TranslationEntry.COLUMN_SUMMARY_NOTES, tEntry.getSummaryNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tEntry.getImage());
         values.put(TranslationEntry.COLUMN_AUDIO, tEntry.getAudio());
         values.put(TranslationEntry.COLUMN_USER_AUDIO, tEntry.getUserAudio());

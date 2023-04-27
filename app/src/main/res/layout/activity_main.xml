@@ -5,18 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/mainAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:theme="@style/Theme.ULearnIt.AppBarOverlay"
-        app:layout_constraintBottom_toTopOf="@id/main_scrollview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/main_constraintLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -34,8 +33,7 @@
         android:background="@drawable/gradient_purple"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mainAppBar"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation">
+        app:layout_constraintTop_toBottomOf="@id/mainAppBar">
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexboxLayout"
@@ -67,10 +65,10 @@
                 <ImageButton
                     android:id="@+id/anatomy_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#92BCD2"
                     android:contentDescription="@string/anatomy_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -90,8 +88,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/anatomy_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/anatomy_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/anatomy_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/anatomy_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,10 +109,10 @@
                 <ImageButton
                     android:id="@+id/animals_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="30dp"
                     android:backgroundTint="#AD8766"
                     android:contentDescription="@string/animals_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -134,8 +132,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/animals_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/animals_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/animals_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/animals_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -155,10 +153,10 @@
                 <ImageButton
                     android:id="@+id/beverages_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="30dp"
                     android:backgroundTint="#D2BDAB"
                     android:contentDescription="@string/beverages_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -178,52 +176,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/beverages_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/beverages_ImageBtn" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Buildings -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/buildings_CardView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_weight=".5"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardMaxElevation="8dp"
-                app:contentPadding="4dp"
-                app:layout_flexGrow="1">
-
-                <ImageButton
-                    android:id="@+id/buildings_ImageBtn"
-                    style="@style/category_button_image"
-                    android:paddingBottom="20dp"
-                    android:backgroundTint="#8A9092"
-                    android:contentDescription="@string/buildings_category_image"
-                    android:onClick="launchCategoryActivity"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_building" />
-
-                <TextView
-                    android:id="@+id/buildings_TextView"
-                    style="@style/category_button_text"
-                    android:text="@string/buildings_category_text"
-                    app:layout_constraintBottom_toBottomOf="@id/buildings_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/buildings_ImageBtn"
-                    app:layout_constraintStart_toStartOf="@id/buildings_ImageBtn" />
-
-                <TextView
-                    android:id="@+id/buildingsCount_TextView"
-                    style="@style/category_count_button_text"
-                    android:layout_width="wrap_content"
-                    android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/buildings_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/buildings_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/beverages_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/beverages_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -243,10 +197,10 @@
                 <ImageButton
                     android:id="@+id/colors_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#949EF1"
                     android:contentDescription="@string/colors_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -266,8 +220,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/colors_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/colors_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/colors_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/colors_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -287,10 +241,10 @@
                 <ImageButton
                     android:id="@+id/conversation_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#DBA881"
                     android:contentDescription="@string/conversation_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -310,8 +264,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/conversation_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/conversation_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/conversation_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/conversation_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -331,10 +285,10 @@
                 <ImageButton
                     android:id="@+id/countries_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="25dp"
                     android:backgroundTint="#42B451"
                     android:contentDescription="@string/countries_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="25dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -354,8 +308,52 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/countries_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/countries_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/countries_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/countries_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Directions -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/directions_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/directions_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#8A9092"
+                    android:contentDescription="@string/directions_category_image"
+                    android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_wavy_arrow" />
+
+                <TextView
+                    android:id="@+id/directions_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/directions_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/directions_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/directions_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/directions_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/directionsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintEnd_toEndOf="@id/directions_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/directions_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -375,10 +373,10 @@
                 <ImageButton
                     android:id="@+id/emotions_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="25dp"
                     android:backgroundTint="#ABA798"
                     android:contentDescription="@string/emotions_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="25dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -398,8 +396,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/emotions_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/emotions_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/emotions_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/emotions_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -440,8 +438,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/food_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/food_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/food_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/food_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -482,8 +480,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/general_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/general_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/general_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/general_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -503,10 +501,10 @@
                 <ImageButton
                     android:id="@+id/grammatical_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="30dp"
                     android:backgroundTint="#6BA1BB"
                     android:contentDescription="@string/grammatical_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -526,8 +524,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/grammatical_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/grammatical_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/grammatical_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/grammatical_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -570,8 +568,52 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/greetings_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/greetings_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/greetings_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/greetings_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Home -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/home_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/home_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#6BA1BB"
+                    android:contentDescription="@string/home_category_image"
+                    android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_house" />
+
+                <TextView
+                    android:id="@+id/home_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/home_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/home_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/home_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/home_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/homeCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintEnd_toEndOf="@id/home_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/home_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -591,10 +633,10 @@
                 <ImageButton
                     android:id="@+id/medical_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="30dp"
                     android:backgroundTint="#F6C8C8"
                     android:contentDescription="@string/medical_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -614,8 +656,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/medical_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/medical_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/medical_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/medical_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -659,8 +701,50 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/numbers_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/numbers_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/numbers_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/numbers_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Occupation -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/occupations_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/occupations_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#A43AB7"
+                    android:contentDescription="@string/occupations_category_image"
+                    android:onClick="launchCategoryActivity"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_person_construction" />
+
+                <TextView
+                    android:id="@+id/occupations_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/occupations_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/occupations_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/occupations_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/occupations_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/occupationsCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintEnd_toEndOf="@id/occupations_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/occupations_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -703,8 +787,52 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/people_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/people_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/people_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/people_ImageBtn" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Places -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/places_CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight=".5"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp"
+                app:cardMaxElevation="8dp"
+                app:contentPadding="4dp"
+                app:layout_flexGrow="1">
+
+                <ImageButton
+                    android:id="@+id/places_ImageBtn"
+                    style="@style/category_button_image"
+                    android:backgroundTint="#8A9092"
+                    android:contentDescription="@string/places_category_image"
+                    android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_building" />
+
+                <TextView
+                    android:id="@+id/places_TextView"
+                    style="@style/category_button_text"
+                    android:text="@string/places_category_text"
+                    app:layout_constraintBottom_toBottomOf="@id/places_ImageBtn"
+                    app:layout_constraintEnd_toEndOf="@id/places_ImageBtn"
+                    app:layout_constraintStart_toStartOf="@id/places_ImageBtn" />
+
+                <TextView
+                    android:id="@+id/placesCount_TextView"
+                    style="@style/category_count_button_text"
+                    android:layout_width="wrap_content"
+                    android:text="0"
+                    app:layout_constraintEnd_toEndOf="@id/places_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/places_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -724,10 +852,10 @@
                 <ImageButton
                     android:id="@+id/plants_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="5dp"
                     android:backgroundTint="#FFA7E6"
                     android:contentDescription="@string/plants_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -747,8 +875,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/plants_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/plants_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/plants_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/plants_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -789,8 +917,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/relationship_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/relationship_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/relationship_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/relationship_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -810,10 +938,10 @@
                 <ImageButton
                     android:id="@+id/shopping_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#C581FF"
                     android:contentDescription="@string/shopping_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -833,8 +961,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/shopping_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/shopping_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/shopping_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/shopping_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -855,10 +983,10 @@
                 <ImageButton
                     android:id="@+id/theocratic_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="30dp"
                     android:backgroundTint="#9B50DB"
                     android:contentDescription="@string/theocratic_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="30dp"
                     app:layout_constraintBottom_toTopOf="@id/theocratic_TextView"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -878,8 +1006,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/theocratic_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/theocratic_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/theocratic_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/theocratic_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -899,10 +1027,10 @@
                 <ImageButton
                     android:id="@+id/time_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#9EADC2"
                     android:contentDescription="@string/time_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -922,8 +1050,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/time_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/time_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/time_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/time_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -943,10 +1071,10 @@
                 <ImageButton
                     android:id="@+id/transportation_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="10dp"
                     android:backgroundTint="#7081B6"
                     android:contentDescription="@string/transportation_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -966,8 +1094,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/transportation_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/transportation_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/transportation_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/transportation_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -987,10 +1115,10 @@
                 <ImageButton
                     android:id="@+id/travel_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="20dp"
                     android:backgroundTint="#72D6FD"
                     android:contentDescription="@string/travel_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -1010,8 +1138,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/travel_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/travel_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/travel_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/travel_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1031,10 +1159,10 @@
                 <ImageButton
                     android:id="@+id/verbs_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="5dp"
                     android:backgroundTint="#03BD0C"
                     android:contentDescription="@string/verbs_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -1054,8 +1182,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/verbs_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/verbs_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/verbs_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/verbs_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1075,10 +1203,10 @@
                 <ImageButton
                     android:id="@+id/weather_ImageBtn"
                     style="@style/category_button_image"
-                    android:paddingBottom="10dp"
                     android:backgroundTint="#FFDD00"
                     android:contentDescription="@string/weather_category_image"
                     android:onClick="launchCategoryActivity"
+                    android:paddingBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -1098,8 +1226,8 @@
                     style="@style/category_count_button_text"
                     android:layout_width="wrap_content"
                     android:text="0"
-                    app:layout_constraintTop_toTopOf="@id/weather_ImageBtn"
-                    app:layout_constraintEnd_toEndOf="@id/weather_ImageBtn" />
+                    app:layout_constraintEnd_toEndOf="@id/weather_ImageBtn"
+                    app:layout_constraintTop_toTopOf="@id/weather_ImageBtn" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

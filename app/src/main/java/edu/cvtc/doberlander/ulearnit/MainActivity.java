@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
 
+
+
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected
@@ -161,10 +163,6 @@ public class MainActivity extends AppCompatActivity {
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Beverages", "", "", "", "");
         beveragesCount.setText(Integer.toString(count));
 
-        TextView buildingsCount = findViewById(R.id.buildingsCount_TextView);
-        count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Buildings", "", "", "", "");
-        buildingsCount.setText(Integer.toString(count));
-
         TextView colorsCount = findViewById(R.id.colorsCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Colors", "", "", "", "");
         colorsCount.setText(Integer.toString(count));
@@ -176,6 +174,10 @@ public class MainActivity extends AppCompatActivity {
         TextView countriesCount = findViewById(R.id.countriesCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Countries", "", "", "", "");
         countriesCount.setText(Integer.toString(count));
+
+        TextView directionsCount = findViewById(R.id.directionsCount_TextView);
+        count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Directions", "", "", "", "");
+        directionsCount.setText(Integer.toString(count));
 
         TextView emotionsCount = findViewById(R.id.emotionsCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Emotions", "", "", "", "");
@@ -197,6 +199,10 @@ public class MainActivity extends AppCompatActivity {
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Greetings", "", "", "", "");
         greetingsCount.setText(Integer.toString(count));
 
+        TextView homeCount = findViewById(R.id.homeCount_TextView);
+        count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Home", "", "", "", "");
+        homeCount.setText(Integer.toString(count));
+
         TextView medicalCount = findViewById(R.id.medicalCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Medical", "", "", "", "");
         medicalCount.setText(Integer.toString(count));
@@ -205,9 +211,17 @@ public class MainActivity extends AppCompatActivity {
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Numbers", "", "", "", "");
         numbersCount.setText(Integer.toString(count));
 
+        TextView occupationsCount = findViewById(R.id.occupationsCount_TextView);
+        count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Occupations", "", "", "", "");
+        occupationsCount.setText(Integer.toString(count));
+
         TextView peopleCount = findViewById(R.id.peopleCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "People", "", "", "", "");
         peopleCount.setText(Integer.toString(count));
+
+        TextView placesCount = findViewById(R.id.placesCount_TextView);
+        count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Places", "", "", "", "");
+        placesCount.setText(Integer.toString(count));
 
         TextView plantsCount = findViewById(R.id.plantsCount_TextView);
         count = DataManager.getEntryCountFromDatabase(mDbHelper, sharedPrefs, "category", "Plants", "", "", "", "");
@@ -252,18 +266,21 @@ public class MainActivity extends AppCompatActivity {
         categoryViewList.add(findViewById(R.id.anatomy_CardView));
         categoryViewList.add(findViewById(R.id.animals_CardView));
         categoryViewList.add(findViewById(R.id.beverages_CardView));
-        categoryViewList.add(findViewById(R.id.buildings_CardView));
         categoryViewList.add(findViewById(R.id.colors_CardView));
         categoryViewList.add(findViewById(R.id.conversation_CardView));
         categoryViewList.add(findViewById(R.id.countries_CardView));
+        categoryViewList.add(findViewById(R.id.directions_CardView));
         categoryViewList.add(findViewById(R.id.emotions_CardView));
         categoryViewList.add(findViewById(R.id.food_CardView));
         categoryViewList.add(findViewById(R.id.general_CardView));
         categoryViewList.add(findViewById(R.id.grammatical_CardView));
         categoryViewList.add(findViewById(R.id.greetings_CardView));
+        categoryViewList.add(findViewById(R.id.home_CardView));
         categoryViewList.add(findViewById(R.id.medical_CardView));
         categoryViewList.add(findViewById(R.id.numbers_CardView));
+        categoryViewList.add(findViewById(R.id.occupations_CardView));
         categoryViewList.add(findViewById(R.id.people_CardView));
+        categoryViewList.add(findViewById(R.id.places_CardView));
         categoryViewList.add(findViewById(R.id.plants_CardView));
         categoryViewList.add(findViewById(R.id.relationship_CardView));
         categoryViewList.add(findViewById(R.id.shopping_CardView));
@@ -278,18 +295,21 @@ public class MainActivity extends AppCompatActivity {
         categoryEntryCountList.add(findViewById(R.id.anatomyCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.animalsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.beveragesCount_TextView));
-        categoryEntryCountList.add(findViewById(R.id.buildingsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.colorsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.conversationCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.countriesCount_TextView));
+        categoryEntryCountList.add(findViewById(R.id.directionsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.emotionsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.foodCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.generalCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.grammaticalCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.greetingsCount_TextView));
+        categoryEntryCountList.add(findViewById(R.id.homeCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.medicalCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.numbersCount_TextView));
+        categoryEntryCountList.add(findViewById(R.id.occupationsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.peopleCount_TextView));
+        categoryEntryCountList.add(findViewById(R.id.placesCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.plantsCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.relationshipCount_TextView));
         categoryEntryCountList.add(findViewById(R.id.shoppingCount_TextView));
@@ -337,10 +357,6 @@ public class MainActivity extends AppCompatActivity {
                 // Set Category
                 categoryName = getString(R.string.beverages_category_text);
                 break;
-            case R.id.buildings_ImageBtn:
-                // Set Category
-                categoryName = getString(R.string.buildings_category_text);
-                break;
             case R.id.colors_ImageBtn:
                 // Set Category
                 categoryName = getString(R.string.colors_category_text);
@@ -352,6 +368,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.countries_ImageBtn:
                 // Set Category
                 categoryName = getString(R.string.countries_category_text);
+                break;
+            case R.id.directions_ImageBtn:
+                // Set Category
+                categoryName = getString(R.string.directions_category_text);
                 break;
             case R.id.emotions_ImageBtn:
                 // Set Category
@@ -373,6 +393,10 @@ public class MainActivity extends AppCompatActivity {
                 // Set Greetings Category
                 categoryName = getString(R.string.greetings_category_text);
                 break;
+            case R.id.home_ImageBtn:
+                // Set Category
+                categoryName = getString(R.string.home_category_text);
+                break;
             case R.id.medical_ImageBtn:
                 // Set Category
                 categoryName = getString(R.string.medical_category_text);
@@ -381,9 +405,17 @@ public class MainActivity extends AppCompatActivity {
                 // Set Numbers Category
                 categoryName = getString(R.string.numbers_category_text);
                 break;
+            case R.id.occupations_ImageBtn:
+                // Set Category
+                categoryName = getString(R.string.occupations_category_text);
+                break;
             case R.id.people_ImageBtn:
                 // Set People Category
                 categoryName = getString(R.string.people_category_text);
+                break;
+            case R.id.places_ImageBtn:
+                // Set Category
+                categoryName = getString(R.string.places_category_text);
                 break;
             case R.id.plants_ImageBtn:
                 // Set Category

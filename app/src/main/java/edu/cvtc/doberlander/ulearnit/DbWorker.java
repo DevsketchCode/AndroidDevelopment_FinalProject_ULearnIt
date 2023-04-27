@@ -16,7 +16,7 @@ public class DbWorker {
     public DbWorker(SQLiteDatabase db) { mDb = db; }
 
     // Function to insertEntry from a list
-    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    private void insertEntry(String category, String subCategory, String firstLang, String firstLangEntry, String firstLangEntryRomanized, String firstLangExample, String secondLang, String secondLangEntry, String secondLangEntryRomanized, String secondLangExample, String entryType, String tense, int linkEntryIdTenseBase, int linkEntryIdTensePast, int linkEntryIdTensePresent, int linkEntryIdTenseFuture, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String summaryNotes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         ContentValues values = new ContentValues();
         values.put(TranslationEntry.COLUMN_CATEGORY, category);
         values.put(TranslationEntry.COLUMN_SUBCATEGORY, subCategory);
@@ -30,6 +30,10 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE, secondLangExample);
         values.put(TranslationEntry.COLUMN_ENTRY_TYPE, entryType);
         values.put(TranslationEntry.COLUMN_TENSE, tense);
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_BASE, linkEntryIdTenseBase);
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PAST, linkEntryIdTensePast);
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PRESENT, linkEntryIdTensePresent);
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_FUTURE, linkEntryIdTenseFuture);
         values.put(TranslationEntry.COLUMN_IS_PLURAL, isPlural);
         values.put(TranslationEntry.COLUMN_GENDER, gender);
         values.put(TranslationEntry.COLUMN_FORMALITY, formality);
@@ -38,6 +42,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, failedAttempts);
         values.put(TranslationEntry.COLUMN_MEMORIZED, memorized);
         values.put(TranslationEntry.COLUMN_NOTES, notes);
+        values.put(TranslationEntry.COLUMN_SUMMARY_NOTES, summaryNotes);
         values.put(TranslationEntry.COLUMN_IMAGE, image);
         values.put(TranslationEntry.COLUMN_AUDIO, audio);
         values.put(TranslationEntry.COLUMN_USER_AUDIO, userAudio);
@@ -68,6 +73,10 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_SECOND_LANGUAGE_EXAMPLE, tm.getSecondLanguageExample());
         values.put(TranslationEntry.COLUMN_ENTRY_TYPE, tm.getEntryType());
         values.put(TranslationEntry.COLUMN_TENSE, tm.getTense());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_BASE, tm.getLinkEntryIdTenseBase());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PAST, tm.getLinkEntryIdTensePast());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_PRESENT, tm.getLinkEntryIdTensePresent());
+        values.put(TranslationEntry.COLUMN_LINK_ENTRY_ID_TENSE_FUTURE, tm.getLinkEntryIdTenseFuture());
         values.put(TranslationEntry.COLUMN_IS_PLURAL, tm.getIsPlural());
         values.put(TranslationEntry.COLUMN_GENDER, tm.getGender());
         values.put(TranslationEntry.COLUMN_FORMALITY, tm.getFormality());
@@ -76,6 +85,7 @@ public class DbWorker {
         values.put(TranslationEntry.COLUMN_FAILED_ATTEMPTS, tm.getFailedAttempts());
         values.put(TranslationEntry.COLUMN_MEMORIZED, tm.getMemorized());
         values.put(TranslationEntry.COLUMN_NOTES, tm.getNotes());
+        values.put(TranslationEntry.COLUMN_SUMMARY_NOTES, tm.getSummaryNotes());
         values.put(TranslationEntry.COLUMN_IMAGE, tm.getImage());
         values.put(TranslationEntry.COLUMN_AUDIO, tm.getAudio());
         values.put(TranslationEntry.COLUMN_USER_AUDIO, tm.getUserAudio());
@@ -148,6 +158,10 @@ public class DbWorker {
                     m.getSecondLanguageExample(),
                     m.getEntryType(),
                     m.getTense(),
+                    m.getLinkEntryIdTenseBase(),
+                    m.getLinkEntryIdTensePast(),
+                    m.getLinkEntryIdTensePresent(),
+                    m.getLinkEntryIdTenseFuture(),
                     m.getIsPlural(),
                     m.getGender(),
                     m.getFormality(),
@@ -156,6 +170,7 @@ public class DbWorker {
                     m.getFailedAttempts(),
                     m.getMemorized(),
                     m.getNotes(),
+                    m.getSummaryNotes(),
                     m.getImage(),
                     m.getAudio(),
                     m.getUserAudio(),

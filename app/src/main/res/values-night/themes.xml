@@ -13,6 +13,8 @@
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="actionBarStyle" parent="@style/Widget.AppCompat.ActionBar">@style/ActionBar</item>
+        <!-- Set the primary color of the text for NightMode to this color -->
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="Theme.ULearnIt.NoActionBar">
@@ -26,21 +28,25 @@
         <item name="android:alpha">0.8</item>
         <item name="android:background">@color/purple_500</item>
         <item name="android:color">@color/white</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:elevation">3dp</item>
         <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="Theme.ULearnIt.AppBarOverlay">
-        <item name="backgroundTint">@color/purple_700</item>
+        <item name="backgroundTint">@color/purple_500</item>
     </style>
 
     <style name="Theme.ULearnIt.AppBarOverlay.Text" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Theme.ULearnIt.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight" />
+    <style name="Theme.ULearnIt.PopupOverlay" parent="ThemeOverlay.AppCompat.DayNight">
+        <!-- This is the popup menu -->
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <style name="ActionBar">
-        <item name="background">@color/purple_200</item>
+        <item name="background">@color/purple_500</item>
     </style>
 </resources>

@@ -221,6 +221,10 @@ public class TranslationList {
             translation.setSecondLanguageExample("");
             translation.setEntryType(entryTypes[i]);
             translation.setTense("");
+            translation.setLinkEntryIdTenseBase(0);
+            translation.setLinkEntryIdTensePast(0);
+            translation.setLinkEntryIdTensePresent(0);
+            translation.setLinkEntryIdTenseFuture(0);
             translation.setIsPlural(false);
             translation.setGender("N/A");
             translation.setFormality("");
@@ -229,6 +233,7 @@ public class TranslationList {
             translation.setFailedAttempts(0);
             translation.setMemorized(false);
             translation.setNotes("");
+            translation.setSummaryNotes("");
             translation.setImage("");
             translation.setAudio("");
             translation.setUserAudio("");

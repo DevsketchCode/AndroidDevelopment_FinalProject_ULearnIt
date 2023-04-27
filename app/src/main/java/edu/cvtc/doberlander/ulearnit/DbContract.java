@@ -26,6 +26,10 @@ public class DbContract {
         public static final String COLUMN_SECOND_LANGUAGE_EXAMPLE = "second_language_example";
         public static final String COLUMN_ENTRY_TYPE = "entry_type"; // sentence, question, phrase, or word classifications (noun, verb, particle, etc)
         public static final String COLUMN_TENSE = "tense"; // Past Present Future or NA (Not Applicable)
+        public static final String COLUMN_LINK_ENTRY_ID_TENSE_BASE = "link_entry_id_tense_base"; // Use to hold id of linking entry
+        public static final String COLUMN_LINK_ENTRY_ID_TENSE_PAST = "link_entry_id_tense_past"; // Use to hold id of linking entry
+        public static final String COLUMN_LINK_ENTRY_ID_TENSE_PRESENT = "link_entry_id_tense_present"; // Use to hold id of linking entry
+        public static final String COLUMN_LINK_ENTRY_ID_TENSE_FUTURE = "link_entry_id_tense_future"; // Use to hold id of linking entry
         public static final String COLUMN_IS_PLURAL = "is_plural"; // Singular Plural or NA (Not Applicable)
         public static final String COLUMN_GENDER = "gender"; // Masculine, Feminine or NA (Not Applicable)
         public static final String COLUMN_FORMALITY = "formality"; // Casual, Formal, Informal, Polite
@@ -34,6 +38,7 @@ public class DbContract {
         public static final String COLUMN_FAILED_ATTEMPTS = "failed_attempts"; // keep track of more challenging entries
         public static final String COLUMN_MEMORIZED = "memorized";
         public static final String COLUMN_NOTES = "notes";
+        public static final String COLUMN_SUMMARY_NOTES = "summary_notes";
         public static final String COLUMN_IMAGE = "image";
         public static final String COLUMN_AUDIO = "audio";
         public static final String COLUMN_USER_AUDIO = "user_audio";
@@ -67,6 +72,10 @@ public class DbContract {
                         COLUMN_SECOND_LANGUAGE_EXAMPLE + " TEXT NOT NULL, " +
                         COLUMN_ENTRY_TYPE + " TEXT NOT NULL, " +
                         COLUMN_TENSE + " TEXT NOT NULL, " +
+                        COLUMN_LINK_ENTRY_ID_TENSE_BASE + " INTEGER, " +
+                        COLUMN_LINK_ENTRY_ID_TENSE_PAST + " INTEGER, " +
+                        COLUMN_LINK_ENTRY_ID_TENSE_PRESENT + " INTEGER, " +
+                        COLUMN_LINK_ENTRY_ID_TENSE_FUTURE + " INTEGER, " +
                         COLUMN_IS_PLURAL + " BOOLEAN NOT NULL, " +
                         COLUMN_GENDER + " TEXT NOT NULL, " +
                         COLUMN_FORMALITY + " TEXT NOT NULL, " +
@@ -75,6 +84,7 @@ public class DbContract {
                         COLUMN_FAILED_ATTEMPTS + " TEXT NOT NULL, " +
                         COLUMN_MEMORIZED + " BOOLEAN NOT NULL, " +
                         COLUMN_NOTES + " TEXT NOT NULL, " +
+                        COLUMN_NOTES + " TEXT, " +
                         COLUMN_IMAGE + " TEXT NOT NULL, " +
                         COLUMN_AUDIO + " TEXT NOT NULL, " +
                         COLUMN_USER_AUDIO + " TEXT NOT NULL, " +

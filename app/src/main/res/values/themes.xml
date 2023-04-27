@@ -39,7 +39,8 @@
     </style>
 
     <style name="Theme.ULearnIt.AppBarOverlay">
-        <item name="backgroundTint">@color/purple_500</item>
+        <item name="backgroundTint">@color/purple_200</item>
+        <item name="android:color">@color/black</item>
     </style>
 
     <style name="Theme.ULearnIt.AppBarOverlay.Text" parent="@android:style/TextAppearance">
@@ -50,5 +51,6 @@
 
     <style name="ActionBar">
         <item name="background">@color/purple_200</item>
+        <item name="android:color">@color/black</item>
     </style>
 </resources>

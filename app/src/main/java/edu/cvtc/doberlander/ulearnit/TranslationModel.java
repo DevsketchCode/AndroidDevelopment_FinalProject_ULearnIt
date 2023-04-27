@@ -25,6 +25,10 @@ public class TranslationModel implements Parcelable {
     private String mSecondLanguageExample;
     private String mEntryType;
     private String mTense;
+    private int mLinkEntryIdTenseBase;
+    private int mLinkEntryIdTensePast;
+    private int mLinkEntryIdTensePresent;
+    private int mLinkEntryIdTenseFuture;
     private Boolean mIsPlural;
     private String mGender;
     private String mFormality;
@@ -33,6 +37,7 @@ public class TranslationModel implements Parcelable {
     private int mFailedAttempts;
     private Boolean mMemorized;
     private String mNotes;
+    private String mSummaryNotes;
     private String mImage;
     private String mAudio;
     private String mUserAudio;
@@ -62,6 +67,10 @@ public class TranslationModel implements Parcelable {
         this.mSecondLanguageExample = "";
         this.mEntryType = "";
         this.mTense = "N/A"; // N/A, Base, Past, Present, or Future
+        this.mLinkEntryIdTenseBase = 0;
+        this.mLinkEntryIdTensePast = 0;
+        this.mLinkEntryIdTensePresent = 0;
+        this.mLinkEntryIdTenseFuture = 0;
         this.mIsPlural = false; // False for NA or Singular, True for Plural
         this.mGender = "N/A"; //N/A, Masculine, Feminine
         this.mFormality = "N/A"; // N/A, Casual, Formal, Informal, Polite, Slang
@@ -70,6 +79,7 @@ public class TranslationModel implements Parcelable {
         this.mFailedAttempts = 0;
         this.mMemorized = false;
         this.mNotes = "";
+        this.mSummaryNotes = "";
         this.mImage = "";
         this.mAudio = "";
         this.mUserAudio = "";
@@ -82,7 +92,7 @@ public class TranslationModel implements Parcelable {
     }
 
     // Overloaded Constructor to create entire object, including Id
-    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
+    public TranslationModel(int id, String category, String subCategory, String firstLanguage, String firstLanguageEntry, String mFirstLanguageEntryRomanized, String firstLanguageExample, String secondLanguage, String secondLanguageEntry, String mSecondLanguageEntryRomanized, String secondLanguageExample, String entryType, String tense, int linkEntryIdTenseBase, int linkEntryIdTensePast, int linkEntryIdTensePresent, int linkEntryIdTenseFuture, Boolean isPlural, String gender, String formality, int percentLearned, String percentLearnedModifiedDate, int failedAttempts, Boolean memorized, String notes, String summaryNotes, String image, String audio, String userAudio, String userAudioModifiedDate, int favorite, String tags, String modifiedDate, Boolean onQuickList, Boolean archived) {
         this.mId = id;
         this.mCategory = category;
         this.mSubCategory = subCategory;
@@ -96,6 +106,10 @@ public class TranslationModel implements Parcelable {
         this.mSecondLanguageExample = secondLanguageExample;
         this.mEntryType = entryType;
         this.mTense = tense;
+        this.mLinkEntryIdTenseBase = linkEntryIdTenseBase;
+        this.mLinkEntryIdTensePast = linkEntryIdTensePast;
+        this.mLinkEntryIdTensePresent = linkEntryIdTensePresent;
+        this.mLinkEntryIdTenseFuture = linkEntryIdTenseFuture;
         this.mIsPlural = isPlural;
         this.mGender = gender;
         this.mFormality = formality;
@@ -104,6 +118,7 @@ public class TranslationModel implements Parcelable {
         this.mFailedAttempts = failedAttempts;
         this.mMemorized = memorized;
         this.mNotes = notes;
+        this.mSummaryNotes = summaryNotes;
         this.mImage = image;
         this.mAudio = audio;
         this.mUserAudio = userAudio;
@@ -193,6 +208,38 @@ public class TranslationModel implements Parcelable {
 
     public void setTense(String tense) { this.mTense = tense; }
 
+    public int getLinkEntryIdTenseBase() {
+        return mLinkEntryIdTenseBase;
+    }
+
+    public void setLinkEntryIdTenseBase(int linkEntryIdTenseBase) {
+        this.mLinkEntryIdTenseBase = linkEntryIdTenseBase;
+    }
+
+    public int getLinkEntryIdTensePast() {
+        return mLinkEntryIdTensePast;
+    }
+
+    public void setLinkEntryIdTensePast(int linkEntryIdTensePast) {
+        this.mLinkEntryIdTensePast = linkEntryIdTensePast;
+    }
+
+    public int getLinkEntryIdTensePresent() {
+        return mLinkEntryIdTensePresent;
+    }
+
+    public void setLinkEntryIdTensePresent(int linkEntryIdTensePresent) {
+        this.mLinkEntryIdTensePresent = linkEntryIdTensePresent;
+    }
+
+    public int getLinkEntryIdTenseFuture() {
+        return mLinkEntryIdTenseFuture;
+    }
+
+    public void setLinkEntryIdTenseFuture(int linkEntryIdTenseFuture) {
+        this.mLinkEntryIdTenseFuture = linkEntryIdTenseFuture;
+    }
+
     public Boolean getIsPlural() { return mIsPlural; }
     public void setIsPlural(Boolean isPlural) { this.mIsPlural = isPlural; }
 
@@ -240,6 +287,14 @@ public class TranslationModel implements Parcelable {
 
     public void setNotes(String notes) {
         this.mNotes = String.valueOf(Html.toHtml(new SpannableString(notes), Html.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE));
+    }
+
+    public String getSummaryNotes() {
+        return mSummaryNotes;
+    }
+
+    public void setSummaryNotes(String summaryNotes) {
+        this.mSummaryNotes = summaryNotes;
     }
 
     public String getImage() { return mImage; }
@@ -325,6 +380,10 @@ public class TranslationModel implements Parcelable {
         setSecondLanguageExample(parcel.readString());
         setEntryType(parcel.readString());
         setTense(parcel.readString());
+        setLinkEntryIdTenseBase(parcel.readInt());
+        setLinkEntryIdTensePast(parcel.readInt());
+        setLinkEntryIdTensePresent(parcel.readInt());
+        setLinkEntryIdTenseFuture(parcel.readInt());
         setIsPlural(parcel.readBoolean());
         setGender(parcel.readString());
         setFormality(parcel.readString());
@@ -333,6 +392,7 @@ public class TranslationModel implements Parcelable {
         setFailedAttempts(parcel.readInt());
         setMemorized(parcel.readBoolean());
         setNotes(parcel.readString());
+        setSummaryNotes(parcel.readString());
         setImage(parcel.readString());
         setAudio(parcel.readString());
         setUserAudio(parcel.readString());
@@ -362,6 +422,10 @@ public class TranslationModel implements Parcelable {
         parcel.writeString(mSecondLanguageExample);
         parcel.writeString(mEntryType);
         parcel.writeString(mTense);
+        parcel.writeInt(mLinkEntryIdTenseBase);
+        parcel.writeInt(mLinkEntryIdTensePast);
+        parcel.writeInt(mLinkEntryIdTensePresent);
+        parcel.writeInt(mLinkEntryIdTenseFuture);
         parcel.writeBoolean(mIsPlural);
         parcel.writeString(mGender);
         parcel.writeString(mFormality);
@@ -370,6 +434,7 @@ public class TranslationModel implements Parcelable {
         parcel.writeInt(mFailedAttempts);
         parcel.writeBoolean(mMemorized);
         parcel.writeString(mNotes);
+        parcel.writeString(mSummaryNotes);
         parcel.writeString(mImage);
         parcel.writeString(mAudio);
         parcel.writeString(mUserAudio);

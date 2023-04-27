@@ -436,7 +436,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         }
 
 
-        tmpPercentLearnedString = "Learned: " + tm.getPercentLearned() + "%";
+        tmpPercentLearnedString = tm.getPercentLearned() + "%";
         tmpPercentLearned.setText(tmpPercentLearnedString);
 
         tmpNotes.setText(tm.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));

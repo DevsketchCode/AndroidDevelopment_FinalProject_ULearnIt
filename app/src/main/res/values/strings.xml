@@ -9,14 +9,16 @@
     <string name="animals_category_text">Animals</string>
     <string name="beverages_category_image">Beverages Image</string>
     <string name="beverages_category_text">Beverages</string>
-    <string name="buildings_category_image">Buildings Image</string>
-    <string name="buildings_category_text">Buildings</string>
     <string name="colors_category_image">Colors Image</string>
     <string name="colors_category_text">Colors</string>
     <string name="conversation_category_image">Conversation Image</string>
     <string name="conversation_category_text">Conversation</string>
     <string name="countries_category_image">Countries Image</string>
     <string name="countries_category_text">Countries</string>
+    <string name="directions_category_image">Directions Image</string>
+    <string name="directions_category_text">Directions</string>
+    <string name="emotions_category_image">Emotions Image</string>
+    <string name="emotions_category_text">Emotions</string>
     <string name="food_category_image">Food Image - Polar Bear with Fish</string>
     <string name="food_category_text">Food</string>
     <string name="general_category_image">General Image - Detective Penguin</string>
@@ -25,14 +27,18 @@
     <string name="greetings_category_text">Greetings</string>
     <string name="grammatical_category_image">Grammatical Image</string>
     <string name="grammatical_category_text">Grammatical</string>
-    <string name="emotions_category_image">Emotions Image</string>
-    <string name="emotions_category_text">Emotions</string>
+    <string name="home_category_image">Home Image</string>
+    <string name="home_category_text">Home</string>
     <string name="medical_category_image">Medical Image</string>
     <string name="medical_category_text">Medical</string>
     <string name="numbers_category_image">Numbers Category - Snake in shape of Number 1</string>
     <string name="numbers_category_text">Numbers</string>
+    <string name="occupations_category_image">Occupations Image</string>
+    <string name="occupations_category_text">Occupations</string>
     <string name="people_category_image">People Image - Owl Family</string>
     <string name="people_category_text">People</string>
+    <string name="places_category_image">Places Image</string>
+    <string name="places_category_text">Places</string>
     <string name="plants_category_image">Plants Image</string>
     <string name="plants_category_text">Plants</string>
     <string name="relationship_category_image">Relationship Image - Owl Family</string>
@@ -146,18 +152,21 @@
         <item>Anatomy</item>
         <item>Animals</item>
         <item>Beverages</item>
-        <item>Buildings</item>
         <item>Colors</item>
         <item>Conversation</item>
         <item>Countries</item>
+        <item>Directions</item>
         <item>Emotions</item>
         <item>Food</item>
         <item>General</item>
         <item>Grammatical</item>
         <item>Greetings</item>
+        <item>Home</item>
         <item>Medical</item>
         <item>Numbers</item>
+        <item>Occupations</item>
         <item>People</item>
+        <item>Places</item>
         <item>Plants</item>
         <item>Relationship</item>
         <item>Shopping</item>
@@ -200,10 +209,11 @@
     </string-array>
     <string-array name="formalityOptions">
         <item>N/A</item>
-        <item>Casual</item>
-        <item>Formal</item>
-        <item>Informal</item>
-        <item>Polite</item>
+        <item>Extremely Formal-Polite</item>
+        <item>Formal-Polite</item>
+        <item>Formal-Casual</item>
+        <item>Informal-Polite</item>
+        <item>Informal-Casual</item>
         <item>Slang</item>
     </string-array>
 </resources>
