@@ -84,7 +84,7 @@ public class DbContract {
                         COLUMN_FAILED_ATTEMPTS + " TEXT NOT NULL, " +
                         COLUMN_MEMORIZED + " BOOLEAN NOT NULL, " +
                         COLUMN_NOTES + " TEXT NOT NULL, " +
-                        COLUMN_NOTES + " TEXT, " +
+                        COLUMN_SUMMARY_NOTES + " TEXT, " +
                         COLUMN_IMAGE + " TEXT NOT NULL, " +
                         COLUMN_AUDIO + " TEXT NOT NULL, " +
                         COLUMN_USER_AUDIO + " TEXT NOT NULL, " +
