@@ -8,7 +8,10 @@
     android:background="#00FF0808"
     android:focusable="auto"
     android:orientation="vertical"
-    android:padding="6dp"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     android:weightSum="5">
 
     <androidx.cardview.widget.CardView
@@ -57,7 +60,7 @@
                         style="@style/translation_list_cards"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:minWidth="120dp"
+                        android:minWidth="100dp"
                         android:backgroundTint="@android:color/transparent"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"

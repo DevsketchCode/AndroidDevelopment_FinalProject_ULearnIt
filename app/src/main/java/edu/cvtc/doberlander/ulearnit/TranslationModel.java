@@ -1,9 +1,13 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Html;
 import android.text.SpannableString;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import java.text.SimpleDateFormat;
@@ -333,14 +337,12 @@ public class TranslationModel implements Parcelable {
     public void setTags(String tags) { this.mTags = tags; }
 
     public String getModifiedDate() {
+        Log.d(TAG, "TranslationModel: get modifiedDate: " + mModifiedDate);
         return mModifiedDate;
     }
 
     public void setModifiedDate(String newDate) {
-        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
-        // Always set a new date and time to become the modified date/time stamp
-        newDate = sdf.format(new Date());
-        this.mModifiedDate = newDate;
+            this.mModifiedDate = newDate;
     }
 
     public Boolean getOnQuickList() { return mOnQuickList; }

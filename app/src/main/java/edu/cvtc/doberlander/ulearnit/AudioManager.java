@@ -88,12 +88,14 @@ public class AudioManager {
                             result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Toast.makeText(context, "Language not supported", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Speak the text
-                        tts.setOnUtteranceProgressListener(listener);
+                        //if (!tts.isSpeaking()) {
+                            // Speak the text
+                            tts.setOnUtteranceProgressListener(listener);
 
-                        HashMap<String, String> params = new HashMap<String, String>();
-                        params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "messageID");
-                        tts.speak(text, TextToSpeech.QUEUE_ADD, params);
+                            HashMap<String, String> params = new HashMap<String, String>();
+                            params.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "messageID");
+                            tts.speak(text, TextToSpeech.QUEUE_ADD, params);
+                        //}
                     }
                 } else {
                     Toast.makeText(context, "TextToSpeech initialization failed", Toast.LENGTH_SHORT).show();
@@ -102,11 +104,18 @@ public class AudioManager {
         });
     }
 
-    public void isSpeakingFlag() {
+    public void setIsSpeakingFlag() {
         isSpeaking = true;
     }
     public void resetSpeakingFlag() {
         isSpeaking = false;
+    }
+
+    // Method that stops any ongoing TTS playback
+    public void stopSpeaking() {
+        if (tts != null && tts.isSpeaking()) {
+            tts.stop();
+        }
     }
 }
 

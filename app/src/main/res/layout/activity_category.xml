@@ -190,10 +190,27 @@
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Formality" />
 
                         <TextView
+                            android:id="@+id/textView_Details_SummaryNotes"
+                            style="@style/details_container_style_example"
+                            android:layout_marginTop="25dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_IsPlural" />
+
+                        <View
+                            android:id="@+id/divider_Details"
+                            android:layout_width="360dp"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="15dp"
+                            android:background="?android:attr/listDivider"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_SummaryNotes" />
+
+                        <TextView
                             android:id="@+id/textView_Details_Notes"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
                             android:singleLine="false"
@@ -204,18 +221,19 @@
                             android:scrollbars="vertical"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_IsPlural" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Label_Notes" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang1EntryExample"
                             style="@style/details_container_style_example"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_Notes" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Label_Lang1Example" />
 
                         <TextView
                             android:id="@+id/textView_Details_Lang2EntryExample"
                             style="@style/details_container_style_example"
+                            android:layout_marginTop="10dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1EntryExample" />
@@ -277,18 +295,28 @@
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_PercentLearned" />
 
                         <TextView
+                            android:id="@+id/textView_Label_SummaryNotes"
+                            style="@style/detail_container_style_label"
+                            android:text="Summary Note"
+                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_SummaryNotes"
+                            app:layout_constraintStart_toStartOf="@+id/textView_Details_SummaryNotes" />
+
+                        <TextView
                             android:id="@+id/textView_Label_Notes"
                             style="@style/detail_container_style_label"
-                            android:text="Notes"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Notes"
+                            android:layout_marginTop="25dp"
+                            android:text="Notes:"
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_SummaryNotes"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Notes" />
 
                         <TextView
                             android:id="@+id/textView_Label_Lang1Example"
                             style="@style/detail_container_style_label"
-                            android:text="Example"
-                            app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang1EntryExample"
+                            android:layout_marginTop="25dp"
+                            android:text="Example:"
+                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_Notes"
                             app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang1EntryExample" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
 

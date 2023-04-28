@@ -1,9 +1,12 @@
 package edu.cvtc.doberlander.ulearnit;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +25,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class EntryModifierActivity extends AppCompatActivity implements View.OnClickListener {
@@ -152,6 +158,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 EditText secondLangEntry = findViewById(R.id.editText_SecondLangEntry);
                 EditText secondLangEntryRomanization = findViewById(R.id.editText_SecondLangEntryRomanization);
                 EditText secondLangEntryExample = findViewById(R.id.editText_SecondLangEntryExample);
+                EditText summaryNotes = findViewById(R.id.editText_SummaryNotes);
                 EditText notes = findViewById(R.id.editText_Notes);
                 CheckBox isPlural = findViewById(R.id.checkBox_IsPlural);
                 CheckBox onQuickList = findViewById(R.id.checkBox_IsOnQuickList);
@@ -190,12 +197,13 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 gender.setText(mSelectedEntry.getGender(), false);
                 tense.setText(mSelectedEntry.getTense(),false);
                 formality.setText(mSelectedEntry.getFormality(), false);
+                summaryNotes.setText(mSelectedEntry.getSummaryNotes());
                 notes.setText(mSelectedEntry.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
                 isPlural.setChecked(mSelectedEntry.getIsPlural());
                 onQuickList.setChecked(mSelectedEntry.getOnQuickList());
                 isArchived.setChecked(mSelectedEntry.getArchived());
                 percentageLearned.setText(Integer.toString(mSelectedEntry.getPercentLearned()));
-                dateLastModified.setText(mSelectedEntry.getModifiedDate().toString());
+                dateLastModified.setText(mSelectedEntry.getModifiedDate());
                 dateLastModifiedLabel.setVisibility(View.VISIBLE);
                 dateLastModified.setVisibility(View.VISIBLE);
 
@@ -254,12 +262,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         AutoCompleteTextView gender = findViewById(R.id.genderDropdown);
         AutoCompleteTextView tense = findViewById(R.id.tenseDropdown);
         AutoCompleteTextView formality = findViewById(R.id.formalityDropdown);
+        EditText summaryNotes = findViewById(R.id.editText_SummaryNotes);
         EditText notes = findViewById(R.id.editText_Notes);
         CheckBox isPlural = findViewById(R.id.checkBox_IsPlural);
         CheckBox onQuickList = findViewById(R.id.checkBox_IsOnQuickList);
         CheckBox isArchived = findViewById(R.id.checkBox_IsArchived);
         TextView percentageLearned = findViewById(R.id.textView_PercentLearned);
         TextView dateLastModified = findViewById(R.id.textView_DateModified);
+        Log.d(TAG, "entry1 get modifiedDate: " + mSelectedEntry.getModifiedDate());
 
         // Update the selected entry with the new values
         mSelectedEntry.setCategory(categoryAutoComplete.getText().toString());
@@ -275,12 +285,17 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         mSelectedEntry.setGender(gender.getText().toString());
         mSelectedEntry.setTense(tense.getText().toString());
         mSelectedEntry.setFormality(formality.getText().toString());
+        mSelectedEntry.setSummaryNotes(summaryNotes.getText().toString());
         mSelectedEntry.setNotes(notes.getText().toString().replace(Objects.requireNonNull(System.getProperty("line.separator")), "\\n"));
         mSelectedEntry.setIsPlural(isPlural.isChecked());
         mSelectedEntry.setOnQuickList(onQuickList.isChecked());
         mSelectedEntry.setArchived(isArchived.isChecked());
         mSelectedEntry.setPercentLearned(Integer.parseInt(percentageLearned.getText().toString()));
-        mSelectedEntry.setModifiedDate(dateLastModified.getText().toString());
+        // Set current date for the entry being modified.
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm a", Locale.getDefault());
+        // Always set a new date and time to become the modified date/time stamp
+        String newDate = sdf.format(new Date());
+        mSelectedEntry.setModifiedDate(newDate);
 
         // Return the updated/new selectedItem
         return mSelectedEntry;

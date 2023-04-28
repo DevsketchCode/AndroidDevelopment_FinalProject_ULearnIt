@@ -57,6 +57,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private int mPosition;
     private int mPreviousPosition = -1;
     private int clickedViewId;
+    private boolean isAudioPlaying = false;
     public static boolean mItemClicked = false;
 
     // Constructor initializes the translation list from the data
@@ -266,24 +267,39 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
             holder.itemView.setBackgroundColor(Color.parseColor("#F1D1F6"));
-            // CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
-            // entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
+
+            // Below doesn't work as it still highlights multiple entries.
+            // Might be caused from the findViewById selecting the wrong ones.
+
+            //if(clickedViewId == R.id.translationEntryCardLayout) {
+            //    CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
+            //    entryCard.setCardBackgroundColor(Color.parseColor("#F1D1F6"));
+            //} else {
+            //    CardView entryCard = holder.itemView.findViewById(R.id.translationEntryCardLayout);
+            //    entryCard.setCardBackgroundColor(Color.WHITE);
+            //}
 
             if(clickedViewId == R.id.translationEntryCardTTS) {
                 // Play TextToSpeech Audio
                 // Create an instance of the AudioManager class
                 AudioManager audioManager = new AudioManager();
 
+                // Declare a variable to keep track of whether the audio is playing or not
+                isAudioPlaying = false;
+
                 String firstLanguage = mCurrentEntry.getFirstLanguage().toString();
                 String firstLanguageEntry = mCurrentEntry.getFirstLanguageEntry().toString();
                 String secondLanguage = mCurrentEntry.getSecondLanguage().toString();
                 String secondLanguageEntry = mCurrentEntry.getSecondLanguageEntry().toString();
 
+
                 // Prepare the second language to play
                 UtteranceProgressListener secondLanguageListener = new UtteranceProgressListener() {
                     @Override
                     public void onStart(String utteranceId) {
-                        audioManager.isSpeakingFlag();
+                            audioManager.setIsSpeakingFlag();
+                            // Set the variable to true when the audio starts playing
+                            isAudioPlaying = true;
                     }
 
                     @Override
@@ -291,12 +307,18 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                         Log.d(TAG, "TranslationAdapter: TTS is done: SecondLanguage");
                         // Speech synthesis has completed
                         audioManager.resetSpeakingFlag();
+                        // Set the variable to false when the audio stops playing
+                        // Do not stop it here because it has to play the second language first.
+                        // Change this if the order is changed.
+                        // isAudioPlaying = false;
                     }
                     @Override
                     public void onError(String utteranceId) {
                         Log.d(TAG, "TranslationAdapter: TTS had an error: SecondLanguage");
                         // There was an error in speech synthesis
                         audioManager.resetSpeakingFlag();
+                        // Set the variable to false when the audio stops playing
+                        isAudioPlaying = false;
                     }
                 };
 
@@ -304,7 +326,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 UtteranceProgressListener firstLanguageListener = new UtteranceProgressListener() {
                     @Override
                     public void onStart(String utteranceId) {
-                        audioManager.isSpeakingFlag();
+                            audioManager.setIsSpeakingFlag();
+                            // Set the variable to true when the audio starts playing
+                            isAudioPlaying = true;
                     }
 
                     @Override
@@ -314,11 +338,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                             Log.d(TAG, "TranslationAdapter: TTS is done: FirstLanguage");
                             // Get the first string to play in the first language
                             audioManager.textToSpeech(holder.itemView.getContext(), secondLanguage, secondLanguageEntry, secondLanguageListener);
+                            // Change this if the order is changed.
+                             isAudioPlaying = false;
                         }
                     }
                     @Override
                     public void onError(String utteranceId) {
                         Log.d(TAG, "TranslationAdapter: TTS had an error: FirstLanguage");
+                        // Set the variable to false when the audio stops playing
+                        isAudioPlaying = false;
                     }
                 };
 
@@ -377,6 +405,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         TextView tmpFormality = entryDetailsContainer.findViewById(R.id.textView_Details_Formality);
         TextView tmpIsPlural = entryDetailsContainer.findViewById(R.id.textView_Details_IsPlural);
         TextView tmpPercentLearned = entryDetailsContainer.findViewById(R.id.textView_Details_PercentLearned);
+        TextView tmpSummaryNotes = entryDetailsContainer.findViewById(R.id.textView_Details_SummaryNotes);
         TextView tmpNotes = entryDetailsContainer.findViewById(R.id.textView_Details_Notes);
         TextView tmpLang1Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang1EntryExample);
         TextView tmpLang2Example = entryDetailsContainer.findViewById(R.id.textView_Details_Lang2EntryExample);
@@ -439,6 +468,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         tmpPercentLearnedString = tm.getPercentLearned() + "%";
         tmpPercentLearned.setText(tmpPercentLearnedString);
 
+        tmpSummaryNotes.setText(tm.getSummaryNotes());
         tmpNotes.setText(tm.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
         tmpLang1Example.setText(tm.getFirstLanguageExample());
         tmpLang2Example.setText(tm.getSecondLanguageExample());

@@ -139,6 +139,7 @@
     <string name="edit_hide_romanize">- Romanize</string>
     <string name="edit_show_example">+ Example</string>
     <string name="edit_hide_example">- Example</string>
+    <string name="entry_summary_note_edit_hint">Enter a brief summary note</string>
     <string-array name="languages">
         <item>Chinese_Simplified</item>
         <item>English</item>
