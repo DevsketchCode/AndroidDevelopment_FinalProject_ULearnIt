@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- Background tint: CCA7D2F6 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_category"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_purple"
-    android:backgroundTint="#CCA7D2F6"
-    android:backgroundTintMode="src_over"
+    android:background="?attr/colorPrimaryVariant"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".CategoryActivity">
 
@@ -51,13 +51,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
+        android:paddingBottom="8dp"
         android:isScrollContainer="true"
         android:overScrollMode="ifContentScrolls"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarSize="6dp"
         android:scrollbarStyle="insideOverlay"
-        android:scrollbarThumbVertical="@color/purple_500"
+        android:scrollbarThumbVertical="?attr/colorPrimary"
         android:scrollbars="vertical"
         android:verticalScrollbarPosition="defaultPosition"
         app:layout_constrainedHeight="true"
@@ -72,16 +72,17 @@
         android:id="@+id/cardDetailsPopupContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC533A66"
+        android:background="?attr/colorPrimary"
         android:elevation="20dp"
-        android:visibility="invisible">
+        android:visibility="visible">
 
+        <!-- Background Colors: CC533A66 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:elevation="0dp"
-            app:cardBackgroundColor="#EDFFFFFF"
+            app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="10dp"
             app:layout_constraintTop_toTopOf="@+id/cardDetailsPopupContainer"
             app:layout_constraintBottom_toBottomOf="@+id/cardDetailsPopupContainer">
@@ -201,7 +202,7 @@
                             android:id="@+id/divider_Details"
                             android:layout_width="360dp"
                             android:layout_height="1dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="55dp"
                             android:background="?android:attr/listDivider"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -211,6 +212,7 @@
                             android:id="@+id/textView_Details_Notes"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
                             android:singleLine="false"
@@ -306,8 +308,8 @@
                             style="@style/detail_container_style_label"
                             android:layout_marginTop="25dp"
                             android:text="Notes:"
-                            app:layout_constraintTop_toBottomOf="@+id/textView_Details_SummaryNotes"
-                            app:layout_constraintStart_toStartOf="@+id/textView_Details_Notes" />
+                            app:layout_constraintTop_toBottomOf="@id/divider_Details"
+                            app:layout_constraintStart_toStartOf="@id/textView_Details_Notes" />
 
                         <TextView
                             android:id="@+id/textView_Label_Lang1Example"
@@ -323,7 +325,6 @@
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- TODO: Want to add a popup window with the details when the details button is clicked. It should also have an X to close the window when finished. -->
 
 
     <!-- For this to show the Gradle:Module:app needs the Material Implementation 1.6.1+ version -->

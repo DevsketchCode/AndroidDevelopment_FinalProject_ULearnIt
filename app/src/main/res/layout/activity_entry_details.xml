@@ -4,6 +4,249 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant"
     tools:context=".EntryDetailsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="200dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView_Details_Lang1"
+                style="@style/details_container_style_lang"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang1Entry"
+                style="@style/details_container_style_entry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang1EntryRomanized"
+                style="@style/details_container_style_romanized"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1Entry" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang2"
+                style="@style/details_container_style_lang"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1EntryRomanized" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang2Entry"
+                style="@style/details_container_style_entry"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang2EntryRomanized"
+                style="@style/details_container_style_romanized"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2Entry" />
+
+            <TextView
+                android:id="@+id/textView_Details_EntryType"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toStartOf="@+id/textView_Details_Gender"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang2EntryRomanized"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2EntryRomanized" />
+
+            <TextView
+                android:id="@+id/textView_Details_Gender"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toEndOf="@+id/textView_Details_Lang2EntryRomanized"
+                app:layout_constraintStart_toEndOf="@+id/textView_Details_EntryType"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang2EntryRomanized" />
+
+            <TextView
+                android:id="@+id/textView_Details_Tense"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toStartOf="@+id/textView_Details_Formality"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_EntryType"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_EntryType" />
+
+            <TextView
+                android:id="@+id/textView_Details_Formality"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toEndOf="@+id/textView_Details_Gender"
+                app:layout_constraintStart_toEndOf="@+id/textView_Details_Tense"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Gender" />
+
+            <TextView
+                android:id="@+id/textView_Details_IsPlural"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toStartOf="@+id/textView_Details_PercentLearned"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Tense"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Tense" />
+
+            <TextView
+                android:id="@+id/textView_Details_PercentLearned"
+                style="@style/details_container_style_general_text"
+                app:layout_constraintEnd_toEndOf="@+id/textView_Details_Formality"
+                app:layout_constraintStart_toEndOf="@+id/textView_Details_IsPlural"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Formality" />
+
+            <TextView
+                android:id="@+id/textView_Details_SummaryNotes"
+                style="@style/details_container_style_example"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_IsPlural" />
+
+            <View
+                android:id="@+id/divider_Details"
+                android:layout_width="360dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="55dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_SummaryNotes" />
+
+            <TextView
+                android:id="@+id/textView_Details_Notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/colorOnPrimary"
+                android:ellipsize="none"
+                android:maxLines="999"
+                android:minHeight="25dp"
+                android:scrollbars="vertical"
+                android:singleLine="false"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Label_Notes" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang1EntryExample"
+                style="@style/details_container_style_example"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Label_Lang1Example" />
+
+            <TextView
+                android:id="@+id/textView_Details_Lang2EntryExample"
+                style="@style/details_container_style_example"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Lang1EntryExample" />
+
+            <TextView
+                android:id="@+id/textView_Label_1stLangRomanized"
+                style="@style/detail_container_style_label"
+                android:text="Romanized"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang1EntryRomanized"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang1EntryRomanized" />
+
+            <TextView
+                android:id="@+id/textView_Label_2ndLangRomanized"
+                style="@style/detail_container_style_label"
+                android:text="Romanized"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Lang2EntryRomanized"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang2EntryRomanized" />
+
+            <TextView
+                android:id="@+id/textView_Label_EntryType"
+                style="@style/detail_container_style_label"
+                android:text="Entry Type"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_EntryType"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_EntryType" />
+
+            <TextView
+                android:id="@+id/textView_Label_Gender"
+                style="@style/detail_container_style_label"
+                android:text="Gender"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Gender"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Gender" />
+
+            <TextView
+                android:id="@+id/textView_Label_Tense"
+                style="@style/detail_container_style_label"
+                android:text="Tense"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Tense"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Tense" />
+
+            <TextView
+                android:id="@+id/textView_Label_Formality"
+                style="@style/detail_container_style_label"
+                android:text="Formality"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_Formality"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Formality" />
+
+            <TextView
+                android:id="@+id/textView_Label_IsPlural"
+                style="@style/detail_container_style_label"
+                android:text="Singular/Plural?"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_IsPlural"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_IsPlural" />
+
+            <TextView
+                android:id="@+id/textView_Label_PercentLearned"
+                style="@style/detail_container_style_label"
+                android:text="Percent Learned"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_PercentLearned"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_PercentLearned" />
+
+            <TextView
+                android:id="@+id/textView_Label_SummaryNotes"
+                style="@style/detail_container_style_label"
+                android:text="Summary Note"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_Details_SummaryNotes"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_SummaryNotes" />
+
+            <TextView
+                android:id="@+id/textView_Label_Notes"
+                style="@style/detail_container_style_label"
+                android:layout_marginTop="25dp"
+                android:text="Notes:"
+                app:layout_constraintStart_toStartOf="@id/textView_Details_Notes"
+                app:layout_constraintTop_toBottomOf="@id/divider_Details" />
+
+            <TextView
+                android:id="@+id/textView_Label_Lang1Example"
+                style="@style/detail_container_style_label"
+                android:layout_marginTop="25dp"
+                android:text="Example:"
+                app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang1EntryExample"
+                app:layout_constraintTop_toBottomOf="@+id/textView_Details_Notes" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- For this to show the Gradle:Module:app needs the Material Implementation 1.6.1+ version -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

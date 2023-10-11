@@ -9,9 +9,7 @@
         android:id="@+id/editConstrainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_purple"
-        android:backgroundTint="#CCA7D2F6"
-        android:backgroundTintMode="src_over"
+        android:background="?attr/colorPrimaryVariant"
         android:paddingBottom="20dp"
         app:layout_scrollEffect="compress"
         tools:context=".EntryModifierActivity">
@@ -363,7 +361,7 @@
             android:textSize="14sp"
             android:hint="@string/entry_summary_note_edit_hint"
             android:importantForAutofill="no"
-            android:maxLength="100"
+            android:maxLength="125"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -373,6 +371,7 @@
         <EditText
             android:id="@+id/editText_Notes"
             style="@style/style_entry_modifier_edittext"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
@@ -380,13 +379,16 @@
             android:hint="@string/notes_edittext"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
-            android:lines="4"
-            android:maxLength="400"
+            android:minLines="5"
+            android:maxLines="25"
+            android:maxLength="800"
             android:singleLine="false"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            tools:ignore="TextContrastCheck"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editText_SummaryNotes"
-            tools:ignore="TextContrastCheck" />
+            app:layout_constraintTop_toBottomOf="@id/editText_SummaryNotes"/>
 
         <LinearLayout
             android:id="@+id/entry_checkbox_LinearLayout"
@@ -395,9 +397,9 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/editText_Notes"
-            app:layout_constraintEnd_toEndOf="@+id/editText_Notes"
-            app:layout_constraintTop_toBottomOf="@+id/editText_Notes">
+            app:layout_constraintStart_toStartOf="@id/editText_Notes"
+            app:layout_constraintEnd_toEndOf="@id/editText_Notes"
+            app:layout_constraintTop_toBottomOf="@id/editText_Notes">
             <CheckBox
                 android:id="@+id/checkBox_IsPlural"
                 android:layout_width="wrap_content"

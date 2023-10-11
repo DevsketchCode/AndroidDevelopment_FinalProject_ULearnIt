@@ -107,6 +107,7 @@
     <string name="translation_item_favorites_toggle_content_desc">Favorites toggle heart</string>
     <string name="quiz_completed_message">Quiz Completed</string>
     <string name="action_translate">Google Translate</string>
+    <string name="action_ai">ChatGPT</string>
     <string name="resultMessage_Great">Great Job!</string>
     <string name="resultMessage_Good">Good Job</string>
     <string name="resultMessage_Okay">Keep practicing</string>
@@ -182,7 +183,9 @@
         <item>Abbreviation</item>
         <item>Adjective</item>
         <item>Adverb</item>
+        <item>Conjunction</item>
         <item>Determiner</item>
+        <item>Honorific</item>
         <item>Particle</item>
         <item>Phrase</item>
         <item>Postposition</item>

@@ -178,12 +178,13 @@ public class DataManager {
         // Create an order by field for sorting
         String entryOrderBy = TranslationEntry.COLUMN_FIRST_LANGUAGE_ENTRY;
         // Where statement
-        if(preferences.getCategory().equals("Favorites")) {
-            entryWhere = "favorite = ?";
-            entryWhereArgs = new String[]{String.valueOf(1)};
-        } else {
+        //if(preferences.getCategory().equals("Favorites")) {
+        //    entryWhere = "favorite = ?";
+        //    entryWhereArgs = new String[]{String.valueOf(1)};
+        //} else {
             // Check Saved Preferences
             String prefWhereColumns = "";
+
             if (!preferences.getFirstLanguage().equals("")) {
                 prefWhereColumns = "first_language = ? AND ";
             } else {
@@ -198,14 +199,27 @@ public class DataManager {
                 prefWhereColumns = prefWhereColumns + "second_language != ? AND ";
             }
 
-            //TODO: This is where you could also get a SharedPref to show/hide Deleted or Archived Rows
-            entryWhere = prefWhereColumns +  "category = ?";
-            entryWhereArgs = new String[]{preferences.getFirstLanguage(), preferences.getSecondLanguage(), preferences.getCategory()};
-        }
+            if(preferences.getCategory().equals("Favorites")) {
+                prefWhereColumns = prefWhereColumns + "favorite = ?";
+            } else {
+                //TODO: This is where you could also get a SharedPref to show/hide Deleted or Archived Rows
+                prefWhereColumns = prefWhereColumns +  "category = ?";
+            }
+
+            entryWhere = prefWhereColumns;
+            if(preferences.getCategory().equals("Favorites")) {
+            entryWhereArgs = new String[]{preferences.getFirstLanguage(), preferences.getSecondLanguage(), "1"};
+            } else {
+                entryWhereArgs = new String[]{preferences.getFirstLanguage(), preferences.getSecondLanguage(), preferences.getCategory()};
+            }
+        //}
 
         // Populate the cursor with results from the query
         final Cursor entryCursor = db.query(TranslationEntry.TABLE_NAME, translationEntryColumns,
                 entryWhere, entryWhereArgs, null, null, entryOrderBy);
+
+
+
 
         // Call the method to load the array list
         loadTranslationsFromDatabase(entryCursor);

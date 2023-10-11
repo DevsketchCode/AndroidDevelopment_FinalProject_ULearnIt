@@ -2,6 +2,7 @@ package edu.cvtc.doberlander.ulearnit;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView = null;
     public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+    public static final int LAUNCH_ENTRY_MODIFIER_ACTIVITY = 1;
     private DbHelper mDbHelper;
 
     // Initialize default category
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.home);
+        // Show the text below each icon
+        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,8 +67,12 @@ public class MainActivity extends AppCompatActivity {
                         //startActivity(categoryIntent);
                         //overridePendingTransition(0,0);
                         return false;
+                    case R.id.flashcards_menuItem:
+                        displayToast("Review is unavailable at this time.");
+                        return false;
                     case R.id.quiz_menuItem:
-                        return true;
+                        displayToast("Quiz is unavailable at this time.");
+                        return false;
                     case R.id.profile_menuItem:
                         Intent profileIntent = new Intent(getApplicationContext(), ProfileActivity.class);
                         startActivity(profileIntent);
@@ -78,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
         if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
-            categoriesHeader.setText(prefs.getString("FirstLanguage", "") + " -> " +
+            categoriesHeader.setText(prefs.getString("FirstLanguage", "") + " to " +
                     prefs.getString("SecondLanguage", "") + "\nChoose Your Category");
         }
 
@@ -118,7 +128,23 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        Intent modifierIntent = new Intent(this, EntryModifierActivity.class);
+        Bundle modifierBundle = new Bundle();
+        String modifyType;
+
         switch (item.getItemId()) {
+            case R.id.action_newEntry:
+                // Bundle up the data
+                modifyType = getString(R.string.action_new);
+                modifierBundle.putString("category", "");
+                modifierBundle.putString("message", getString(R.string.new_entry_modifier_message));
+                modifierBundle.putString("modifyType", modifyType);
+                // Put the bundle in an intent
+                modifierIntent.putExtras(modifierBundle);
+                // Start the activity and pass the bundled intent, expecting success result
+                startActivityForResult(modifierIntent,LAUNCH_ENTRY_MODIFIER_ACTIVITY);
+                return true;
             case R.id.action_favorites:
                 // Run the CategoryActivity, passing the Favorites Category
                 Intent favoritesIntent = new Intent(this, CategoryActivity.class);
@@ -130,6 +156,11 @@ public class MainActivity extends AppCompatActivity {
                 // Run the AboutActivity
                 Intent translateIntent = new Intent(this, WebTranslateActivity.class);
                 startActivity(translateIntent);
+                return true;
+            case R.id.action_ai:
+                // Run the AI Web Activity
+                Intent aiIntent = new Intent(this, WebAIActivity.class);
+                startActivity(aiIntent);
                 return true;
             case R.id.action_help:
                 // Run the AboutActivity
@@ -476,6 +507,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CategoryActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // If came from the EntryModifierActivity then update the page
+        if (requestCode == LAUNCH_ENTRY_MODIFIER_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK) {
+                // Update data from the database and update the recycler
+                initializeDisplayContent();
+                // Display toast of successful entry
+                displayToast(data.getStringExtra("Result"));
+            }
+        }
     }
 
     public void displayToast(String message) {

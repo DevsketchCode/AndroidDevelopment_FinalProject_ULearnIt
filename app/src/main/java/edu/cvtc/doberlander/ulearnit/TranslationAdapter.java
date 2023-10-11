@@ -20,6 +20,7 @@ import android.text.Layout;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,8 +34,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,8 +61,10 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private int mPosition;
     private int mPreviousPosition = -1;
     private int clickedViewId;
+    private int accentColor;
     private boolean isAudioPlaying = false;
     public static boolean mItemClicked = false;
+    public ActionBar categoryActionBar = null;
 
     // Constructor initializes the translation list from the data
     public TranslationAdapter(Context context, List<TranslationModel> translationList, RecyclerViewInterface recyclerViewInterface) {
@@ -74,26 +80,71 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public class TranslationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView firstLangTranslationItemView;
         public final TextView secondLangTranslationItemView;
-        public final TextView entryTypeView;
-        public final TextView tenseView;
-        public final TextView notesView;
         public final ImageView favoriteImageView;
         public final CardView moreDetailsView;
         public final CardView audioTTSView;
         public final ImageView moreDetailsImageView;
         private final TranslationAdapter mAdapter;
 
+        // Summary Details Text Views
+        public final TextView entryCard_SummaryNotes_TextView;
+        public final TextView entryCard_Type_TextView;
+        public final TextView entryCard_Gender_TextView;
+        public final TextView entryCard_Tense_TextView;
+        public final TextView entryCard_Formality_TextView;
+        public final TextView entryCard_Plural_TextView;
+        public final TextView entryCard_PercentLearned_TextView;
+
+        // Summary Details Card Views
+        public final CardView entryCardSummaryNotes_CardView;
+        public final CardView entryCard_Type_CardView;
+        public final CardView entryCard_Gender_CardView;
+        public final CardView entryCard_Tense_CardView;
+        public final CardView entryCard_Formality_CardView;
+        public final CardView entryCard_Plural_CardView;
+        public final CardView entryCard_PercentLearned_CardView;
+        public final ConstraintLayout base_entryCardViewConstraintLayout;
+
+
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
             super(itemView);
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
-            entryTypeView = itemView.findViewById(R.id.langTranslationEntryType);
-            tenseView = itemView.findViewById(R.id.langTranslationTense);
-            notesView = itemView.findViewById(R.id.langTranslationNotes);
+
+            // Entry constraint layout
+            base_entryCardViewConstraintLayout = itemView.findViewById(R.id.base_entryCardView);
+
+            // Summary Details Text Views
+            entryCard_SummaryNotes_TextView = itemView.findViewById(R.id.translationEntryCardSummaryNotes_text);
+            entryCard_Type_TextView = itemView.findViewById(R.id.translationEntryCard_Type_text);
+            entryCard_Gender_TextView = itemView.findViewById(R.id.translationEntryCard_Gender_text);
+            entryCard_Tense_TextView = itemView.findViewById(R.id.translationEntryCard_Tense_text);
+            entryCard_Formality_TextView = itemView.findViewById(R.id.translationEntryCard_Formality_text);
+            entryCard_Plural_TextView = itemView.findViewById(R.id.translationEntryCard_Plural_text);
+            entryCard_PercentLearned_TextView = itemView.findViewById(R.id.translationEntryCard_PercentLearned_text);
+
+            // Summary Details CardViews
+            entryCardSummaryNotes_CardView = itemView.findViewById(R.id.translationEntryCardSummaryNotes);
+            entryCard_Type_CardView = itemView.findViewById(R.id.translationEntryCard_Type);
+            entryCard_Gender_CardView = itemView.findViewById(R.id.translationEntryCard_Gender);
+            entryCard_Tense_CardView = itemView.findViewById(R.id.translationEntryCard_Tense);
+            entryCard_Formality_CardView = itemView.findViewById(R.id.translationEntryCard_Formality);
+            entryCard_Plural_CardView = itemView.findViewById(R.id.translationEntryCard_Plural);
+            entryCard_PercentLearned_CardView = itemView.findViewById(R.id.translationEntryCard_PercentLearned);
+
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
             audioTTSView = itemView.findViewById(R.id.translationEntryCardTTS);
             moreDetailsImageView = itemView.findViewById(R.id.more_imageView);
+
+            // Used to hide/show back button
+            categoryActionBar = ((AppCompatActivity) mainCategoryActivity.getContext()).getSupportActionBar();
+
+            // Retrieve the color from the current theme
+            TypedValue typedValueAccentColor = new TypedValue();
+            itemView.getContext().getTheme().resolveAttribute(R.attr.colorAccent, typedValueAccentColor, true);
+            accentColor = typedValueAccentColor.data;
+
             this.mAdapter = adapter;
             adapterContext = itemView.getContext();
 
@@ -226,9 +277,25 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Display the translation information
         holder.firstLangTranslationItemView.setText(mCurrentEntry.getFirstLanguageEntry());
         holder.secondLangTranslationItemView.setText(mCurrentEntry.getSecondLanguageEntry());
-        holder.entryTypeView.setText(mCurrentEntry.getEntryType());
-        holder.tenseView.setText(mCurrentEntry.getTense());
-        holder.notesView.setText(mCurrentEntry.getNotes().replace("\\n", Objects.requireNonNull(System.getProperty("line.separator"))));
+
+        // Entry Summary
+        holder.entryCard_SummaryNotes_TextView.setText(mCurrentEntry.getSummaryNotes());
+        holder.entryCard_Type_TextView.setText(mCurrentEntry.getEntryType());
+        holder.entryCard_Gender_TextView.setText(mCurrentEntry.getGender());
+        holder.entryCard_Tense_TextView.setText(mCurrentEntry.getTense());
+        holder.entryCard_Formality_TextView.setText(mCurrentEntry.getFormality());
+        holder.entryCard_Plural_TextView.setText(mCurrentEntry.getIsPlural().toString());
+        holder.entryCard_PercentLearned_TextView.setText(String.valueOf(mCurrentEntry.getPercentLearned()));
+
+        // Display if it has content
+        displayContent(holder, holder.entryCardSummaryNotes_CardView, holder.entryCard_SummaryNotes_TextView,"summarynotes");
+        displayContent(holder,holder.entryCard_Type_CardView, holder.entryCard_Type_TextView, "entrytype");
+        displayContent(holder,holder.entryCard_Gender_CardView, holder.entryCard_Gender_TextView, "gender");
+        displayContent(holder,holder.entryCard_Tense_CardView, holder.entryCard_Tense_TextView, "tense");
+        displayContent(holder,holder.entryCard_Formality_CardView, holder.entryCard_Formality_TextView, "formality");
+        displayContent(holder,holder.entryCard_Plural_CardView, holder.entryCard_Plural_TextView, "plural");
+        displayContent(holder,holder.entryCard_PercentLearned_CardView, holder.entryCard_PercentLearned_TextView, "percentlearned");
+
 
         View detailsContainer = holder.itemView.findViewById(R.id.cardDetailsPopupContainer);
         // Check to see if the item clicked is the Favorite Heart imageView
@@ -244,10 +311,18 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         } else if (clickedViewId == R.id.translationEntryCardMore) {
             // Show details container that exists outside of the recyclerview
             entryDetailsContainer.setVisibility(View.VISIBLE);
+            // Hide the back button on the ActionBar
+            if (categoryActionBar != null) {
+                categoryActionBar.setDisplayHomeAsUpEnabled(false);
+            }
 
         } else if (clickedViewId == R.id.btn_closeDetailsPopup) {
             // Hide details container that exists outside of the recyclerview
             entryDetailsContainer.setVisibility(View.INVISIBLE);
+            // Show the back button on the ActionBar
+            if (categoryActionBar != null) {
+                categoryActionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         // Highlight favorite upon recyclerview loading if it is checked in the database
@@ -266,7 +341,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         // Highlight the entry if clicked
         if(mPosition == position && mItemClicked) {
             // Highlight the entry
-            holder.itemView.setBackgroundColor(Color.parseColor("#F1D1F6"));
+            holder.itemView.setBackgroundColor(Color.parseColor("#FF9A4D"));
 
             // Below doesn't work as it still highlights multiple entries.
             // Might be caused from the findViewById selecting the wrong ones.
@@ -480,5 +555,91 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         ClipData clip = ClipData.newPlainText("Copy Entry", txt);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(adapterContext, lang + " Entry Copied", Toast.LENGTH_SHORT).show();
+    }
+
+    private void displayContent(@NonNull TranslationViewHolder holder, CardView cardView, TextView textView, String type) {
+        String textViewText = textView.getText().toString();
+
+        switch (type) {
+            case "tense":
+                if(textViewText.equals("N/A") || textViewText.isEmpty()) {
+                    textViewText = "";
+                } else {
+                    textViewText += " Tense";
+                }
+                textView.setText(textViewText);
+                break;
+
+            case "gender":
+            case "formality":
+                if(textViewText.equals("N/A")) {
+                    textViewText = "";
+                    textView.setText(textViewText);
+                }
+                break;
+
+            case "plural":
+                if (textViewText.equals("true")) {
+                    textViewText = "Plural";
+                } else {
+                    String tmpEntryType = holder.entryCard_Type_TextView.getText().toString();
+                    if (tmpEntryType.equals("Noun") || tmpEntryType.equals("Number (Native)")
+                            || tmpEntryType.equals("Number (Other)") || tmpEntryType.equals("Verb") || tmpEntryType.equals("Pronoun")) {
+                       textViewText = "Singular";
+                    } else {
+                        textViewText = "";
+                    }
+                }
+                textView.setText(textViewText);
+                break;
+
+            case "percentlearned":
+                textViewText += "% Learned";
+                textView.setText(textViewText);
+                break;
+
+            case "summarynotes":
+                // Create a new ConstraintSet object
+                ConstraintSet constraintSet = new ConstraintSet();
+                ConstraintLayout baseLayout = holder.base_entryCardViewConstraintLayout;
+
+                if(cardView.getVisibility() == View.GONE) {
+                    constraintSet.clone(baseLayout);
+
+                    // Set a constraint between mView1 and mView2
+                    constraintSet.connect(
+                            holder.itemView.findViewById(R.id.layout_TranslationEntryContent).getId(),
+                            ConstraintSet.BOTTOM,
+                            cardView.getId(),
+                            ConstraintSet.TOP,
+                            0
+                    );
+
+                    // Apply the new constraints to the ConstraintLayout
+                    constraintSet.applyTo(baseLayout);
+                } else {
+                    constraintSet.clone(baseLayout);
+
+                    // Set a constraint between mView1 and mView2
+                    constraintSet.connect(
+                            holder.itemView.findViewById(R.id.base_entryCardView).getId(),
+                            ConstraintSet.BOTTOM,
+                            cardView.getId(),
+                            ConstraintSet.TOP,
+                            0
+                    );
+
+                    // Apply the new constraints to the ConstraintLayout
+                    constraintSet.applyTo(baseLayout);
+                }
+                break;
+        }
+
+
+        if (!textViewText.isEmpty()) {
+            cardView.setVisibility(View.VISIBLE);
+        } else {
+            cardView.setVisibility(View.GONE);
+        }
     }
 }

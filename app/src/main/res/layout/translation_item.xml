@@ -42,16 +42,15 @@
                 android:orientation="horizontal"
                 android:padding="0dp"
                 android:weightSum="5"
-                app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/base_entryCardDetailsView">
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/flexboxLayout_translationItem"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="3.5"
                     app:alignItems="center"
                     app:flexWrap="wrap">
 
@@ -60,8 +59,8 @@
                         style="@style/translation_list_cards"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:minWidth="100dp"
                         android:backgroundTint="@android:color/transparent"
+                        android:minWidth="100dp"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"
                         app:cardMaxElevation="0dp"
@@ -69,7 +68,7 @@
 
                         <TextView
                             android:id="@+id/firstLangTranslation"
-                            style="@style/translation_entry_firstLang"/>
+                            style="@style/translation_entry_firstLang" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -96,7 +95,7 @@
                     android:id="@+id/layout_TranslationEntry"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:elevation="10dp"
                     android:focusable="auto"
                     android:orientation="horizontal"
@@ -106,7 +105,7 @@
                         android:id="@+id/translationEntryCardTTS"
                         style="@style/translation_list_cards"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5"
+                        android:layout_weight=".33"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"
                         app:cardMaxElevation="0dp"
@@ -130,7 +129,7 @@
                         android:id="@+id/translationEntryCardMore"
                         style="@style/translation_list_cards"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5"
+                        android:layout_weight=".33"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"
                         app:cardMaxElevation="0dp"
@@ -155,7 +154,7 @@
                         android:id="@+id/translationEntryFavorite"
                         style="@style/translation_list_cards"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5"
+                        android:layout_weight=".33"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"
                         app:cardMaxElevation="0dp"
@@ -175,84 +174,105 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/base_entryCardDetailsView"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/translationEntryCardSummaryNotes"
+                style="@style/translation_list_cards"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@android:color/transparent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="5dp"
+                android:visibility="gone"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                app:cardMaxElevation="0dp"
+                app:layout_constraintStart_toStartOf="@id/base_entryCardView"
+                app:layout_constraintEnd_toEndOf="@id/base_entryCardView"
+                app:layout_constraintTop_toBottomOf="@id/layout_TranslationEntryContent"
+                app:layout_constraintBottom_toTopOf="@id/translationEntrySummaryDetails_Layout">
+
+                <TextView
+                    android:id="@+id/translationEntryCardSummaryNotes_text"
+                    style="@style/translation_entry_summaryNotes" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/translationEntrySummaryDetails_Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_TranslationEntryContent">
+                android:layout_marginStart="19dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="horizontal"
+                android:background="@drawable/border_top"
+                app:layout_constraintBottom_toBottomOf="@id/base_entryCardView"
+                app:layout_constraintEnd_toEndOf="@id/base_entryCardView"
+                app:layout_constraintStart_toStartOf="@id/base_entryCardView">
 
-                <LinearLayout
-                    android:id="@+id/layout_TranslationEntryDetails"
-                    android:layout_width="378dp"
-                    android:layout_height="108dp"
-                    android:background="@drawable/rounded_corners_transparentbg"
-                    android:backgroundTint="@color/darker_shaded_grey"
-                    android:focusable="auto"
-                    android:orientation="vertical"
-                    android:paddingStart="6dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="6dp"
-                    android:paddingBottom="6dp"
-                    android:weightSum="5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/flexboxLayout_translationItemSummaryDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.9"
+                    app:alignItems="center"
+                    app:flexWrap="wrap">
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/translationEntryCardDetails"
-                        style="@style/translation_list_cards"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
-                        app:cardMaxElevation="8dp"
-                        app:contentPadding="4dp">
+                        android:id="@+id/translationEntryCard_Type"
+                        style="@style/translation_entry_summarizedDetails_Cards"
+                        android:layout_marginStart="5dp">
 
                         <TextView
-                            android:id="@+id/langTranslationEntryType"
-                            style="@style/translation_entry_firstLang" />
+                            android:id="@+id/translationEntryCard_Type_text"
+                            style="@style/translation_entry_summarizedDetails" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/translationTenseCardDetails"
-                        style="@style/translation_list_cards"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
-                        app:cardMaxElevation="8dp"
-                        app:contentPadding="4dp">
+                        android:id="@+id/translationEntryCard_Gender"
+                        style="@style/translation_entry_summarizedDetails_Cards">
 
                         <TextView
-                            android:id="@+id/langTranslationTense"
-                            style="@style/translation_entry_firstLang" />
+                            android:id="@+id/translationEntryCard_Gender_text"
+                            style="@style/translation_entry_summarizedDetails" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/translationNotesCardDetails"
-                        style="@style/translation_list_cards"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="4dp"
-                        app:cardMaxElevation="8dp"
-                        app:contentPadding="4dp">
+                        android:id="@+id/translationEntryCard_Tense"
+                        style="@style/translation_entry_summarizedDetails_Cards">
 
                         <TextView
-                            android:id="@+id/langTranslationNotes"
-                            style="@style/translation_entry_secondLang"
-                            android:singleLine="false" />
+                            android:id="@+id/translationEntryCard_Tense_text"
+                            style="@style/translation_entry_summarizedDetails" />
                     </androidx.cardview.widget.CardView>
 
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_Formality"
+                        style="@style/translation_entry_summarizedDetails_Cards">
+
+                        <TextView
+                            android:id="@+id/translationEntryCard_Formality_text"
+                            style="@style/translation_entry_summarizedDetails" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_Plural"
+                        style="@style/translation_entry_summarizedDetails_Cards">
+
+                        <TextView
+                            android:id="@+id/translationEntryCard_Plural_text"
+                            style="@style/translation_entry_summarizedDetails" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_PercentLearned"
+                        style="@style/translation_entry_summarizedDetails_Cards"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/translationEntryCard_PercentLearned_text"
+                            style="@style/translation_entry_summarizedDetails" />
+                    </androidx.cardview.widget.CardView>
+                </com.google.android.flexbox.FlexboxLayout>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

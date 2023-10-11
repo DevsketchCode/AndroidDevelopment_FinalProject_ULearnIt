@@ -19,9 +19,7 @@
         android:id="@+id/editConstrainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_purple"
-        android:backgroundTint="#CCA7D2F6"
-        android:backgroundTintMode="src_over"
+        android:background="?attr/colorPrimaryVariant"
         android:paddingBottom="20dp"
         app:layout_scrollEffect="compress">
 

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
         <activity
+            android:name=".FilterActivity"
+            android:exported="false" />
+        <activity
             android:name=".EntryDetailsActivity"
             android:exported="false" />
         <activity
@@ -25,6 +28,9 @@
             android:exported="false" />
         <activity
             android:name=".WebTranslateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WebAIActivity"
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
@@ -75,6 +81,18 @@
             android:name=".CategoryActivity"
             android:exported="true"
             android:label="Category"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".SubCategoryActivity"
+            android:exported="true"
+            android:label="Subcategory"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
 

@@ -17,7 +17,8 @@ import java.util.HashMap;
 
 public class WebTranslateActivity extends AppCompatActivity {
 
-    private WebView mGTranslateWebView;
+    private WebView mTranslateWebView;
+
     private TranslationModel mSelectedEntry = null;
 
     @Override
@@ -31,6 +32,7 @@ public class WebTranslateActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
 
         // Set the title of the page
         setTitle(getString(R.string.app_name) + " : " + getString(R.string.action_translate));
@@ -97,12 +99,12 @@ public class WebTranslateActivity extends AppCompatActivity {
 
         // Setup the WebView to be able to open the URL
         // Web View resource: https://developer.android.com/guide/webapps/webview
-        mGTranslateWebView = findViewById(R.id.webView_GTranslate);
-        mGTranslateWebView.setWebViewClient(new WebViewClient());
+        mTranslateWebView = findViewById(R.id.webView_Translate);
+        mTranslateWebView.setWebViewClient(new WebViewClient());
         // Enable the website to use JavaScript, which is a requirement for Google Translate to work.
-        mGTranslateWebView.getSettings().setJavaScriptEnabled(true);
+        mTranslateWebView.getSettings().setJavaScriptEnabled(true);
         // Open the translation website
-        mGTranslateWebView.loadUrl(url);
+        mTranslateWebView.loadUrl(url);
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -116,9 +118,9 @@ public class WebTranslateActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // When the back button is pressed, determine how to respond
-        if(mGTranslateWebView.canGoBack()) {
+        if(mTranslateWebView.canGoBack()) {
             // Go back on the website
-            mGTranslateWebView.goBack();
+            mTranslateWebView.goBack();
         } else {
             // Go back the app
             super.onBackPressed();

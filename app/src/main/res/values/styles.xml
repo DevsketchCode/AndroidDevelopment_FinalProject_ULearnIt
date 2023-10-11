@@ -50,6 +50,37 @@
         <item name="android:maxLength">100</item>
     </style>
 
+    <style name="translation_entry_summaryNotes">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLength">100</item>
+    </style>
+
+    <style name="translation_entry_summarizedDetails_Cards">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">25dp</item>
+        <item name="cornerRadius">1dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardMaxElevation">1dp</item>
+    </style>
+
+    <style name="translation_entry_summarizedDetails">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLength">100</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+    </style>
+
     <style name="translation_list_cards">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -62,7 +93,6 @@
     <style name="style_Heading_LinearLayout">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:alpha">0.8</item>
         <item name="android:background">#323E43</item>
         <item name="android:elevation">3dp</item>
         <item name="android:orientation">horizontal</item>
@@ -107,10 +137,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">5sp</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textColor">#F7FCFF</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:background">#B3000000</item>
+        <item name="android:background">#323E43</item>
     </style>
 
     <style name="quiz_option_buttons">
@@ -157,6 +187,7 @@
 
     <style name="details_container_style_lang">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
@@ -167,6 +198,7 @@
 
     <style name="details_container_style_entry">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:layout_marginTop">5dp</item>
@@ -176,6 +208,7 @@
 
     <style name="details_container_style_romanized">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginTop">5dp</item>
@@ -186,8 +219,10 @@
 
     <style name="details_container_style_general_text">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:minHeight">25dp</item>
         <item name="android:textSize">20sp</item>
@@ -195,6 +230,7 @@
 
     <style name="details_container_style_example">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">?attr/colorOnPrimary</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">20dp</item>
         <item name="android:layout_marginEnd">20dp</item>
@@ -210,7 +246,7 @@
     <style name="detail_container_style_label">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">-10dp</item>
+        <item name="android:layout_marginBottom">-15dp</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textSize">11sp</item>
     </style>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.TooltipCompat;
@@ -22,8 +23,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 
@@ -44,6 +49,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     public static TranslationModel mSelectedItem = null;
     public static int mSelectedItemID = 0;
     public static int mSelectedItemPosition = 0;
+    public ActionBar categoryActionBar = null;
 
     // Member variable for translations
     public static List<TranslationModel> mTranslations;
@@ -55,10 +61,18 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         // Set the content view
         setContentView(R.layout.activity_category);
 
+        // Hide the back button on the ActionBar
+        categoryActionBar = getSupportActionBar();
+        if (categoryActionBar != null) {
+            categoryActionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         // Initialize and assign variable
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.flashcards_menuItem);
+        // Show the text below each icon
+        bottomNavigationView.setLabelVisibilityMode(NavigationBarView.LABEL_VISIBILITY_LABELED);
         // Perform item selected listener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -69,8 +83,12 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
+                    case R.id.flashcards_menuItem:
+                        displayToast("Review is unavailable at this time.");
+                        return false;
                     case R.id.quiz_menuItem:
-                        return true;
+                        displayToast("Quiz is unavailable at this time.");
+                        return false;
                     case R.id.profile_menuItem:
                         startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
                         overridePendingTransition(0,0);
@@ -101,7 +119,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
             //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
             if (prefs.getString("FirstLanguage", "") != "" && prefs.getString("SecondLanguage", "") != "") {
-                categoryMessage = prefs.getString("FirstLanguage", "") + " -> " +
+                categoryMessage = prefs.getString("FirstLanguage", "") + " to " +
                         prefs.getString("SecondLanguage", "") + "\n" + categoryMessage;
             }
 
@@ -240,6 +258,11 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         // Set the LayoutManager and Adapter for the RecyclerView
         mRecyclerItems.setLayoutManager((mTranslationsLayoutManager));
         mRecyclerItems.setAdapter(mTranslationsAdapter);
+
+        // Add extra space at bottom of list to allow higher scrolling
+        int bottomMargin = 150; // change this value as needed
+        BottomMarginDecoration bottomMarginDecoration = new BottomMarginDecoration(bottomMargin);
+        mRecyclerItems.addItemDecoration(bottomMarginDecoration);
     }
 
     @Override
@@ -288,7 +311,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
     @Override
     public void onItemLongTap(int position) {
         // On Long Tap of an Entry Item, display the languages of that translation entry
-        if(mSelectedItem != null) {
+        if (mSelectedItem != null) {
             displayToast(mSelectedItem.getFirstLanguage() + " to " + mSelectedItem.getSecondLanguage() + ".\nEntry Type: " + mSelectedItem.getEntryType() +
                     "\n Last Modified: " + mSelectedItem.getModifiedDate());
         }

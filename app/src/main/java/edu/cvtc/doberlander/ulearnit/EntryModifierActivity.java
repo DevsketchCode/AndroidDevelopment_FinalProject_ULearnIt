@@ -2,7 +2,9 @@ package edu.cvtc.doberlander.ulearnit;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -134,7 +136,11 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
         String modifyType = getIntent().getExtras().getString("modifyType");
 
         // Set the Title of the page with the Category and Action
-        setTitle(category + ": " + modifyType + " entry");
+        if(category.equals("") && modifyType.equals("New")) {
+            setTitle(modifyType + " entry");
+        } else {
+            setTitle(category + ": " + modifyType + " entry");
+        }
 
         // Get the message and set it.
         String message = getIntent().getExtras().getString("message");
@@ -207,14 +213,6 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 dateLastModifiedLabel.setVisibility(View.VISIBLE);
                 dateLastModified.setVisibility(View.VISIBLE);
 
-                //Adjust color for empty dropdowns
-                CheckDropdownSelection(firstLangTextInputLayout, firstLang);
-                CheckDropdownSelection(secondLangTextInputLayout, secondLang);
-                CheckDropdownSelection(entryTypeTextInputLayout, entryType);
-                CheckDropdownSelection(genderTextInputLayout, gender);
-                CheckDropdownSelection(tenseTextInputLayout, tense);
-                CheckDropdownSelection(formalityTextInputLayout, formality);
-
                 // Set the object with the appropriate item id from the database
                 mSelectedEntry.setId(selectedItemId);
 
@@ -228,10 +226,27 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
             // after the form has been filled out.
+
+            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences prefs = this.getSharedPreferences("my_preferences", Context.MODE_PRIVATE);
+            Preferences preferences = new Preferences();
+            preferences.setFirstLanguage(prefs.getString("FirstLanguage", ""));
+            preferences.setSecondLanguage(prefs.getString("SecondLanguage", ""));
+
+            String tmpFirstLanguage = defaultFirstLanguage;
+            String tmpSecondLanguage = defaultSecondLanguage;
+
+            if (!Objects.equals(preferences.getFirstLanguage(), "")) {
+                tmpFirstLanguage = preferences.getFirstLanguage();
+            }
+            if (!Objects.equals(preferences.getSecondLanguage(), "")) {
+                tmpSecondLanguage = preferences.getSecondLanguage();
+            }
+
             // Set Dropdown to the current category for new entries
             categoryAutoCompleteTextView.setText(category, false);
-            firstLang.setText(defaultFirstLanguage, false);
-            secondLang.setText(defaultSecondLanguage, false); // Leave this blank so the dropdown title shows up before selection made
+            firstLang.setText(tmpFirstLanguage, false);
+            secondLang.setText(tmpSecondLanguage, false); // Leave this blank so the dropdown title shows up before selection made
             entryType.setText(""); // Leave this blank so the dropdown title shows up before selection made
             tense.setText(""); // Leave this blank so the dropdown title shows up before selection made
             // New entry to true, so the proper db function can be ran.
@@ -241,7 +256,20 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             archiveButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
 
+            // Set some defaults
+            gender.setText("N/A", false);
+            tense.setText("N/A",false);
+            formality.setText("N/A", false);
         }
+
+        //Adjust color for empty dropdowns
+        CheckDropdownSelection(categoryTextInputLayout, categoryAutoCompleteTextView);
+        CheckDropdownSelection(firstLangTextInputLayout, firstLang);
+        CheckDropdownSelection(secondLangTextInputLayout, secondLang);
+        CheckDropdownSelection(entryTypeTextInputLayout, entryType);
+        CheckDropdownSelection(genderTextInputLayout, gender);
+        CheckDropdownSelection(tenseTextInputLayout, tense);
+        CheckDropdownSelection(formalityTextInputLayout, formality);
     }
 
     private TranslationModel getEntryFormValues() {
@@ -392,7 +420,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                 // Update
                 case R.id.btn_Save:
                     // Verify if both fields are populated
-                    if (!mSelectedEntry.getFirstLanguage().isEmpty() && !mSelectedEntry.getFirstLanguageEntry().isEmpty() &&
+                    if (!mSelectedEntry.getCategory().isEmpty() && !mSelectedEntry.getFirstLanguage().isEmpty() && !mSelectedEntry.getFirstLanguageEntry().isEmpty() &&
                             !mSelectedEntry.getSecondLanguage().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
                             && !mSelectedEntry.getEntryType().isEmpty()) {
                         // Both fields are populated, continue to insert entry

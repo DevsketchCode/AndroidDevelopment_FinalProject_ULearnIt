@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.cvtc.doberlander.ulearnit.MainActivity">
+
     <item
         android:id="@+id/action_about"
         android:orderInCategory="100"
@@ -24,10 +25,23 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_ai"
+        android:orderInCategory="60"
+        android:title="@string/action_ai"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="60"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_newEntry"
+        android:icon="@drawable/ic_add"
+        android:orderInCategory="9"
+        android:title="@string/action_new"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_favorites"
