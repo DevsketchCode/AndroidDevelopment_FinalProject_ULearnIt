@@ -3,10 +3,11 @@ plugins {
 }
 
 android {
+    namespace 'com.devsketch.ulearnit'
     compileSdk 31
 
     defaultConfig {
-        applicationId "edu.cvtc.doberlander.ulearnit"
+        applicationId "com.devsketch.ulearnit"
         minSdk 29
         targetSdk 31
         versionCode 1

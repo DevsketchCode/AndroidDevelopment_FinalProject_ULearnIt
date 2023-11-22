@@ -74,7 +74,7 @@
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
         android:elevation="20dp"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <!-- Background Colors: CC533A66 -->
         <androidx.cardview.widget.CardView

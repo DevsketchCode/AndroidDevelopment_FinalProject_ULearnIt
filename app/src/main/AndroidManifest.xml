@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.cvtc.doberlander.ulearnit">
+    package="com.devsketch.ulearnit">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,97 +12,97 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ULearnIt">
         <activity
-            android:name=".FilterActivity"
+            android:name="com.devsketch.ulearnit.FilterActivity"
             android:exported="false" />
         <activity
-            android:name=".EntryDetailsActivity"
+            android:name="com.devsketch.ulearnit.EntryDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.devsketch.ulearnit.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".TextInjection"
+            android:name="com.devsketch.ulearnit.TextInjection"
             android:exported="false" />
         <activity
-            android:name=".HelpActivity"
+            android:name="com.devsketch.ulearnit.HelpActivity"
             android:exported="false" />
         <activity
-            android:name=".WebTranslateActivity"
+            android:name="com.devsketch.ulearnit.WebTranslateActivity"
             android:exported="false" />
         <activity
-            android:name=".WebAIActivity"
+            android:name="com.devsketch.ulearnit.WebAIActivity"
             android:exported="false" />
         <activity
-            android:name=".AboutActivity"
+            android:name="com.devsketch.ulearnit.AboutActivity"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoryActivity" />
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
         </activity> <!-- windowSoftInputMode is set to allow for the page to scroll when the keyboard is up -->
         <activity
-            android:name=".EntryModifierActivity"
+            android:name="com.devsketch.ulearnit.EntryModifierActivity"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoryActivity" />
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
         </activity>
         <activity
-            android:name=".ResultsActivity"
+            android:name="com.devsketch.ulearnit.ResultsActivity"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoryActivity" />
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
         </activity>
         <activity
-            android:name=".QuizActivity"
+            android:name="com.devsketch.ulearnit.QuizActivity"
             android:exported="false"
-            android:parentActivityName=".CategoryActivity"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CategoryActivity" />
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
         </activity>
         <activity
-            android:name=".CategoryActivity"
+            android:name="com.devsketch.ulearnit.CategoryActivity"
             android:exported="true"
             android:label="Category"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.devsketch.ulearnit.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.devsketch.ulearnit.MainActivity" />
         </activity>
         <activity
-            android:name=".SubCategoryActivity"
+            android:name="com.devsketch.ulearnit.SubCategoryActivity"
             android:exported="true"
             android:label="Subcategory"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.devsketch.ulearnit.MainActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.devsketch.ulearnit.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.devsketch.ulearnit.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
