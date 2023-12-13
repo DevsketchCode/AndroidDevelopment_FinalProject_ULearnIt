@@ -1,12 +1,15 @@
 package com.devsketch.ulearnit;
 
 import static android.content.ContentValues.TAG;
+import static com.devsketch.ulearnit.CategoryActivity.mSelectedItem;
 import static com.devsketch.ulearnit.CategoryActivity.mSelectedItemID;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 import android.util.TypedValue;
@@ -42,6 +45,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     private TranslationModel mSelectedElement;
     private ConstraintLayout mainCategoryActivity;
     private ConstraintLayout entryDetailsContainer;
+    private Context CategoryActivityContext;
 
     private Context adapterContext;
     private Button closeDetailsButton;
@@ -58,6 +62,7 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
         this.recyclerViewInterface = recyclerViewInterface;
+        CategoryActivityContext = (CategoryActivity)context;
         mainCategoryActivity = ((CategoryActivity)context).findViewById(R.id.activity_category);
         entryDetailsContainer = ((CategoryActivity)context).findViewById(R.id.cardDetailsPopupContainer);
         closeDetailsButton = ((CategoryActivity)context).findViewById(R.id.btn_closeDetailsPopup);
@@ -224,13 +229,31 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 }
             } else if (view.getId() == R.id.translationEntryCardMore) {
                 // toggle visibility of entryDetailsContainer (this is ultimately what fixed this issue to show on the first click)
-                if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
-                    entryDetailsContainer.setVisibility(View.INVISIBLE);
-                } else {
-                    entryDetailsContainer.setVisibility(View.VISIBLE);
-                }
+
+                // This opens a container from the CategoryActivity outside of the RecyclerView
+                //if(entryDetailsContainer.getVisibility() == View.VISIBLE) {
+                //    entryDetailsContainer.setVisibility(View.INVISIBLE);
+                //} else {
+                //    entryDetailsContainer.setVisibility(View.VISIBLE);
+                //}
+
                 clickedViewId = view.getId();
                 mPreviousPosition = mPosition;
+
+                // Open Entry Card in the DetailsActivity
+                Intent detailsIntent = new Intent(CategoryActivityContext, EntryDetailsActivity.class);
+                Bundle detailsBundle = new Bundle();
+                TranslationModel selectedItem = mSelectedElement;
+
+                // Bundle up the data
+                detailsBundle.putInt("selectedId", mSelectedElement.getId());
+                detailsBundle.putString("message", "Details");
+                detailsBundle.putParcelable("SelectedItem", mSelectedElement);
+                // Put the bundle in an intent
+                detailsIntent.putExtras(detailsBundle);
+                // Start the activity and pass the bundled intent, expecting success result
+                CategoryActivityContext.startActivity(detailsIntent);
+
             } else if (view.getId() == R.id.btn_closeDetailsPopup) {
                 clickedViewId = view.getId();
             } else if (view.getId() == R.id.translationEntryCardLayout) {
@@ -296,12 +319,13 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 holder.favoriteImageView.setImageResource(R.drawable.ic_unfavorite);
             }
         } else if (clickedViewId == R.id.translationEntryCardMore) {
+
             // Show details container that exists outside of the recyclerview
-            entryDetailsContainer.setVisibility(View.VISIBLE);
+            //entryDetailsContainer.setVisibility(View.VISIBLE);
             // Hide the back button on the ActionBar
-            if (categoryActionBar != null) {
-                categoryActionBar.setDisplayHomeAsUpEnabled(false);
-            }
+            //if (categoryActionBar != null) {
+            //    categoryActionBar.setDisplayHomeAsUpEnabled(false);
+            //}
 
         } else if (clickedViewId == R.id.btn_closeDetailsPopup) {
             // Hide details container that exists outside of the recyclerview

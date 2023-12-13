@@ -26,7 +26,7 @@ import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity implements RecyclerViewInterface{
 
-    public static final String EXTRA_MESSAGE = "edu.cvtc.doberlander.ulearnit.extra.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.devsketch.ulearnit.extra.MESSAGE";
 
     // Variable to access translations from the database
     private DbHelper mDbHelper;
@@ -77,6 +77,9 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
                         return true;
                     case R.id.flashcards_menuItem:
                         displayToast("Review is unavailable at this time.");
+                        return false;
+                    case R.id.search_menuItem:
+                        displayToast("Search is unavailable at this time.");
                         return false;
                     case R.id.quiz_menuItem:
                         displayToast("Quiz is unavailable at this time.");

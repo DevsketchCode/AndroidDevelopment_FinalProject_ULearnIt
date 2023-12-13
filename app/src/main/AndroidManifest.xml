@@ -15,9 +15,6 @@
             android:name="com.devsketch.ulearnit.FilterActivity"
             android:exported="false" />
         <activity
-            android:name="com.devsketch.ulearnit.EntryDetailsActivity"
-            android:exported="false" />
-        <activity
             android:name="com.devsketch.ulearnit.ProfileActivity"
             android:exported="false" />
         <activity
@@ -93,13 +90,24 @@
             android:name="com.devsketch.ulearnit.SubCategoryActivity"
             android:exported="true"
             android:label="Subcategory"
-            android:parentActivityName="com.devsketch.ulearnit.MainActivity"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
             android:screenOrientation="portrait">
 
             <!-- meta data is used for API levels below AP 16 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.devsketch.ulearnit.MainActivity" />
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
+        </activity>
+        <activity
+            android:name="com.devsketch.ulearnit.EntryDetailsActivity"
+            android:exported="true"
+            android:parentActivityName="com.devsketch.ulearnit.CategoryActivity"
+            android:screenOrientation="portrait">
+
+            <!-- meta data is used for API levels below AP 16 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.devsketch.ulearnit.CategoryActivity" />
         </activity>
         <activity
             android:name="com.devsketch.ulearnit.MainActivity"

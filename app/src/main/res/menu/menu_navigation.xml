@@ -12,6 +12,11 @@
         android:icon="@drawable/ic_flashcards"/>
 
     <item
+        android:id="@+id/search_menuItem"
+        android:title="Search"
+        android:icon="@drawable/ic_search"/>
+
+    <item
         android:id="@+id/quiz_menuItem"
         android:title="Quiz"
         android:icon="@drawable/ic_test"/>

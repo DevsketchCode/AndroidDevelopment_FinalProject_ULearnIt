@@ -51,6 +51,9 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.flashcards_menuItem:
                         displayToast("Review is unavailable at this time.");
                         return false;
+                    case R.id.search_menuItem:
+                        displayToast("Search is unavailable at this time.");
+                        return false;
                     case R.id.quiz_menuItem:
                         displayToast("Quiz is unavailable at this time.");
                         return false;
