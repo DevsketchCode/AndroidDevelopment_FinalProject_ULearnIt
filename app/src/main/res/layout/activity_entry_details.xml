@@ -258,7 +258,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Summary Notes:"
                 app:layout_constraintStart_toStartOf="@id/textView_Details_SummaryNotes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_PercentLearned" />
+                app:layout_constraintTop_toBottomOf="@id/textView_Label_Gender" />
 
             <TextView
                 android:id="@+id/textView_Label_Notes"

@@ -245,7 +245,7 @@ public class QuizActivity extends AppCompatActivity {
             mCorrectAnswers++;
             mIsCorrect = true;
 
-            //TODO: SETUP Percentage Learned for Entry and need to set the Percenage Learned Modified Date too, and update the database here.
+            //TODO: SETUP Percentage Learned for Entry and need to set the Percentage Learned Modified Date too, and update the database here.
             // Prepare the db to update if the learning percentage changes
             Boolean dbChangesMade = false;
             Boolean percentageChanged = false;
@@ -296,11 +296,12 @@ public class QuizActivity extends AppCompatActivity {
 
                 // Create intent to display result
                 // TODO: Intent is likely not needed here.
+                // TODO: Make this a Drawer instead of a Toast Message
                 //Intent intent = new Intent();
                 //intent.putExtra("Result", dbResult);
                 // Set the result so the the Activity can be updated
                 //setResult(QuizActivity.RESULT_OK, intent);
-                Toast.makeText(this, "You got it! Progress Updated", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Great Job! \"" + tmQuestionEntry.getFirstLanguageEntry() + "\" is now " + tmpPercentLearned + "% Complete", Toast.LENGTH_SHORT).show();
                 // Close the activity and go back
                 // We do not want to close the activity, because they should be able to continue the quiz
                 // finish();
