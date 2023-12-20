@@ -161,14 +161,10 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Only add modification menu if the category is not favorites
-        if(!mCategory.equals("Favorites")) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_modify, menu);
-            // Set the edit item so that it can be visible when an item is highlighted.
-            return true;
-        }
-        return false;
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_modify, menu);
+        // Set the edit item so that it can be visible when an item is highlighted.
+        return true;
     }
 
     @Override
@@ -243,7 +239,7 @@ public class CategoryActivity extends AppCompatActivity implements RecyclerViewI
         mTranslations = DataManager.getInstance().getTranslations();
 
         // Fill the RecyclerAdapter with the translations
-        mTranslationsAdapter = new TranslationAdapter(this, mTranslations, this);
+        mTranslationsAdapter = new TranslationAdapter(this, this, mTranslations, this);
 
         // Display the translations
         displayTranslations();

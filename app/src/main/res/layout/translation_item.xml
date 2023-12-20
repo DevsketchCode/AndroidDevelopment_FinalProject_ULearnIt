@@ -50,7 +50,7 @@
                     android:id="@+id/flexboxLayout_translationItem"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3.5"
+                    android:layout_weight="3.25"
                     app:alignItems="center"
                     app:flexWrap="wrap">
 
@@ -94,8 +94,8 @@
                 <LinearLayout
                     android:id="@+id/layout_TranslationEntry"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5"
+                    android:layout_height="40dp"
+                    android:layout_weight="1.75"
                     android:elevation="10dp"
                     android:focusable="auto"
                     android:orientation="horizontal"
@@ -104,10 +104,11 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/translationEntryCardTTS"
                         style="@style/translation_list_cards"
-                        android:layout_height="match_parent"
+                        android:layout_height="38dp"
                         android:layout_weight=".33"
+                        android:layout_marginStart="5dp"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp"
+                        app:cardElevation="3dp"
                         app:cardMaxElevation="0dp"
                         app:contentPadding="4dp">
 
@@ -128,10 +129,11 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/translationEntryCardMore"
                         style="@style/translation_list_cards"
-                        android:layout_height="match_parent"
+                        android:layout_height="38dp"
                         android:layout_weight=".33"
+                        android:layout_marginStart="5dp"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp"
+                        app:cardElevation="3dp"
                         app:cardMaxElevation="0dp"
                         app:contentPadding="4dp">
 
@@ -153,10 +155,11 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/translationEntryFavorite"
                         style="@style/translation_list_cards"
-                        android:layout_height="match_parent"
+                        android:layout_height="38dp"
                         android:layout_weight=".33"
+                        android:layout_marginStart="5dp"
                         app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp"
+                        app:cardElevation="3dp"
                         app:cardMaxElevation="0dp"
                         app:contentPadding="4dp">
 
@@ -213,13 +216,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3.9"
+                    android:layout_marginStart="5dp"
                     app:alignItems="center"
                     app:flexWrap="wrap">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/translationEntryCard_Type"
-                        style="@style/translation_entry_summarizedDetails_Cards"
-                        android:layout_marginStart="5dp">
+                        style="@style/translation_entry_summarizedDetails_Cards">
 
                         <TextView
                             android:id="@+id/translationEntryCard_Type_text"
@@ -271,6 +274,80 @@
                             android:id="@+id/translationEntryCard_PercentLearned_text"
                             style="@style/translation_entry_summarizedDetails" />
                     </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_HasRomanized"
+                        style="@style/translation_entry_summarizedDetails_Cards"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/translationEntryCard_HasRomanized_image"
+                            style="@style/translation_entry_summarizedDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:backgroundTintMode="multiply"
+                            android:contentDescription="Has Romanized Information"
+                            android:scaleType="fitCenter"
+                            android:scaleX=".5"
+                            android:scaleY=".5"
+                            app:srcCompat="@drawable/ic_translation"
+                            tools:ignore="ImageContrastCheck" />
+
+                        <TextView
+                            android:id="@+id/translationEntryCard_HasRomanized_text"
+                            style="@style/translation_entry_summarizedDetails"
+                            android:visibility="gone"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_HasNotes"
+                        style="@style/translation_entry_summarizedDetails_Cards"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/translationEntryCard_HasNotes_image"
+                            style="@style/translation_entry_summarizedDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:backgroundTintMode="multiply"
+                            android:contentDescription="Has Notes"
+                            android:scaleType="fitCenter"
+                            android:scaleX=".5"
+                            android:scaleY=".5"
+                            app:srcCompat="@drawable/ic_notes"
+                            tools:ignore="ImageContrastCheck" />
+                        <TextView
+                            android:id="@+id/translationEntryCard_HasNotes_text"
+                            style="@style/translation_entry_summarizedDetails"
+                            android:visibility="gone"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/translationEntryCard_HasExamples"
+                        style="@style/translation_entry_summarizedDetails_Cards"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/translationEntryCard_HasExample_image"
+                            style="@style/translation_entry_summarizedDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:backgroundTintMode="multiply"
+                            android:contentDescription="Has an Example"
+                            android:scaleType="fitCenter"
+                            android:scaleX=".5"
+                            android:scaleY=".5"
+                            app:srcCompat="@drawable/ic_example"
+                            tools:ignore="ImageContrastCheck" />
+                    </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/translationEntryCard_HasExample_text"
+                        style="@style/translation_entry_summarizedDetails"
+                        android:visibility="gone"/>
                 </com.google.android.flexbox.FlexboxLayout>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

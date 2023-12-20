@@ -219,7 +219,9 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             } else {
                 dbResult = "Failed: No data passed";
             }
-        } else if (modifyType.equals("New")) {
+        }
+        else if (modifyType.equals("New"))
+        {
             // Create new translation object with selected Category and default favorite value of 0
             mSelectedEntry = new TranslationModel(category, 0);
             // The rest will be filled in using the function below, when click is saved and
@@ -357,20 +359,46 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             switch (view.getId()) {
                 // Update
                 case R.id.btn_Save:
-                    try {
-                        // Run the Save to DB function in the Data Manager
-                        dbWorker.UpdateOrDeleteEntries(mSelectedEntry.getId(), mSelectedEntry,
-                                EntryModifierActivity.this, "update");
-                        adapter.notifyDataSetChanged();
-                        dbResult = "Successfully Updated";
-                        dbChangesMade = true;
-                    } catch (Exception ex) {
-                        // Display error for the user to see
-                        dbResult = "Failed Update";
-                        // Print Error to Console
-                        System.out.println("Error updating record: " + ex.getMessage());
+                    // Verify if required fields are populated
+                    boolean approvedToSave = false;
+                    if (!mSelectedEntry.getCategory().isEmpty() && !mSelectedEntry.getFirstLanguage().isEmpty() && !mSelectedEntry.getFirstLanguageEntry().isEmpty() &&
+                            !mSelectedEntry.getSecondLanguage().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
+                            && !mSelectedEntry.getEntryType().isEmpty()) {
+                        if ((mSelectedEntry.getFirstLanguageExample().isEmpty() && mSelectedEntry.getSecondLanguageExample().isEmpty()) ||
+                                (!mSelectedEntry.getFirstLanguageExample().isEmpty() && !mSelectedEntry.getSecondLanguageExample().isEmpty()))
+                        {
+                            approvedToSave = true;
+                        }
+                    }
+
+                    if (approvedToSave)
+                    {
+                        try {
+                            // Run the Save to DB function in the Data Manager
+                            dbWorker.UpdateOrDeleteEntries(mSelectedEntry.getId(), mSelectedEntry,
+                                    EntryModifierActivity.this, "update");
+                            adapter.notifyDataSetChanged();
+                            dbResult = "Successfully Updated";
+                            dbChangesMade = true;
+                        } catch (Exception ex) {
+                            // Display error for the user to see
+                            dbResult = "Failed Update";
+                            // Print Error to Console
+                            System.out.println("Error updating record: " + ex.getMessage());
+                        }
+                    }
+                    else {
+                        if ((!mSelectedEntry.getFirstLanguageExample().isEmpty() && mSelectedEntry.getSecondLanguageExample().isEmpty()) ||
+                                mSelectedEntry.getFirstLanguageExample().isEmpty() && !mSelectedEntry.getSecondLanguageExample().isEmpty()) {
+                            displayToast("Both example fields must be populated");
+                        } else {
+                            // Main required fields are empty
+                            displayToast("Word/Phrase fields and Type must be populated");
+                        }
+                        return;
                     }
                     break;
+
                 case R.id.btn_Archive:
                     // Archive is to be used like a recycling bin
                     try {
@@ -417,10 +445,18 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
             switch (view.getId()) {
                 // Update
                 case R.id.btn_Save:
-                    // Verify if both fields are populated
+                    // Verify if required fields are populated
+                    boolean approvedToSave = false;
                     if (!mSelectedEntry.getCategory().isEmpty() && !mSelectedEntry.getFirstLanguage().isEmpty() && !mSelectedEntry.getFirstLanguageEntry().isEmpty() &&
                             !mSelectedEntry.getSecondLanguage().isEmpty() && !mSelectedEntry.getSecondLanguageEntry().isEmpty()
                             && !mSelectedEntry.getEntryType().isEmpty()) {
+                        if ((mSelectedEntry.getFirstLanguageExample().isEmpty() && mSelectedEntry.getSecondLanguageExample().isEmpty()) ||
+                        (!mSelectedEntry.getFirstLanguageExample().isEmpty() && !mSelectedEntry.getSecondLanguageExample().isEmpty()))
+                        {
+                            approvedToSave = true;
+                        }
+                    }
+                    if (approvedToSave) {
                         // Both fields are populated, continue to insert entry
                         try {
                             // If the entry is new, then use the insert the entry into the database
@@ -434,8 +470,14 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
                             System.out.println("Failed adding new entry. Error: " + ex.getMessage());
                         }
                     } else {
-                        // One or both fields are empty
-                        displayToast("All fields must be populated");
+                        if ((!mSelectedEntry.getFirstLanguageExample().isEmpty() && mSelectedEntry.getSecondLanguageExample().isEmpty()) ||
+                                mSelectedEntry.getFirstLanguageExample().isEmpty() && !mSelectedEntry.getSecondLanguageExample().isEmpty())
+                        {
+                            displayToast("Both example fields must be populated");
+                        } else {
+                            // Main required fields are empty
+                            displayToast("Word/Phrase fields and Type must be populated");
+                        }
                         return;
                     }
                     break;
@@ -495,6 +537,7 @@ public class EntryModifierActivity extends AppCompatActivity implements View.OnC
 
             // Create intent to display result
             Intent intent = new Intent();
+            intent.putExtra("Entry", mSelectedEntry);
             intent.putExtra("Result", dbResult);
             // Set the result so the the Category Activity can be updated
             setResult(CategoryActivity.RESULT_OK, intent);

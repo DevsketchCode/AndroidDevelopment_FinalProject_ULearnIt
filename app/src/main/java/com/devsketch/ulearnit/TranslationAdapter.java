@@ -1,9 +1,11 @@
 package com.devsketch.ulearnit;
 
 import static android.content.ContentValues.TAG;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static com.devsketch.ulearnit.CategoryActivity.mSelectedItem;
 import static com.devsketch.ulearnit.CategoryActivity.mSelectedItemID;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -30,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -37,6 +40,8 @@ import java.util.Objects;
 
 public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.TranslationViewHolder> {
 
+    private Activity mActivity;
+    public static final int LAUNCH_ENTRY_MODIFIER_ACTIVITY = 1;
     private final List<TranslationModel> mTranslationList;
     private final LayoutInflater mInflater;
     private final RecyclerViewInterface recyclerViewInterface;
@@ -57,11 +62,14 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
     public static boolean mItemClicked = false;
     public ActionBar categoryActionBar = null;
 
+
+
     // Constructor initializes the translation list from the data
-    public TranslationAdapter(Context context, List<TranslationModel> translationList, RecyclerViewInterface recyclerViewInterface) {
+    public TranslationAdapter(Activity activity, Context context, List<TranslationModel> translationList, RecyclerViewInterface recyclerViewInterface) {
         mInflater = LayoutInflater.from(context);
         this.mTranslationList = translationList;
         this.recyclerViewInterface = recyclerViewInterface;
+        this.mActivity = activity;
         CategoryActivityContext = (CategoryActivity)context;
         mainCategoryActivity = ((CategoryActivity)context).findViewById(R.id.activity_category);
         entryDetailsContainer = ((CategoryActivity)context).findViewById(R.id.cardDetailsPopupContainer);
@@ -86,6 +94,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final TextView entryCard_Formality_TextView;
         public final TextView entryCard_Plural_TextView;
         public final TextView entryCard_PercentLearned_TextView;
+        public final TextView entryCard_HasRomanized_TextView;
+        public final TextView entryCard_HasNotes_TextView;
+        public final TextView entryCard_HasExample_TextView;
 
         // Summary Details Card Views
         public final CardView entryCardSummaryNotes_CardView;
@@ -95,11 +106,15 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         public final CardView entryCard_Formality_CardView;
         public final CardView entryCard_Plural_CardView;
         public final CardView entryCard_PercentLearned_CardView;
+        public final CardView entryCard_HasRomanized_CardView;
+        public final CardView entryCard_HasNotes_CardView;
+        public final CardView entryCard_HasExample_CardView;
         public final ConstraintLayout base_entryCardViewConstraintLayout;
 
 
         public TranslationViewHolder(View itemView, TranslationAdapter adapter) {
             super(itemView);
+
             firstLangTranslationItemView = itemView.findViewById(R.id.firstLangTranslation);
             secondLangTranslationItemView = itemView.findViewById(R.id.secondLangTranslation);
 
@@ -114,6 +129,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             entryCard_Formality_TextView = itemView.findViewById(R.id.translationEntryCard_Formality_text);
             entryCard_Plural_TextView = itemView.findViewById(R.id.translationEntryCard_Plural_text);
             entryCard_PercentLearned_TextView = itemView.findViewById(R.id.translationEntryCard_PercentLearned_text);
+            entryCard_HasNotes_TextView = itemView.findViewById(R.id.translationEntryCard_HasNotes_text);
+            entryCard_HasRomanized_TextView = itemView.findViewById(R.id.translationEntryCard_HasRomanized_text);
+            entryCard_HasExample_TextView = itemView.findViewById(R.id.translationEntryCard_HasExample_text);
 
             // Summary Details CardViews
             entryCardSummaryNotes_CardView = itemView.findViewById(R.id.translationEntryCardSummaryNotes);
@@ -123,6 +141,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             entryCard_Formality_CardView = itemView.findViewById(R.id.translationEntryCard_Formality);
             entryCard_Plural_CardView = itemView.findViewById(R.id.translationEntryCard_Plural);
             entryCard_PercentLearned_CardView = itemView.findViewById(R.id.translationEntryCard_PercentLearned);
+            entryCard_HasNotes_CardView = itemView.findViewById(R.id.translationEntryCard_HasNotes);
+            entryCard_HasRomanized_CardView = itemView.findViewById(R.id.translationEntryCard_HasRomanized);
+            entryCard_HasExample_CardView = itemView.findViewById(R.id.translationEntryCard_HasExamples);
 
             favoriteImageView = itemView.findViewById(R.id.favorite_imageView);
             moreDetailsView = itemView.findViewById(R.id.translationEntryCardMore);
@@ -252,7 +273,9 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                 // Put the bundle in an intent
                 detailsIntent.putExtras(detailsBundle);
                 // Start the activity and pass the bundled intent, expecting success result
-                CategoryActivityContext.startActivity(detailsIntent);
+                // Use the ActivityOptionsCompat to provide a Bundle, even if it's empty
+
+                mActivity.startActivityForResult(detailsIntent, LAUNCH_ENTRY_MODIFIER_ACTIVITY, null);
 
             } else if (view.getId() == R.id.btn_closeDetailsPopup) {
                 clickedViewId = view.getId();
@@ -298,13 +321,16 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         holder.entryCard_PercentLearned_TextView.setText(String.valueOf(mCurrentEntry.getPercentLearned()));
 
         // Display if it has content
-        displayContent(holder, holder.entryCardSummaryNotes_CardView, holder.entryCard_SummaryNotes_TextView,"summarynotes");
-        displayContent(holder,holder.entryCard_Type_CardView, holder.entryCard_Type_TextView, "entrytype");
-        displayContent(holder,holder.entryCard_Gender_CardView, holder.entryCard_Gender_TextView, "gender");
-        displayContent(holder,holder.entryCard_Tense_CardView, holder.entryCard_Tense_TextView, "tense");
-        displayContent(holder,holder.entryCard_Formality_CardView, holder.entryCard_Formality_TextView, "formality");
-        displayContent(holder,holder.entryCard_Plural_CardView, holder.entryCard_Plural_TextView, "plural");
-        displayContent(holder,holder.entryCard_PercentLearned_CardView, holder.entryCard_PercentLearned_TextView, "percentlearned");
+        displayContent(holder, holder.entryCardSummaryNotes_CardView, holder.entryCard_SummaryNotes_TextView,"summarynotes", mCurrentEntry);
+        displayContent(holder,holder.entryCard_Type_CardView, holder.entryCard_Type_TextView, "entrytype", mCurrentEntry);
+        displayContent(holder,holder.entryCard_Gender_CardView, holder.entryCard_Gender_TextView, "gender", mCurrentEntry);
+        displayContent(holder,holder.entryCard_Tense_CardView, holder.entryCard_Tense_TextView, "tense", mCurrentEntry);
+        displayContent(holder,holder.entryCard_Formality_CardView, holder.entryCard_Formality_TextView, "formality", mCurrentEntry);
+        displayContent(holder,holder.entryCard_Plural_CardView, holder.entryCard_Plural_TextView, "plural", mCurrentEntry);
+        displayContent(holder,holder.entryCard_PercentLearned_CardView, holder.entryCard_PercentLearned_TextView, "percentlearned", mCurrentEntry);
+        displayContent(holder,holder.entryCard_HasRomanized_CardView, holder.entryCard_HasRomanized_TextView, "hasromanized", mCurrentEntry);
+        displayContent(holder,holder.entryCard_HasNotes_CardView, holder.entryCard_HasNotes_TextView, "hasnotes", mCurrentEntry);
+        displayContent(holder,holder.entryCard_HasExample_CardView, holder.entryCard_HasExample_TextView, "hasexample", mCurrentEntry);
 
 
         View detailsContainer = holder.itemView.findViewById(R.id.cardDetailsPopupContainer);
@@ -451,13 +477,10 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
             // Update the selected ID with the database ID for this record
             mSelectedItemID = mCurrentEntry.getId();
 
-            // Only run when using the Category Activity and the category is NOT favorites
-            if(!mCurrentEntry.getCategory().equals("Favorites")) {
-                // Get the CategoryActivity ModifyMenu
-                Menu modifyMenu = CategoryActivity.mModifyMenu;
-                // Display the edit option when entry is selected
-                modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
-            }
+            // Get the CategoryActivity ModifyMenu
+            Menu modifyMenu = CategoryActivity.mModifyMenu;
+            // Display the edit option when entry is selected
+            modifyMenu.findItem(R.id.action_editEntry).setVisible(true);
 
             // Save the updated favorite item to the database
             DataManager dm = new DataManager();
@@ -568,8 +591,10 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
         Toast.makeText(adapterContext, lang + " Entry Copied", Toast.LENGTH_SHORT).show();
     }
 
-    private void displayContent(@NonNull TranslationViewHolder holder, CardView cardView, TextView textView, String type) {
+    private void displayContent(@NonNull TranslationViewHolder holder, CardView cardView, TextView textView, String type, TranslationModel translation) {
         String textViewText = textView.getText().toString();
+        // boolean used for image icons only
+        boolean shouldShow = false;
 
         switch (type) {
             case "tense":
@@ -644,10 +669,28 @@ public class TranslationAdapter extends RecyclerView.Adapter<TranslationAdapter.
                     constraintSet.applyTo(baseLayout);
                 }
                 break;
+
+            case "hasromanized":
+                if (!translation.getFirstLanguageEntryRomanized().isEmpty() || !translation.getSecondLanguageEntryRomanized().isEmpty()) {
+                    shouldShow = true;
+                }
+                break;
+
+            case "hasnotes":
+                if (!translation.getNotes().isEmpty()) {
+                    shouldShow = true;
+                }
+                break;
+
+            case "hasexample":
+                if (!translation.getFirstLanguageExample().isEmpty() || !translation.getSecondLanguageExample().isEmpty()) {
+                    shouldShow = true;
+                }
+                break;
         }
 
 
-        if (!textViewText.isEmpty()) {
+        if (!textViewText.isEmpty() || shouldShow) {
             cardView.setVisibility(View.VISIBLE);
         } else {
             cardView.setVisibility(View.GONE);

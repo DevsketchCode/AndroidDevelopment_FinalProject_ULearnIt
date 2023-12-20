@@ -12,116 +12,308 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="200dp"
-        android:background="#CCFFFFFF"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="10dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexboxLayout_Main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            app:alignItems="stretch"
+            app:flexWrap="wrap"
+            app:justifyContent="flex_start">
 
             <TextView
                 android:id="@+id/textView_Details_Lang1"
                 style="@style/details_container_style_lang"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
 
             <TextView
                 android:id="@+id/textView_Details_Lang1Entry"
                 style="@style/details_container_style_entry"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
 
-            <TextView
-                android:id="@+id/textView_Details_Lang1EntryRomanized"
-                style="@style/details_container_style_romanized"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1Entry" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Lang1EntryRomanized"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_Lang1EntryRomanized"
+                    style="@style/details_container_style_romanized"
+                    app:layout_constraintBottom_toTopOf="@id/textView_Label_1stLangRomanized"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_1stLangRomanized"
+                    style="@style/detail_container_style_label"
+                    android:text="Romanized"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1EntryRomanized"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Lang1EntryRomanized" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView_Details_Lang2"
                 style="@style/details_container_style_lang"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_1stLangRomanized" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
 
             <TextView
                 android:id="@+id/textView_Details_Lang2Entry"
                 style="@style/details_container_style_entry"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
 
-            <TextView
-                android:id="@+id/textView_Details_Lang2EntryRomanized"
-                style="@style/details_container_style_romanized"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2Entry" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Lang2EntryRomanized"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
 
-            <TextView
-                android:id="@+id/textView_Details_EntryType"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toStartOf="@id/textView_Details_Tense"
-                app:layout_constraintStart_toStartOf="@+id/textView_Details_Lang2Entry"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2EntryRomanized" />
+                <TextView
+                    android:id="@+id/textView_Details_Lang2EntryRomanized"
+                    style="@style/details_container_style_romanized"
+                    app:layout_constraintBottom_toTopOf="@id/textView_Label_2ndLangRomanized"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView_Details_Tense"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toEndOf="@id/textView_Details_Lang2EntryRomanized"
-                app:layout_constraintStart_toEndOf="@id/textView_Details_EntryType"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2EntryRomanized" />
+                <TextView
+                    android:id="@+id/textView_Label_2ndLangRomanized"
+                    style="@style/detail_container_style_label"
+                    android:text="Romanized"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2EntryRomanized"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Lang2EntryRomanized" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView_Details_Formality"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toStartOf="@id/textView_Details_IsPlural"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_EntryType"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_EntryType" />
 
-            <TextView
-                android:id="@+id/textView_Details_IsPlural"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toEndOf="@+id/textView_Details_Lang2EntryRomanized"
-                app:layout_constraintStart_toEndOf="@id/textView_Details_Formality"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Tense" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_EntryType"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
 
-            <TextView
-                android:id="@+id/textView_Details_Gender"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toStartOf="@id/textView_Details_PercentLearned"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Formality"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Formality" />
+                <TextView
+                    android:id="@+id/textView_Details_EntryType"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView_Details_PercentLearned"
-                style="@style/details_container_style_general_text"
-                app:layout_constraintEnd_toEndOf="@+id/textView_Details_Lang2EntryRomanized"
-                app:layout_constraintStart_toEndOf="@+id/textView_Details_Gender"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_IsPlural" />
+                <TextView
+                    android:id="@+id/textView_Label_EntryType"
+                    style="@style/detail_container_style_label"
+                    android:text="Entry Type"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_EntryType"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/textView_Details_SummaryNotes"
-                style="@style/details_container_style_entry"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_SummaryNotes" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Tense"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_Tense"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_Tense"
+                    style="@style/detail_container_style_label"
+                    android:text="Tense"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_Tense"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Formality"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_Formality"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_Formality"
+                    style="@style/detail_container_style_label"
+                    android:text="Formality"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_Formality"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_IsPlural"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_IsPlural"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_IsPlural"
+                    style="@style/detail_container_style_label"
+                    android:text="Singular/Plural?"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_IsPlural"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Gender"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="0"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_Gender"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_Gender"
+                    style="@style/detail_container_style_label"
+                    android:text="Gender"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_Gender"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_PercentLearned"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="0"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Details_PercentLearned"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Label_PercentLearned"
+                    style="@style/detail_container_style_label"
+                    android:text="Percent Learned"
+                    app:layout_constraintBottom_toBottomOf="@id/textView_Details_PercentLearned"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Spacer -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_SummaryNotes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_SummaryNotes"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="10dp"
+                    android:text="Summary Notes:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_SummaryNotes"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_SummaryNotes"
+                    style="@style/details_container_style_entry"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Label_SummaryNotes"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_Details"
                 android:layout_width="360dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginVertical="25dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_SummaryNotes" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Notes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+            <TextView
+                android:id="@+id/textView_Label_Notes"
+                style="@style/detail_container_style_label"
+                android:text="Notes:"
+                app:layout_constraintStart_toStartOf="@id/textView_Details_Notes"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView_Details_Notes"
@@ -129,6 +321,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="25dp"
                 android:layout_marginEnd="20dp"
                 android:background="#00FFFFFF"
                 android:ellipsize="none"
@@ -138,194 +331,197 @@
                 android:singleLine="false"
                 android:textSize="20sp"
                 android:textIsSelectable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView_Label_Notes" />
 
-            <TextView
-                android:id="@+id/textView_Details_Lang1EntryExample"
-                style="@style/details_container_style_example"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_Lang1Example" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/textView_Details_Lang2EntryExample"
-                style="@style/details_container_style_example"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1EntryExample" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Example"
+                style="@style/details_constraint_container"
+                android:layout_width="0dp"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_Lang1Example"
+                    style="@style/detail_container_style_label"
+                    android:text="Example:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Lang1EntryExample"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_Lang1EntryExample"
+                    style="@style/details_container_style_example"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/textView_Details_Lang2EntryExample"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Label_Lang1Example" />
+
+                <TextView
+                    android:id="@+id/textView_Details_Lang2EntryExample"
+                    style="@style/details_container_style_example"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang1EntryExample"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider_Details_Categorized"
                 android:layout_width="360dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="20dp"
                 android:background="?android:attr/listDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lang2EntryExample" />
-
-            <TextView
-                android:id="@+id/textView_Details_Category"
-                style="@style/details_container_style_example"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_Category" />
-
-            <TextView
-                android:id="@+id/textView_Details_SubCategory"
-                style="@style/details_container_style_example"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_SubCategory" />
-
-            <TextView
-                android:id="@+id/textView_Details_Unit"
-                style="@style/details_container_style_example"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_Unit" />
-
-            <TextView
-                android:id="@+id/textView_Details_Lesson"
-                style="@style/details_container_style_example"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_Lesson" />
-
-            <!-- Labels -->
-            <TextView
-                android:id="@+id/textView_Label_1stLangRomanized"
-                style="@style/detail_container_style_label"
-                android:text="Romanized"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_Lang1EntryRomanized"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Lang1EntryRomanized" />
-
-            <TextView
-                android:id="@+id/textView_Label_2ndLangRomanized"
-                style="@style/detail_container_style_label"
-                android:text="Romanized"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_Lang2EntryRomanized"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Lang2EntryRomanized" />
-
-            <TextView
-                android:id="@+id/textView_Label_EntryType"
-                style="@style/detail_container_style_label"
-                android:text="Entry Type"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_EntryType"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_EntryType" />
-
-            <TextView
-                android:id="@+id/textView_Label_Gender"
-                style="@style/detail_container_style_label"
-                android:text="Gender"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_Gender"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Gender" />
-
-            <TextView
-                android:id="@+id/textView_Label_Tense"
-                style="@style/detail_container_style_label"
-                android:text="Tense"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_Tense"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Tense" />
-
-            <TextView
-                android:id="@+id/textView_Label_Formality"
-                style="@style/detail_container_style_label"
-                android:text="Formality"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_Formality"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Formality" />
-
-            <TextView
-                android:id="@+id/textView_Label_IsPlural"
-                style="@style/detail_container_style_label"
-                android:text="Singular/Plural?"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_IsPlural"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_IsPlural" />
-
-            <TextView
-                android:id="@+id/textView_Label_PercentLearned"
-                style="@style/detail_container_style_label"
-                android:text="Percent Learned"
-                app:layout_constraintBottom_toBottomOf="@id/textView_Details_PercentLearned"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_PercentLearned" />
-
-            <TextView
-                android:id="@+id/textView_Label_SummaryNotes"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="10dp"
-                android:text="Summary Notes:"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_SummaryNotes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Label_Gender" />
-
-            <TextView
-                android:id="@+id/textView_Label_Notes"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="25dp"
-                android:text="Notes:"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Notes"
-                app:layout_constraintTop_toBottomOf="@id/divider_Details" />
-
-            <TextView
-                android:id="@+id/textView_Label_Lang1Example"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="25dp"
-                android:text="Example:"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Lang1EntryExample"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Notes" />
-
-            <TextView
-                android:id="@+id/textView_Label_Category"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="10dp"
-                android:text="Category:"
-                app:layout_constraintStart_toStartOf="@id/textView_Details_Lang1EntryExample"
-                app:layout_constraintTop_toBottomOf="@id/divider_Details_Categorized" />
-
-            <TextView
-                android:id="@+id/textView_Label_SubCategory"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="10dp"
-                android:text="Subcategory:"
-                app:layout_constraintStart_toStartOf="@id/textView_Label_Notes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Category" />
-
-            <TextView
-                android:id="@+id/textView_Label_Unit"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="10dp"
-                android:text="Unit:"
-                app:layout_constraintStart_toStartOf="@id/textView_Label_Notes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_SubCategory" />
-
-            <TextView
-                android:id="@+id/textView_Label_Lesson"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="10dp"
-                android:text="Lesson:"
-                app:layout_constraintStart_toStartOf="@id/textView_Label_Notes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Unit" />
-
-            <TextView
-                android:id="@+id/textView_Label_DateModified"
-                style="@style/detail_container_style_label"
-                android:layout_marginTop="20dp"
-                android:text="Date Last Updated:"
-                app:layout_constraintStart_toStartOf="@id/textView_Label_Notes"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lesson" />
-
-            <TextView
-                android:id="@+id/textView_Label_Details_DateModified"
-                style="@style/detail_container_style_label"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toEndOf="@id/textView_Label_DateModified"
-                app:layout_constraintTop_toBottomOf="@id/textView_Details_Lesson" />
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Category"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+                <TextView
+                    android:id="@+id/textView_Label_Category"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="15dp"
+                    android:text="Category:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Category"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_Category"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Label_Category" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_SubCategory"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_SubCategory"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="15dp"
+                    android:text="Subcategory:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_SubCategory"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_SubCategory"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Label_SubCategory" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Unit"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_Unit"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="15dp"
+                    android:text="Unit:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Unit"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_Unit"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_Label_Unit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_Lesson"
+                style="@style/details_constraint_container"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_Lesson"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="15dp"
+                    android:text="Lesson:"
+                    app:layout_constraintStart_toStartOf="@id/textView_Details_Lesson"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView_Details_Lesson"
+                    style="@style/details_container_style_general_text"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_Label_Lesson" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout_Details_Container_DateModified"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:layout_flexBasisPercent="100%"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+
+                <TextView
+                    android:id="@+id/textView_Label_DateModified"
+                    style="@style/detail_container_style_label"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Date Last Updated:"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                    android:id="@+id/textView_Label_Details_DateModified"
+                    style="@style/detail_container_style_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    app:layout_constraintStart_toEndOf="@id/textView_Label_DateModified"
+                    app:layout_constraintTop_toTopOf="@id/textView_Label_DateModified" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Spacer -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_flexGrow="1"
+                app:layout_flexShrink="1">
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
     </ScrollView>
 
     <!-- For this to show the Gradle:Module:app needs the Material Implementation 1.6.1+ version -->
