@@ -92,13 +92,12 @@
     <string name="fab_quiz_text">Quiz</string>
     <string name="fab_text_test">Test</string>
     <string name="question_response_image_content_desc">Question Response Image</string>
-    <string name="developed_by_text">Developed by David Oberlander</string>
-    <string name="code_name_text">a.k.a. DevSketch.Code</string>
-    <string name="version_number_text">v 0.6.0</string>
-    <string name="about_text_paragraph_one">I am an Application Developer that designed this app in college for a final assignment.</string>
-    <string name="about_text_paragraph_two">This is the first android app I created with Java, and I was inspired to create this app through
-        my love of learning new languages. This app is designed to start you off with a few basics,
-        but allows you to add your own entries as you grow to learn new words and phrases.
+    <string name="developed_by_text">DevSketch Studios</string>
+    <string name="developer_name_text">Owner/Developer: David Oberlander</string>
+    <!-- v %1$s is the placeholder for the version -->
+    <string name="version_number_text">v %1$s</string>
+    <string name="about_text_paragraph_one">I am an Application Developer that started developing this app in college for my final assignment.</string>
+    <string name="about_text_paragraph_two">This is the first android app I created with Java, and I was inspired to create this app through my love of learning new languages and continue its development after I graduated. This app is designed to start you off with a few basics, but allows you to add your own entries and apply extra details and information as you grow to learn new words, phrases, grammar, and sentences.
         Images used are CC Public Domain images from openclipart.org</string>
     <string name="about_text_paragraph_three">Thank you for checking out my app. I hope it helps you in your journey.</string>
     <string name="test_not_available">Tests are not available at this time</string>
@@ -113,19 +112,25 @@
     <string name="resultMessage_Okay">Keep practicing</string>
     <string name="resultMessage_Bad">You can do it, don\'t give up!</string>
     <string name="web_translate_language_not_avail">This language could not be loaded.</string>
-    <string name="help_category_page_heading">CATEGORY PAGE:</string>
+    <string name="help_category_page_heading">ENTRIES LISTS:</string>
     <string name="help_single_tap">Single Tap:</string>
     <string name="help_users_guide">User Guide</string>
     <string name="help_long_press">Long Press:</string>
     <string name="help_double_tap">Double Tap:</string>
     <string name="help_single_tap_text">Selects Entry and Displays Edit Menu Option</string>
-    <string name="help_double_tap_text">Searches Google Translate for Selected Word</string>
+    <string name="help_double_tap_text">Searches Google Translate Selected Word Using the Second Language</string>
     <string name="help_long_press_text">Displays the Selected Entries Languages</string>
+    <string name="help_audio_icon">Audio Icon</string>
+    <string name="help_audio_icon_text">Plays the translation entry</string>
+    <string name="help_more_icon">Three Dots Icon</string>
+    <string name="help_more_icon_text">Shows the entry details page</string>
     <string name="help_red_hearts">Red Hearts:</string>
     <string name="help_red_hearts_text">Tap a Heart to Add to Favorites. Tap Again to Remove It.</string>
     <string name="action_help">Help</string>
     <string name="action_settings">Settings</string>
     <string name="help_settings_page_heading">Settings Page:</string>
+    <string name="help_settings_languages">Languages</string>
+    <string name="help_settings_languages_text">Select the languages that you want the entry lists to populate/create.</string>
     <string name="entry_type_text">Entry Type:</string>
     <string name="entry_type_edit_hint">Type</string>
     <string name="notes_text">Notes:</string>

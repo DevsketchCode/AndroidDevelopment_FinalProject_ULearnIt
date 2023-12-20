@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -19,10 +21,18 @@ public class AboutActivity extends AppCompatActivity {
         // Show the back button in the Action Bar
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            // Show the Activity Title
+            actionBar.setDisplayShowTitleEnabled(true);
+            // Set the title of the page
+            actionBar.setTitle(getString(R.string.app_name) + " : " + getString(R.string.action_about));
         }
 
-        // Set the title of the page
-        setTitle(getString(R.string.app_name) + " : " + getString(R.string.about));
+        // Access version name from BuildConfig
+        String version = BuildConfig.VERSION_NAME;
+
+        // Display version name in a TextView or any other view
+        TextView versionTextView = findViewById(R.id.textView_Version);
+        versionTextView.setText(getString(R.string.version_number_text, version));
     }
 
     // Event that is enabled when pressing the back button in the ActionBar
